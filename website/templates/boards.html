@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block title %}Boards{% endblock %} 
+
+{% block style%}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'boardView.css') }}" />
+{% endblock %}
+
+{% block content%}
+
+<h1 align="center">Boards</h1>
+<ul align="center" class="list-group list-group-flush" id="boards">
+    {% for board in user.boards %}
+    
+    <li class="list-group-item", style="word-wrap:break-word;"> <!-- Word Wrap to prevent overflow. -->
+      <a href="/boards/{{ board.name }}">{{ board.name }}</a>
+    
+        <button type="button" class="close" onClick="deleteBoard({{ board.id }})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </li>
+    
+
+    {% endfor %}
+</ul>
+
+
+
+<h1 align="center">Create New Board</h1>
+
+<form method="POST">
+    <input 
+    type="text" 
+    id="board_name" 
+    name="board_name" 
+    class="form-control" 
+    placeholder="Board Name">
+    <br />
+    <input 
+    type="number" 
+    name="num_cats" 
+    id="num_cats" 
+    class="form-control"
+    placeholder="Column Number (Can be Changed Later)">
+    <br />
+
+    <div align="center">
+      <button type="submit" class="btn btn-primary">Create New Board</button>
+    </div>
+  </form>
+{% endblock %}

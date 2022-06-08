@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title %}Notes{% endblock %} 
+
+{% block style %} 
+<link rel="stylesheet" href="{{ url_for('static', filename = 'homeCheckBox.css') }}" />
+{% endblock %}
+
+{% block content %}
+
+
+<h1 align="center">Notes</h1>
+<ul class="list-group list-group-flush" id="notes">
+  {% for note in user.notes %}
+  <li class="list-group-item", style="word-wrap:break-word;", id="note"> <!-- Word Wrap to prevent overflow. -->
+    
+    <input 
+    type="checkbox"
+    />
+    <span class="note"> {{ note.data }}</span>
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+ 
+    
+  </li>
+  {% endfor %}
+</ul>
+<form method="POST">
+  <textarea name="note" id="note" class="form-control"></textarea>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Note</button>
+  </div>
+</form>
+{% endblock %}
+
+
+
+

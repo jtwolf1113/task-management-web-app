@@ -1,0 +1,3 @@
+input:checked~.note {
+    text-decoration: line-through;
+}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}{% block title %} {{ board }} {% endblock%}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'boardView.css') }}" />
+{% endblock %}
+
+{% block content %}
+{% for boardObject in user.boards%}
+{% if boardObject.name == board %}
+
+<h1 align="center">{{ boardObject.name }}</h1>
+<div></div>
+<button 
+class="btn btn-primary"
+id="createTask"
+>
+Create New Task
+</button>
+
+<button 
+id="editBoard"
+class="btn btn-primary"
+href=""
+>
+Edit Categories
+</button>
+<button 
+onclick="deleteBoard({{ boardObject.id }})" 
+id="deleteBoard" 
+class="btn btn-primary" 
+href="/boards" 
+>
+Delete Board
+</button>
+   
+
+<div 
+class="board_content"
+id="envelop_content">
+{% for cat in boardObject.categories %}
+
+<div class="category_container" name="{{ cat.name }}">
+    <h3 class="category_name">{{ cat.name }}</h3>
+    <ul class="task_list">
+    {% for task in cat.tasks%}
+    <li class="task_item">
+        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{task.name}}">
+            <span class="task_text">{{task.name}}</span>
+        </a>
+    </li>
+    {% endfor %}
+    </ul>
+</div>
+    
+{% endfor %}
+</div>
+
+
+
+
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}
