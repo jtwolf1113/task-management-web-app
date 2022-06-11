@@ -8,38 +8,44 @@ body {
     height: 100vh;
 }
 
-
 #container {
     /* This is the base templates subdiv within the body*/
     width: 100%;
     height: 100%;
-    
 }
 
+div#board-title{
+    align-items: center;
+    display:block;
+    width:100%;
+    min-width: 100%;
+}
+
+
+h1#board-title{
+    color:black;
+    display:block;
+}
+
+h1#board-title:hover{
+    color: #007bff;
+    text-decoration: underline;
+}
+
+
+
+
+
 .board_content { 
+    /*
+    This is all of the board information besides the title
+    
+    */
     width: 100%;
     position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    min-height: 100%    ;
+    min-height: 80%;
     gap: 2% 4%;
-    background-color: black;
-
+    background-color: gray;
 }
-
-
-.category_container {
-    background-color: black;
-    height: 10px;
-    
-
-}
-
-button {
-    margin: 0; 
-}
-
-input:checked~.note {
-    text-decoration: line-through;
-}
-

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, jsonify, sessions
+from flask import Blueprint, render_template, request, flash, jsonify, sessions, redirect, abort
 from flask_login import login_required, current_user
 from .models import Note, Board, Category, Task
 from . import db
@@ -66,11 +66,16 @@ def boards():
     return render_template("boards.html", user = current_user)
 
 
-@views.route('/boards/<board>', methods = ['GET','POST'])
+@views.route('/boards/<board>', methods = ['GET'])
 @login_required
 def view_board(board):
-    return render_template("boardview.html", user = current_user, board = board)
-
+    return render_template("boardview.html", user = current_user, board = board, edit_title = False)
+def edit_title(board, edit_title):
+    if edit_title:
+        edit_title = False
+    else:
+        edit_title = True
+    return render_template("boardview.html", user = current_user, board = board, edit_title = edit_title)
 
 @views.route('/boards/delete-board', methods=['POST'])
 def delete_board():
@@ -88,3 +93,18 @@ def delete_board():
             flash('Board Deleted', category='success')
     return jsonify({})
 
+@views.route('/boards/<board>/edit-boardname', methods = ['POST'])
+def edit_board():
+    if request.method == 'POST':
+        boardobj = json.loads(request.data)
+        boardId = boardobj['boardId']
+        boardname = boardobj['boardName']
+
+        board = Board.query.get(boardId)
+        if board:
+            if board.user_id == current_user.id:
+                if board.name != boardname:
+                    board.name = boardname
+                    db.session.commit()
+                    flash('Name Changed', category='success')
+        return redirect('/boards/<board>')

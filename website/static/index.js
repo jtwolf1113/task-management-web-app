@@ -17,3 +17,6 @@ function deleteBoard(boardId) {
   });
 }
 
+function editCategories(boardId) {
+  
+}

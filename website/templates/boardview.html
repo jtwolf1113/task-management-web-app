@@ -7,9 +7,35 @@
 {% block content %}
 {% for boardObject in user.boards%}
 {% if boardObject.name == board %}
+<div class="board-title" id="board-title">
 
-<h1 align="center">{{ boardObject.name }}</h1>
-<div></div>
+{% if edit_title == False %}
+<h1 align="center", 
+id="board-title", 
+class="title"
+ondblclick="{}">
+{{ boardObject.name }}
+</h1>
+
+{% else %}
+<form action="/boards/{{ board }}/change-title" method="post">
+
+<input
+class="form-control",
+id="board-title"
+align="center",
+type="text"
+>
+<button 
+type="submit"
+
+</form>
+{% endif %}
+
+</div>
+
+
+
 <button 
 class="btn btn-primary"
 id="createTask"
@@ -17,13 +43,6 @@ id="createTask"
 Create New Task
 </button>
 
-<button 
-id="editBoard"
-class="btn btn-primary"
-href=""
->
-Edit Categories
-</button>
 <button 
 onclick="deleteBoard({{ boardObject.id }})" 
 id="deleteBoard" 
@@ -53,7 +72,7 @@ id="envelop_content">
 </div>
     
 {% endfor %}
-</div>
+</div> <!-- End board content-->
 
 
 
