@@ -102,7 +102,7 @@ def delete_board():
 
 
 @views.route('/boards/update-title', methods = ['POST'])
-def edit_board():
+def update_title():
     if request.method == 'POST':
         boardobj = json.loads(request.data)
         boardId = boardobj['boardId']
