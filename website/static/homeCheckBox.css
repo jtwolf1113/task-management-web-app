@@ -1,3 +1,27 @@
-input:checked~.note {
+input:checked~.show-note {
     text-decoration: line-through;
+}
+
+:root{
+    --show-Note-data: inline;
+    --edit-Note-data: None;
+    --edit-Note-buttons: None;
+}
+
+.edit-note{
+    display:var(--edit-Note-data);
+}
+button.edit-note{
+    display:var(--edit-Note-buttons);
+}
+.show-note{
+    display:var(--show-Note-data);
+}
+
+span.edit-note{
+    align-items: center;
+}
+
+textarea.edit-note{
+    min-width: 100%;
 }

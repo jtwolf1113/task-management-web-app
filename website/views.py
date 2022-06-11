@@ -41,6 +41,20 @@ def delete_note():
 
     return jsonify({})
 
+@views.route('/update-note', methods = ['POST'])
+def update_note():
+    note = json.loads(request.data)
+    noteId = note['noteId']
+    new_note_text = note['noteData']
+    note = Note.query.get(noteId)
+    if note:
+        if note.user_id == current_user.id:
+            note.data = new_note_text
+            db.session.commit()
+            flash('Note Updated', category='success')
+    return redirect('/')
+
+
 
 @views.route('/ani',methods=['GET'])
 def animation():

@@ -8,17 +8,50 @@
 
 
 <h1 align="center">Notes</h1>
-<ul class="list-group list-group-flush" id="notes">
+<ul class="list-group list-group-flush" id="notes-list">
   {% for note in user.notes %}
-  <li class="list-group-item", style="word-wrap:break-word;", id="note"> <!-- Word Wrap to prevent overflow. -->
+  {% set noteIdentifierClass = "N"+note.id|string %}
+  <li class="list-group-item", style="word-wrap:break-word;", id="list-item", ondblclick="editNoteDisplay({{ note.id }})"> <!-- Word Wrap to prevent overflow. -->
     
     <input 
     type="checkbox"
+    id="show-note"
+    class="show-note {{ noteIdentifierClass }}"
     />
-    <span class="note"> {{ note.data }}</span>
-    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+    <span class="show-note {{ noteIdentifierClass }}"id="show-note">
+      {{ note.data }}, {{noteIdentifierClass}}
+    </span>
+    <button type="button" class="close show-note {{ noteIdentifierClass }}" id="show-note" onClick="deleteNote({{ note.id }})">
       <span aria-hidden="true">&times;</span>
     </button>
+    
+    <span
+    id="edit-note"
+    class="edit-note {{ noteIdentifierClass }}">
+      <textarea
+      type="text"
+      class="edit-note {{ noteIdentifierClass }}"
+      id="edit-note-textarea" >
+      {{note.data}}
+      </textarea>
+    </span>
+    <div align ="center">
+    <button 
+    onclick="updateNoteData({{ note.id }})"
+    class="btn btn-primary edit-note {{ noteIdentifierClass }}"
+    id="edit-note"
+    >
+    Save Changes
+    </button>
+
+    <button
+    onclick="cancelNoteChange({{ note.id }})"
+    class="btn btn-secondary edit-note {{ noteIdentifierClass }}"
+    id="edit-note"
+    >
+    Cancel Changes
+    </button>
+    </div>
  
     
   </li>

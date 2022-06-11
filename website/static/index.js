@@ -1,3 +1,5 @@
+let root = document.documentElement;
+
 function deleteNote(noteId) {
   fetch("/delete-note", {
     method: "POST",
@@ -5,6 +7,38 @@ function deleteNote(noteId) {
   }).then((_res) => {
     window.location.href = "/";
   });
+}
+
+
+function editNoteDisplay(noteId) {
+  const classSelector = ".N".concat(noteId);
+  const noteData = document.querySelectorAll(classSelector);
+  noteData.forEach(noteElement =>{
+  noteElement.style.setProperty('--show-Note-data', 'None');
+  noteElement.style.setProperty('--edit-Note-data', 'block');
+  noteElement.style.setProperty('--edit-Note-buttons', 'inline-block');
+  });
+}
+
+function cancelNoteChange(noteId) {
+  const classSelector = ".N".concat(noteId);
+  const noteData = document.querySelectorAll(classSelector);
+  noteData.forEach(noteElement =>{
+  noteElement.style.setProperty('--show-Note-data', 'inline');
+  noteElement.style.setProperty('--edit-Note-data', 'None');
+  noteElement.style.setProperty('--edit-Note-buttons', 'None');
+  });
+}
+
+function updateNoteData(noteId){
+  const new_note_data = document.getElementById("edit-note-textarea").value;
+
+  fetch("/update-note", {
+    method: "POST",
+    body: JSON.stringify({noteId: noteId, noteData: new_note_data}),
+    }).then((_res)=> {
+      window.location.href = "/";
+    });
 }
 
 
@@ -17,7 +51,6 @@ function deleteBoard(boardId) {
   });
 }
 
-let root = document.documentElement;
 function editTitleDisplay(){
   root.style.setProperty('--show-title', 'None');
   root.style.setProperty('--show-input-box', 'inline');
