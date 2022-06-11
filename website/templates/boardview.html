@@ -7,31 +7,44 @@
 {% block content %}
 {% for boardObject in user.boards%}
 {% if boardObject.name == board %}
-<div class="board-title" id="board-title">
+<div class="board-title" id="board-title-div">
 
-{% if edit_title == False %}
 <h1 align="center", 
 id="board-title", 
 class="title"
-ondblclick="{}">
+ondblclick="editTitleDisplay()"
+name="board-title">
 {{ boardObject.name }}
 </h1>
 
-{% else %}
-<form action="/boards/{{ board }}/change-title" method="post">
+<div id="change-name-div" align="center">
 
 <input
-class="form-control",
-id="board-title"
-align="center",
+name = "title"
+class="form-control"
+id="board-title-input"
+align="center"
 type="text"
+value="{{boardObject.name}}"
 >
+
 <button 
-type="submit"
+onclick="updateTitle({{ boardObject.id }})"
+class="btn btn-primary"
+id="board-title"
+>
+Change Name
+</button>
 
+<button
+onclick="cancelDisplayChange()"
+class="btn btn-secondary"
+id="board-title"
+>
+Cancel Change
+</button>
 </form>
-{% endif %}
-
+</div>
 </div>
 
 
@@ -46,7 +59,7 @@ Create New Task
 <button 
 onclick="deleteBoard({{ boardObject.id }})" 
 id="deleteBoard" 
-class="btn btn-primary" 
+class="btn btn-secondary" 
 href="/boards" 
 >
 Delete Board

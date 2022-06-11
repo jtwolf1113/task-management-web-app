@@ -7,6 +7,10 @@ import json
 views = Blueprint('views', __name__)
 
 
+'''
+View modify and Delete Notes
+'''
+
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
@@ -42,7 +46,9 @@ def delete_note():
 def animation():
     return render_template("ani.html", user = current_user)
 
-
+'''
+List all of the Boards
+'''
 
 @views.route('/boards',methods = ['GET', 'POST'])
 @login_required
@@ -66,16 +72,16 @@ def boards():
     return render_template("boards.html", user = current_user)
 
 
+
+
+'''
+Below we view and edit the board information
+'''
+
 @views.route('/boards/<board>', methods = ['GET'])
 @login_required
 def view_board(board):
-    return render_template("boardview.html", user = current_user, board = board, edit_title = False)
-def edit_title(board, edit_title):
-    if edit_title:
-        edit_title = False
-    else:
-        edit_title = True
-    return render_template("boardview.html", user = current_user, board = board, edit_title = edit_title)
+    return render_template("boardview.html", user = current_user, board = board, edit_title = True)
 
 @views.route('/boards/delete-board', methods=['POST'])
 def delete_board():
@@ -93,7 +99,9 @@ def delete_board():
             flash('Board Deleted', category='success')
     return jsonify({})
 
-@views.route('/boards/<board>/edit-boardname', methods = ['POST'])
+
+
+@views.route('/boards/update-title', methods = ['POST'])
 def edit_board():
     if request.method == 'POST':
         boardobj = json.loads(request.data)
@@ -107,4 +115,4 @@ def edit_board():
                     board.name = boardname
                     db.session.commit()
                     flash('Name Changed', category='success')
-        return redirect('/boards/<board>')
+        return redirect('/boards/'+str(board.name))

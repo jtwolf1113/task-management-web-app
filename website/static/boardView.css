@@ -14,22 +14,41 @@ body {
     height: 100%;
 }
 
-div#board-title{
+div#board-title-div{
     align-items: center;
     display:block;
     width:100%;
     min-width: 100%;
 }
 
+:root{
+    --show-title: block;
+    --show-input-box: None; /*toggles to inline*/
+    --show-changename-button: None;
+}
+
 
 h1#board-title{
     color:black;
-    display:block;
+    display: var(--show-title);
 }
 
 h1#board-title:hover{
     color: #007bff;
     text-decoration: underline;
+}
+
+input#board-title-input{
+    max-width: 25%;
+    display:var(--show-input-box);
+    vertical-align: center;
+}
+button#board-title{
+    display: var(--show-changename-button);
+    vertical-align: center;
+    padding: 0.25em;
+    margin: 0;
+    align-self: center;
 }
 
 
