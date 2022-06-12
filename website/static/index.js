@@ -31,7 +31,9 @@ function cancelNoteChange(noteId) {
 }
 
 function updateNoteData(noteId){
-  const new_note_data = document.getElementById("edit-note-textarea").value;
+  const classSelector = "textarea.N".concat(noteId);
+  const note_data = document.querySelector(classSelector);
+  const new_note_data = note_data.value;
 
   fetch("/update-note", {
     method: "POST",
