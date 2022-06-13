@@ -1,3 +1,4 @@
+from sre_parse import CATEGORIES
 from flask import Blueprint, render_template, request, flash, jsonify, sessions, redirect, abort
 from flask_login import login_required, current_user
 from .models import Note, Board, Category, Task
@@ -69,17 +70,11 @@ List all of the Boards
 def boards():
     if request.method == 'POST':
         board_name = request.form.get('board_name')
-        num_categories = request.form.get('num_cats')
-
-        if num_categories == '':
-            num_categories = 0
-        else: 
-            num_categories = int(num_categories)
         
         if len(board_name) < 1:
             flash('Board Name Empty', category='error')    
         else:
-            new_board = Board(name = board_name, category_num=num_categories, user_id = current_user.id)
+            new_board = Board(name = board_name, category_num = 0,  user_id = current_user.id)
             db.session.add(new_board)
             db.session.commit()
             flash('Board Created', category = 'success')

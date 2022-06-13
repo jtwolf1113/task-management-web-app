@@ -78,3 +78,25 @@ function updateTitle(boardId) {
   });
 }
 
+function showTaskCreation(boardId) {
+  document.getElementById("create-task-overlay").style.setProperty('display', 'block');
+}
+function showCategoryCreation(boardId) {
+  document.getElementById("create-category-overlay").style.setProperty('display', 'block');
+}
+
+function saveNewCategory(boardId){
+  console.log(boardId);
+}
+
+function cancelNewCategoryDisplay(){
+  document.getElementById("create-category-overlay").style.setProperty('display', 'none');
+}
+
+function saveNewTask(boardId){
+  console.log(boardId);
+}
+
+function cancelNewTaskDisplay(){
+  document.getElementById("create-task-overlay").style.setProperty('display', 'none');
+}

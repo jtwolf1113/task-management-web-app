@@ -20,8 +20,8 @@ name="board-title">
 <div id="change-name-div" align="center">
 
 <input
-name = "title"
-class="form-control"
+name = "board-title"
+class="form-control new-board-title"
 id="board-title-input"
 align="center"
 type="text"
@@ -47,12 +47,21 @@ Cancel Change
 </div>
 
 
+<div align="center">
+<button 
+class="btn btn-primary"
+id="create-category-button"
+onclick="showCategoryCreation({{ boardObject.id }})"
+>
+Create New Category
+</button>
 
 <button 
 class="btn btn-primary"
 id="createTask"
+onclick="showTaskCreation({{ boardObject.id }})"
 >
-Create New Category
+Create New Task
 </button>
 
 <button 
@@ -63,11 +72,51 @@ href="/boards"
 >
 Delete Board
 </button>
-   
+</div>
+
+<div id="create-category-overlay" class="new-category-menu">
+    <div align="center" id="new-task-buttons">
+        <input 
+        type="text"
+        placeholder="Enter Title for New Category" 
+        class="form-control new-category-menu" 
+        id="categoryTitle" 
+        name="category-title" />
+
+        <button class="new-category-menu btn btn-primary" id="add-category-button" onclick="saveNewCategory({{boardObject.id}})">
+            Save New Category
+        </button>
+        <button class="new-category-menu btn btn-secondary" id="cancel-add-category-button" onclick="cancelNewCategoryDisplay()">
+            Discard New Category
+        </button>
+    </div>
+</div>
+
+
+
+<div id="create-task-overlay" class="new-task-menu">
+    <div align="center" id="new-task-buttons">
+        <input 
+        type="text"
+        placeholder="Enter Title for New Task" 
+        class="form-control new-task-menu" 
+        id="taskTitle" 
+        name="task-title" />
+        <button class="new-task-menu btn btn-primary" id="add-task-button" onclick="saveNewTask({{boardObject.id}})">
+            Save New Task
+        </button>
+        <button class="new-task-menu btn btn-secondary" id="cancel-add-task-button" onclick="cancelNewTaskDisplay()">
+            Discard New Task
+        </button>
+    </div>
+</div>
+
+
 
 <div 
 class="board_content"
-id="envelop_content">
+id="envelop_content" >
+
 {% for cat in boardObject.categories %}
 
 <div class="category_container" name="{{ cat.name }}">
@@ -84,6 +133,7 @@ id="envelop_content">
 </div>
     
 {% endfor %}
+
 </div> <!-- End board content-->
 
 

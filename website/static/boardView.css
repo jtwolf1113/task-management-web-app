@@ -64,7 +64,36 @@ button#board-title{
     position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    min-height: 80%;
+    min-height: 90vh;
     gap: 2% 4%;
-    background-color: gray;
+    background-color: gray; 
+}
+
+#create-task-overlay{
+    position: fixed;
+    width: 80%;
+    height: 80%;
+    left: 10%;
+    
+    background-color: rgba(255, 0, 0, 0.1);
+    z-index: 3;
+    display: none;
+}
+#create-category-overlay{
+    position: fixed;
+    width: 80%;
+    height: 80%;
+    left: 10%;
+    
+    background-color: rgba(0, 0, 255, 0.1);
+    z-index: 2;
+    display: none;
+}
+
+#categoryTitle{
+    max-width: 60%;
+}
+
+#taskTitle{
+    max-width: 60%;
 }
