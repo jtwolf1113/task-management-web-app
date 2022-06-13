@@ -80,14 +80,14 @@ Delete Board
         type="text"
         placeholder="Enter Title for New Category" 
         class="form-control new-category-menu" 
-        id="categoryTitle" 
+        id="categoryTitleBox" 
         name="category-title" />
 
         <button class="new-category-menu btn btn-primary" id="add-category-button" onclick="saveNewCategory({{boardObject.id}})">
-            Save New Category
+            Save
         </button>
         <button class="new-category-menu btn btn-secondary" id="cancel-add-category-button" onclick="cancelNewCategoryDisplay()">
-            Discard New Category
+            Cancel
         </button>
     </div>
 </div>
@@ -100,13 +100,23 @@ Delete Board
         type="text"
         placeholder="Enter Title for New Task" 
         class="form-control new-task-menu" 
-        id="taskTitle" 
+        id="taskTitleBox" 
         name="task-title" />
+        <input 
+        type="text"
+        placeholder="Description" 
+        class="form-control new-task-menu" 
+        id="taskDescriptionBox" 
+        name="task-description" />
+
+
+
+
         <button class="new-task-menu btn btn-primary" id="add-task-button" onclick="saveNewTask({{boardObject.id}})">
-            Save New Task
+            Save
         </button>
         <button class="new-task-menu btn btn-secondary" id="cancel-add-task-button" onclick="cancelNewTaskDisplay()">
-            Discard New Task
+            Cancel
         </button>
     </div>
 </div>

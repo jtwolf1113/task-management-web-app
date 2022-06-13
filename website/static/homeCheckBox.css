@@ -2,6 +2,10 @@ input:checked~.show-note {
     text-decoration: line-through;
 }
 
+button.close.show-note {
+    text-decoration: none;
+}
+
 :root{
     --show-Note-data: inline;
     --edit-Note-data: None;

@@ -17,6 +17,7 @@ class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10000))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
+    completed = db.Column(db.Boolean, default = False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Board(db.Model):
@@ -43,7 +44,7 @@ class Task(db.Model):
     due_date = db.Column(db.DateTime(timezone = True))
     name = db.Column(db.String(100))
     description = db.Column(db.String(10000))
-    completed = db.Column(db.Integer, default = 0)
+    completed = db.Column(db.Boolean, default = False)
     category = db.Column(db.Integer, db.ForeignKey('category.id'))
     board = db.Column(db.Integer, db.ForeignKey('board.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

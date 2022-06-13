@@ -90,10 +90,14 @@ button#board-title{
     display: none;
 }
 
-#categoryTitle{
+#categoryTitleBox{
     max-width: 60%;
 }
 
-#taskTitle{
+#taskTitleBox{
+    max-width: 60%;
+}
+
+#taskDescriptionBox{
     max-width: 60%;
 }

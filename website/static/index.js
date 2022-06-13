@@ -9,6 +9,19 @@ function deleteNote(noteId) {
   });
 }
 
+function toggleNoteCompletion(noteId) {
+  const classSelector = "#show-note-checkbox.show-note.N".concat(noteId);
+  const note = document.querySelector(classSelector);
+  console.log(note.checked);
+  const completed = note.checked;
+
+  fetch("/toggle-note", {
+    method: "POST",
+    body: JSON.stringify({noteId: noteId, complete: completed}),
+  }).then((_res) => {
+    window.location.href = "/";
+  });
+}
 
 function editNoteDisplay(noteId) {
   const classSelector = ".N".concat(noteId);

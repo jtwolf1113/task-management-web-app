@@ -8,6 +8,11 @@
 
 <h1 align="center">Boards</h1>
 <ul align="center" class="list-group list-group-flush" id="boards">
+    {% if user.boards|length == 0 %}
+
+    <p align="center">No existing Boards</p>
+
+    {% endif %}
     {% for board in user.boards %}
     
     <li class="list-group-item", style="word-wrap:break-word;"> <!-- Word Wrap to prevent overflow. -->
@@ -17,9 +22,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
     </li>
+    {% endfor %}
+    
     
 
-    {% endfor %}
 </ul>
 
 

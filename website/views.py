@@ -55,6 +55,18 @@ def update_note():
             flash('Note Updated', category='success')
     return redirect('/')
 
+@views.route('/toggle-note', methods = ['POST'])
+def toggle_note():
+    note_data = json.loads(request.data)
+    noteId = note_data['noteId']
+    noteNewState = bool(note_data['complete'])
+    note = Note.query.get(noteId)
+    if note:
+        if note.user_id == current_user.id:
+            note.completed = noteNewState
+            db.session.commit()
+    return redirect('/')
+
 
 
 @views.route('/ani',methods=['GET'])
