@@ -1,10 +1,10 @@
-from sre_parse import CATEGORIES
 from flask import Blueprint, render_template, request, flash, jsonify, sessions, redirect, abort
 from flask_login import login_required, current_user
+from matplotlib.pyplot import get
 from .models import Note, Board, Category, Task
 from . import db
 import json
-
+from datetime import datetime
 views = Blueprint('views', __name__)
 
 
@@ -136,4 +136,54 @@ def update_title():
                     board.name = boardname
                     db.session.commit()
                     flash('Name Changed', category='success')
-        return redirect('/boards/'+str(board.name))
+    return redirect('/boards/'+str(board.name))
+
+@views.route('/boards/add-category', methods =['POST'])
+def add_category():
+    if request.method == 'POST':
+        categoryobj = json.loads(request.data)
+        boardId = categoryobj['boardId']
+        categoryName = categoryobj['categoryName']
+        board = Board.query.get(boardId)
+        if board:
+            if board.user_id == current_user.id:
+                newCategory = Category(name = categoryName, board_id = boardId, user_id = current_user.id)
+                db.session.add(newCategory)
+                board.category_num += 1
+                db.session.commit()
+                flash('Category Created', category='success')
+    return redirect('/boards/'+str(board.name))
+
+
+
+@views.route('/boards/add-task', methods=['POST'])
+def add_task():
+    if request.method == 'POST':
+        taskobj = json.loads(request.data)
+        boardId = taskobj['boardId']
+        categoryId = taskobj['categoryId']
+        taskName = taskobj['taskName']
+        taskDescription = taskobj['taskDescription']
+        taskDueDate = taskobj['taskDueDate']
+        taskDueDate = datetime.strptime(taskDueDate, r'%Y-%m-%dT%H:%M')
+
+        board = Board.query.get(boardId)
+        category = Category.query.get(categoryId)
+        if board and category:
+            if board.user_id == current_user.id and category.user_id == current_user.id:
+                newTask = Task(
+                    name = taskName, 
+                    description= taskDescription, 
+                    due_date = taskDueDate, 
+                    category = categoryId, 
+                    board = boardId, 
+                    user_id = current_user.id)
+                db.session.add(newTask)
+                db.session.commit()
+                flash('Task Created', category='success')
+    return redirect('/boards/'+str(board.name))
+
+@views.route('/boards/<board>/<task>', methods= ['GET'])
+def display_task(board, task):
+    return render_template("taskview.html", user = current_user, board = board, task = task)
+        

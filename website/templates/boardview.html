@@ -7,6 +7,7 @@
 {% block content %}
 {% for boardObject in user.boards%}
 {% if boardObject.name == board %}
+{% set boardname = boardObject.name|string %}
 <div class="board-title" id="board-title-div">
 
 <h1 align="center", 
@@ -14,8 +15,10 @@ id="board-title",
 class="title"
 ondblclick="editTitleDisplay()"
 name="board-title">
-{{ boardObject.name }}
+{{ boardname }}, cats: {{ boardObject.category_num }}
 </h1>
+
+
 
 <div id="change-name-div" align="center">
 
@@ -33,7 +36,7 @@ onclick="updateTitle({{ boardObject.id }})"
 class="btn btn-primary"
 id="board-title"
 >
-Change Name
+Save
 </button>
 
 <button
@@ -41,7 +44,7 @@ onclick="cancelDisplayChange()"
 class="btn btn-secondary"
 id="board-title"
 >
-Cancel Change
+Cancel
 </button>
 </div>
 </div>
@@ -51,17 +54,9 @@ Cancel Change
 <button 
 class="btn btn-primary"
 id="create-category-button"
-onclick="showCategoryCreation({{ boardObject.id }})"
+onclick="showCategoryCreation()"
 >
 Create New Category
-</button>
-
-<button 
-class="btn btn-primary"
-id="createTask"
-onclick="showTaskCreation({{ boardObject.id }})"
->
-Create New Task
 </button>
 
 <button 
@@ -83,7 +78,10 @@ Delete Board
         id="categoryTitleBox" 
         name="category-title" />
 
-        <button class="new-category-menu btn btn-primary" id="add-category-button" onclick="saveNewCategory({{boardObject.id}})">
+        <button 
+        class="new-category-menu btn btn-primary" 
+        id="add-category-button" 
+        onclick="saveNewCategory({{ boardObject.id }})">
             Save
         </button>
         <button class="new-category-menu btn btn-secondary" id="cancel-add-category-button" onclick="cancelNewCategoryDisplay()">
@@ -93,33 +91,6 @@ Delete Board
 </div>
 
 
-
-<div id="create-task-overlay" class="new-task-menu">
-    <div align="center" id="new-task-buttons">
-        <input 
-        type="text"
-        placeholder="Enter Title for New Task" 
-        class="form-control new-task-menu" 
-        id="taskTitleBox" 
-        name="task-title" />
-        <input 
-        type="text"
-        placeholder="Description" 
-        class="form-control new-task-menu" 
-        id="taskDescriptionBox" 
-        name="task-description" />
-
-
-
-
-        <button class="new-task-menu btn btn-primary" id="add-task-button" onclick="saveNewTask({{boardObject.id}})">
-            Save
-        </button>
-        <button class="new-task-menu btn btn-secondary" id="cancel-add-task-button" onclick="cancelNewTaskDisplay()">
-            Cancel
-        </button>
-    </div>
-</div>
 
 
 
@@ -140,6 +111,45 @@ id="envelop_content" >
     </li>
     {% endfor %}
     </ul>
+    <button 
+    class="btn btn-primary"
+    id="createTask"
+    onclick="showTaskCreation()"
+    >
+    Create New Task
+    </button>
+
+    <div id="create-task-overlay" class="new-task-menu">
+        <div align="center" id="new-task-buttons">
+            
+            <input 
+            type="text"
+            placeholder="Name" 
+            class="form-control new-task-menu" 
+            id="taskTitleBox" 
+            name="task-title" />
+            <input 
+            type="text"
+            placeholder="Description" 
+            class="form-control new-task-menu" 
+            id="taskDescriptionBox" 
+            name="task-description" />
+            
+            <input
+            type="datetime-local"
+            class="form-control new-task-menu"
+            id="taskDueDateBox"
+            name="due-date"
+            />
+    
+            <button class="new-task-menu btn btn-primary" id="add-task-button" onclick="saveNewTask({{ boardObject.id }}, {{ cat.id }})">
+                Save
+            </button>
+            <button class="new-task-menu btn btn-secondary" id="cancel-add-task-button" onclick="cancelNewTaskDisplay()">
+                Cancel
+            </button>
+        </div>
+    </div>
 </div>
     
 {% endfor %}

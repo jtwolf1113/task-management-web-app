@@ -101,3 +101,11 @@ button#board-title{
 #taskDescriptionBox{
     max-width: 60%;
 }
+
+#taskDueDateBox{
+    max-width: 60%;
+}
+
+label.new-task-menu {
+    max-width: 60%;
+}

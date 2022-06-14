@@ -91,25 +91,47 @@ function updateTitle(boardId) {
   });
 }
 
-function showTaskCreation(boardId) {
+function showTaskCreation() {
   document.getElementById("create-task-overlay").style.setProperty('display', 'block');
 }
-function showCategoryCreation(boardId) {
+function showCategoryCreation() {
   document.getElementById("create-category-overlay").style.setProperty('display', 'block');
 }
 
 function saveNewCategory(boardId){
-  console.log(boardId);
+  const redirectLocation = window.location.href;
+  const categoryName = document.getElementById("categoryTitleBox").value;
+  fetch("/boards/add-category", {
+    method: "POST",
+    body: JSON.stringify({boardId: boardId, categoryName: categoryName}),
+  }).then((_res)=> {
+    window.location.href = redirectLocation;
+  });
 }
 
 function cancelNewCategoryDisplay(){
   document.getElementById("create-category-overlay").style.setProperty('display', 'none');
 }
 
-function saveNewTask(boardId){
-  console.log(boardId);
+function saveNewTask(boardId, categoryId){
+  const redirectLocation = window.location.href;
+  const taskName =document.getElementById("taskTitleBox").value;
+  const taskDescription = document.getElementById("taskDescriptionBox").value;
+  const taskDueDate =document.getElementById("taskDueDateBox").value;
+  
+  fetch("/boards/add-task", {
+    method: "POST",
+    body: JSON.stringify({boardId: boardId, categoryId: categoryId, taskName: taskName, taskDescription: taskDescription, taskDueDate: taskDueDate}),
+    }).then((_res)=> {
+      window.location.href = redirectLocation;
+    });
 }
 
 function cancelNewTaskDisplay(){
   document.getElementById("create-task-overlay").style.setProperty('display', 'none');
 }
+
+//default due date is now
+var date = new Date();
+var now = date.toLocaleString();
+document.getElementById("taskDueDateBox").defaultValue = now;
