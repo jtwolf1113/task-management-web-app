@@ -8,9 +8,37 @@
     {% if taskObject.name == task %}
     <h1 align="center" class="title", id="task-name-title">{{ taskObject.name }}</h1>
     
-    <h4 align="center">Due: {{taskObject.due_date}}</h2>
-    <h3 align="center">{{taskObject.description}}</h2>
+    <h3 align="center">Due: {{taskObject.due_date}}</h3>
+    <h4 align="center">{{taskObject.description}}</h4>
+
+<div align="center" class="task-complete" >
+
+    {% if taskObject.completed == True %}
+    <input
+    align="center"
+    type="checkbox"
+    aria-label="Complete"
+    id="task-completed-checkbox"
+    class="task-view checkbox"
+    onclick="toggleTaskCompletion({{ taskObject.id }}, {{ taskObject.board }})"
+    checked
+    > Complete
+    {% else %}
+    <h4 id="time-remaining"></h4>
+    <img src="" onerror="showDueDate('{{ taskObject.due_date }}')"></iframe><!--Nifty Trick to run script automatically here-->
+    <input
+    onshow="showDueDate('{{ taskObject.due_date }}');"
+    type="checkbox"
+    aria-label="Complete"
+    id="task-completed-checkbox"
+    class="task-view checkbox"
+    onclick="toggleTaskCompletion({{ taskObject.id }}, {{ taskObject.board }})"
+    > Incomplete
     
-    {% endif %}
-    {% endfor %}
+    
+
+    {% endif %}<!--End -->    
+</div>
+    {% endif %}<!--End check if this is the right  task-->
+    {% endfor %} <!--End Task item iterator-->
 {% endblock %}

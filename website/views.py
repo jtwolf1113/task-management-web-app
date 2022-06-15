@@ -187,3 +187,18 @@ def add_task():
 def display_task(board, task):
     return render_template("taskview.html", user = current_user, board = board, task = task)
         
+@views.route('/toggle-task-completion', methods=['POST'])
+def toggle_task():
+    if request.method == 'POST':
+        taskobj = json.loads(request.data)
+        taskId = taskobj['taskId']
+        taskCompleted =taskobj['complete']
+        boardId = taskobj['boardId']
+        board = Board.query.get(boardId)
+        task = Task.query.get(taskId)
+        if task:
+            if task.user_id == current_user.id:
+                task.completed = taskCompleted
+                db.session.commit()
+    return render_template("taskview.html", user =current_user, board = board, task = task)
+            

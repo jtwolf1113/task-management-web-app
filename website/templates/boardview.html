@@ -104,13 +104,26 @@ id="envelop_content" >
     <h3 class="category_name">{{ cat.name }}</h3>
     <ul class="task_list">
     {% for task in cat.tasks%}
-    <li class="task_item">
+    {% if task.completed == False %}
+    <li class="task-item-incompleted">
         <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{task.name}}">
-            <span class="task_text">{{task.name}}</span>
+            <span class="incompleted-task-text">{{task.name}}</span>
         </a>
     </li>
+    {% endif %}
+    {% endfor %}
+
+    {% for task in cat.tasks%}
+    {% if task.completed == True %}
+    <li class="task-item-completed">
+        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{task.name}}">
+            <span class="completed-task-text">{{task.name}}</span>
+        </a>
+    </li>
+    {% endif %}
     {% endfor %}
     </ul>
+    
     <button 
     class="btn btn-primary"
     id="createTask"
@@ -149,8 +162,8 @@ id="envelop_content" >
                 Cancel
             </button>
         </div>
-    </div>
-</div>
+    </div><!-- End create-task container -->
+</div><!-- End category container -->
     
 {% endfor %}
 

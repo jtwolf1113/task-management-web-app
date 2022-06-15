@@ -135,3 +135,73 @@ function cancelNewTaskDisplay(){
 var date = new Date();
 var now = date.toLocaleString();
 document.getElementById("taskDueDateBox").defaultValue = now;
+
+function toggleTaskCompletion(taskId, boardId) {
+  const redirectLocation = window.location.href;
+  const completed = document.getElementById("task-completed-checkbox").checked;
+  
+
+  fetch("/toggle-task-completion", {
+    method: "POST",
+    body: JSON.stringify({taskId: taskId, complete: completed, boardId: boardId}),
+  }).then((_res) => {
+    window.location.href = redirectLocation;
+  });
+}
+
+
+
+function showDueDate(due){
+  const dueDate = new Date(due).getTime();
+  var timeRemaining = setInterval(function() {
+
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = dueDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (86400000));
+    var hours = Math.floor((distance % (86400000)) / (3600000));
+    var minutes = Math.floor((distance % (3600000 )) / (60000));
+    var seconds = Math.floor((distance % (60000)) / 1000);
+
+    
+    
+    if (distance < 0) {
+      days = days*-1;
+      hours = hours*-1;
+      minutes=minutes*-1;
+      seconds = seconds*-1;
+
+
+
+      var displayMessage = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+      displayMessage = displayMessage+ " Overdue!";
+      document.getElementById("time-remaining").innerHTML = displayMessage;
+      document.getElementById("time-remaining").style.setProperty('color', 'red');
+      
+    }
+    else{
+      var displayMessage = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+      displayMessage = "Due in: " +displayMessage;
+      document.getElementById("time-remaining").innerHTML = displayMessage;
+      document.getElementById("time-remaining").style.setProperty('color', 'black');
+    }
+
+
+
+    
+    
+
+    // If the count down is finished, write some text
+
+  }, 1000);
+}
+
+
+
+
