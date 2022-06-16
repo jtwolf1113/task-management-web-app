@@ -101,11 +101,11 @@ id="envelop_content" >
 {% for cat in boardObject.categories %}
 
 <div class="category_container" name="{{ cat.name }}">
-    <h3 class="category_name">{{ cat.name }}</h3>
+    <h3 align="center" class="category_name">{{ cat.name }}</h3>
     <ul class="task_list">
     {% for task in cat.tasks%}
     {% if task.completed == False %}
-    <li class="task-item-incompleted">
+    <li align="center" class="task-item-incompleted">
         <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{task.name}}">
             <span class="incompleted-task-text">{{task.name}}</span>
         </a>
@@ -115,7 +115,7 @@ id="envelop_content" >
 
     {% for task in cat.tasks%}
     {% if task.completed == True %}
-    <li class="task-item-completed">
+    <li align="center" class="task-item-completed">
         <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{task.name}}">
             <span class="completed-task-text">{{task.name}}</span>
         </a>
@@ -123,14 +123,15 @@ id="envelop_content" >
     {% endif %}
     {% endfor %}
     </ul>
-    
-    <button 
+    <div id="new-task-container-div" class="new-task-container" align="center">
+    <button
     class="btn btn-primary"
     id="createTask"
     onclick="showTaskCreation()"
     >
     Create New Task
     </button>
+    </div>
 
     <div id="create-task-overlay" class="new-task-menu">
         <div align="center" id="new-task-buttons">
@@ -155,7 +156,7 @@ id="envelop_content" >
             name="due-date"
             />
     
-            <button class="new-task-menu btn btn-primary" id="add-task-button" onclick="saveNewTask({{ boardObject.id }}, {{ cat.id }})">
+            <button class="new-task-menu btn btn-primary" id="add-task-button" onclick="saveNewTask({{ boardObject.id }})">
                 Save
             </button>
             <button class="new-task-menu btn btn-secondary" id="cancel-add-task-button" onclick="cancelNewTaskDisplay()">

@@ -4,12 +4,15 @@
 {% endblock %}
 
 {% block content %}
+    
     {% for taskObject in current_user.tasks%}
     {% if taskObject.name == task %}
     <h1 align="center" class="title", id="task-name-title">{{ taskObject.name }}</h1>
     
     <h3 align="center">Due: {{taskObject.due_date}}</h3>
     <h4 align="center">{{taskObject.description}}</h4>
+
+    <h5 align="center"><a href="/boards/{{ board }}">Return to Board</a></h5>
 
 <div align="center" class="task-complete" >
 

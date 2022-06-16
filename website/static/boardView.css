@@ -51,23 +51,38 @@ button#board-title{
     align-self: center;
 }
 
-
-
-
-
 .board_content { 
     /*
-    This is all of the board information besides the title
-    
+    This is all of the board information besides the title 
     */
     width: 100%;
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
     min-height: 90vh;
     gap: 2% 4%;
-    background-color: gray; 
+    background-color: none; 
 }
+
+@media screen and (max-width: 800px) {
+    .board_content{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media only screen and (min-width: 800px) {
+    .board_content{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.category_container{
+    background-color: red;
+    border-radius: 1em;
+    min-height: 30em;
+    padding: 1%;
+    margin: 1%;
+}
+
 
 #create-task-overlay{
     position: fixed;
@@ -109,3 +124,18 @@ button#board-title{
 label.new-task-menu {
     max-width: 60%;
 }
+
+li.task-item-completed{
+    text-decoration: line-through;
+}
+
+li.task-item-incompleted{
+    text-decoration: none;
+}
+
+ul.task_list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+

@@ -91,11 +91,13 @@ function updateTitle(boardId) {
   });
 }
 
-function showTaskCreation() {
-  document.getElementById("create-task-overlay").style.setProperty('display', 'block');
-}
+
 function showCategoryCreation() {
   document.getElementById("create-category-overlay").style.setProperty('display', 'block');
+}
+
+function cancelNewCategoryDisplay(){
+  document.getElementById("create-category-overlay").style.setProperty('display', 'none');
 }
 
 function saveNewCategory(boardId){
@@ -109,11 +111,18 @@ function saveNewCategory(boardId){
   });
 }
 
-function cancelNewCategoryDisplay(){
-  document.getElementById("create-category-overlay").style.setProperty('display', 'none');
+
+function showTaskCreation(categoryId) {
+  document.getElementById("create-task-overlay").style.setProperty('display', 'block');
+  const category = categoryId;
 }
 
-function saveNewTask(boardId, categoryId){
+function cancelNewTaskDisplay(){
+  document.getElementById("create-task-overlay").style.setProperty('display', 'none');
+}
+
+function saveNewTask(boardId){
+
   const redirectLocation = window.location.href;
   const taskName =document.getElementById("taskTitleBox").value;
   const taskDescription = document.getElementById("taskDescriptionBox").value;
@@ -121,15 +130,13 @@ function saveNewTask(boardId, categoryId){
   
   fetch("/boards/add-task", {
     method: "POST",
-    body: JSON.stringify({boardId: boardId, categoryId: categoryId, taskName: taskName, taskDescription: taskDescription, taskDueDate: taskDueDate}),
+    body: JSON.stringify({boardId: boardId, categoryId: category, taskName: taskName, taskDescription: taskDescription, taskDueDate: taskDueDate}),
     }).then((_res)=> {
       window.location.href = redirectLocation;
     });
 }
 
-function cancelNewTaskDisplay(){
-  document.getElementById("create-task-overlay").style.setProperty('display', 'none');
-}
+
 
 //default due date is now
 var date = new Date();
@@ -174,7 +181,6 @@ function showDueDate(due){
       hours = hours*-1;
       minutes=minutes*-1;
       seconds = seconds*-1;
-
 
 
       var displayMessage = days + "d " + hours + "h "
