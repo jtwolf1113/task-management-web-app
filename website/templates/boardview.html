@@ -4,10 +4,10 @@
 <link rel="stylesheet" href="{{ url_for('static', filename = 'boardView.css') }}" />
 {% endblock %}
 
-{% block content %}
-{% for boardObject in user.boards%}
-{% if boardObject.name == board %}
-{% set boardname = boardObject.name|string %}
+{% block content %}<!--Actual body content-->
+{% for boardObject in user.boards%} 
+{% if boardObject.name == board %}<!--filter to find correct board information-->
+{% set boardname = boardObject.name|string %} <!--useless I believe-->
 <div class="board-title" id="board-title-div">
 
 <h1 align="center", 
@@ -106,7 +106,7 @@ id="envelop_content" >
     {% for task in cat.tasks%}
     {% if task.completed == False %}
     <li align="center" class="task-item-incompleted">
-        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{task.name}}">
+        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{cat.name}}/{{task.name}}">
             <span class="incompleted-task-text">{{task.name}}</span>
         </a>
     </li>
@@ -116,7 +116,7 @@ id="envelop_content" >
     {% for task in cat.tasks%}
     {% if task.completed == True %}
     <li align="center" class="task-item-completed">
-        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{task.name}}">
+        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{cat.name}}/{{task.name}}">
             <span class="completed-task-text">{{task.name}}</span>
         </a>
     </li>
@@ -127,7 +127,7 @@ id="envelop_content" >
     <button
     class="btn btn-primary"
     id="createTask"
-    onclick="showTaskCreation()"
+    onclick="showTaskCreation({{ boardObject.id }}, {{ cat.id }} )"
     >
     Create New Task
     </button>
@@ -156,7 +156,7 @@ id="envelop_content" >
             name="due-date"
             />
     
-            <button class="new-task-menu btn btn-primary" id="add-task-button" onclick="saveNewTask({{ boardObject.id }})">
+            <button class="new-task-menu btn btn-primary" id="add-task-button">
                 Save
             </button>
             <button class="new-task-menu btn btn-secondary" id="cancel-add-task-button" onclick="cancelNewTaskDisplay()">
@@ -168,13 +168,13 @@ id="envelop_content" >
     
 {% endfor %}
 
-</div> <!-- End board content-->
+</div> <!-- End board content div-->
 
 
 
 
-{% endif %}
+{% endif %} <!--End board search-->
 
-{% endfor %}
+{% endfor %}<!--End board search-->
 
-{% endblock %}
+{% endblock %}<!--End body addition template-->

@@ -112,16 +112,16 @@ function saveNewCategory(boardId){
 }
 
 
-function showTaskCreation(categoryId) {
+function showTaskCreation(boardId, categoryId) {
   document.getElementById("create-task-overlay").style.setProperty('display', 'block');
-  const category = categoryId;
+  document.getElementById("add-task-button").onclick= function () { saveNewTask(boardId, categoryId); };
 }
 
 function cancelNewTaskDisplay(){
   document.getElementById("create-task-overlay").style.setProperty('display', 'none');
 }
 
-function saveNewTask(boardId){
+function saveNewTask(boardId, category){
 
   const redirectLocation = window.location.href;
   const taskName =document.getElementById("taskTitleBox").value;

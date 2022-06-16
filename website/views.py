@@ -183,9 +183,9 @@ def add_task():
                 flash('Task Created', category='success')
     return redirect('/boards/'+str(board.name))
 
-@views.route('/boards/<board>/<task>', methods= ['GET'])
-def display_task(board, task):
-    return render_template("taskview.html", user = current_user, board = board, task = task)
+@views.route('/boards/<board>/<category>/<task>', methods= ['GET'])
+def display_task(board, category, task):
+    return render_template("taskview.html", user = current_user, board = board, category = category, task = task)
         
 @views.route('/toggle-task-completion', methods=['POST'])
 def toggle_task():

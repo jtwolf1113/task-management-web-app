@@ -4,8 +4,9 @@
 {% endblock %}
 
 {% block content %}
-    
-    {% for taskObject in current_user.tasks%}
+    {% for categoryObject in current_user.categories %}
+    {% if categoryObject.name == category%}
+    {% for taskObject in categoryObject.tasks%}
     {% if taskObject.name == task %}
     <h1 align="center" class="title", id="task-name-title">{{ taskObject.name }}</h1>
     
@@ -44,4 +45,6 @@
 </div>
     {% endif %}<!--End check if this is the right  task-->
     {% endfor %} <!--End Task item iterator-->
+    {% endif %}<!--End check category-->
+    {% endfor %}<!--End category iterator-->
 {% endblock %}
