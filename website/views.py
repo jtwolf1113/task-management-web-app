@@ -185,6 +185,7 @@ def add_task():
 
 @views.route('/boards/<board>/<category>/<task>', methods= ['GET'])
 def display_task(board, category, task):
+    print(task)
     return render_template("taskview.html", user = current_user, board = board, category = category, task = task)
         
 @views.route('/toggle-task-completion', methods=['POST'])

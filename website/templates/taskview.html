@@ -7,7 +7,7 @@
     {% for categoryObject in current_user.categories %}
     {% if categoryObject.name == category%}
     {% for taskObject in categoryObject.tasks%}
-    {% if taskObject.name == task %}
+    {% if task|int == taskObject.id %}
     <h1 align="center" class="title", id="task-name-title">{{ taskObject.name }}</h1>
     
     <h3 align="center">Due: {{taskObject.due_date}}</h3>

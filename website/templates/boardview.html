@@ -106,7 +106,7 @@ id="envelop_content" >
     {% for task in cat.tasks%}
     {% if task.completed == False %}
     <li align="center" class="task-item-incompleted">
-        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{cat.name}}/{{task.name}}">
+        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{cat.name}}/{{task.id}}">
             <span class="incompleted-task-text">{{task.name}}</span>
         </a>
     </li>
@@ -116,7 +116,7 @@ id="envelop_content" >
     {% for task in cat.tasks%}
     {% if task.completed == True %}
     <li align="center" class="task-item-completed">
-        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{cat.name}}/{{task.name}}">
+        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{cat.name}}/{{task.id}}">
             <span class="completed-task-text">{{task.name}}</span>
         </a>
     </li>
