@@ -49,4 +49,17 @@ class Task(db.Model):
     board = db.Column(db.Integer, db.ForeignKey('board.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-
+'''
+class Subtask(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    created=db.Column(db.DateTime(timezone = True), default = func.now())
+    last_modified=db.Column(db.DateTime(timezone = True), default = func.now())
+    due_date = db.Column(db.DateTime(timezone = True))
+    name = db.Column(db.String(100))
+    description = db.Column(db.String(10000))
+    completed = db.Column(db.Boolean, default = False)
+    parent_task = db.Column(db.Integer, db.ForeignKey('task.id'))
+    category = db.Column(db.Integer, db.ForeignKey('category.id'))
+    board = db.Column(db.Integer, db.ForeignKey('board.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+'''

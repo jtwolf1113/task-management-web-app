@@ -2,6 +2,10 @@
 
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'boardView.css') }}" />
+<script
+  type="text/javascript"
+  src="{{ url_for('static', filename='boardview.js')}}"
+ ></script>
 {% endblock %}
 
 {% block content %}<!--Actual body content-->
@@ -101,7 +105,19 @@ id="envelop_content" >
 {% for cat in boardObject.categories %}
 
 <div class="category_container" name="{{ cat.name }}">
-    <h3 align="center" class="category_name">{{ cat.name }}</h3>
+    <h3 align="center" class="category_name {{cat.id}}" ondblclick="editCategoryDisplay('{{cat.id}}')", id="category-title-{{cat.id}} " >{{ cat.name }}</h3>
+
+    <input 
+    align="center"
+    type="text"
+    class="form-control new-category-title {{cat.id}}"
+    id="new-category-name-{{cat.id}}"
+    value="{{cat.name}}">
+
+
+
+
+
     <ul class="task_list">
     {% for task in cat.tasks%}
     {% if task.completed == False %}

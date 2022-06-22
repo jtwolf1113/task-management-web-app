@@ -1,6 +1,11 @@
-{% extends "base.html" %}{% block title %} {{ task }} {% endblock%}
+{% extends "base.html" %}{% block title %} {% for taskObject in current_user.tasks%}
+{% if task|int == taskObject.id %}{{ taskObject.name }} {% endif %}{% endfor %}{% endblock%}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'taskView.css') }}" />
+<script
+  type="text/javascript"
+  src="{{ url_for('static', filename='taskview.js')}}"
+ ></script>
 {% endblock %}
 
 {% block content %}
@@ -18,26 +23,48 @@
 <div align="center" class="task-complete" >
 
     {% if taskObject.completed == True %}
+    <h4 id="task-status">Task Complete</h4>
     <input
     align="center"
+    name="check-box"
     type="checkbox"
     aria-label="Complete"
     id="task-completed-checkbox"
-    class="task-view checkbox"
+    class="task-view checkbox form-control"
     onclick="toggleTaskCompletion({{ taskObject.id }}, {{ taskObject.board }})"
     checked
-    > Complete
+    > 
     {% else %}
-    <h4 id="time-remaining"></h4>
-    <img src="" onerror="showDueDate('{{ taskObject.due_date }}')"></iframe><!--Nifty Trick to run script automatically here-->
+    <h4 id="task-status">Task Incomplete</h4>
     <input
     onshow="showDueDate('{{ taskObject.due_date }}');"
     type="checkbox"
+    name="check-box"
     aria-label="Complete"
     id="task-completed-checkbox"
-    class="task-view checkbox"
+    class="task-view checkbox form-control"
     onclick="toggleTaskCompletion({{ taskObject.id }}, {{ taskObject.board }})"
-    > Incomplete
+    > 
+    
+    <h4 id="time-remaining"></h4>
+    <img id="due-date-frame" src="" onerror="showDueDate('{{ taskObject.due_date }}')"></img><!--Nifty Trick to run script automatically here-->
+    
+    <div id="focus-timer-div" align="center">
+    <label 
+    for="focus-timer-selection"
+    id="focus-timer-label">
+    Focus Timer
+    </label>
+    <select id="focus-timer-selection" class="form-control" >
+        <option value="1">1 min</option>
+        <option value="15">15 min</option>
+        <option value="30" selected>30 min</option>
+        <option value="45">45 min</option>
+        <option value="60">60 min</option>
+    </select>
+    <button onclick="startTimer()" class="form-control btn btn-primary" id="focus-timer-button">Start Timer</button>
+    <h5 id="focus-timer"></h5>
+    </div>
     
     
 

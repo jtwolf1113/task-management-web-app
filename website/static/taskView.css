@@ -1,0 +1,22 @@
+div#task-complete{
+    align-items: center;
+}
+
+div#focus-timer-div{
+    max-width: 15rem;
+}
+label#focus-timer-label{
+    font-size: 2rem;
+}
+select#focus-timer-selection{
+    text-align: center;
+}
+input#task-completed-checkbox{
+    display: inline-block;
+    max-width: 1.3rem;
+    max-height: 1.3rem;
+}
+h4#task-status{
+    display: inline-block;
+}
+
