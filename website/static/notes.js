@@ -22,9 +22,16 @@ function deleteNote(noteId) {
   }
   
   function editNoteDisplay(noteId) {
+    document.querySelectorAll('.edit-note').forEach(noteElement =>{
+      noteElement.style.setProperty('--edit-Note-data', 'None');
+      noteElement.style.setProperty('--edit-Note-buttons', 'None');
+    });
+    document.querySelectorAll('.show-note').forEach(noteElement =>{
+      noteElement.style.setProperty('--show-Note-data', 'inline');
+    });
+
     const classSelector = ".N".concat(noteId);
-    const noteData = document.querySelectorAll(classSelector);
-    noteData.forEach(noteElement =>{
+    document.querySelectorAll(classSelector).forEach(noteElement =>{
     noteElement.style.setProperty('--show-Note-data', 'None');
     noteElement.style.setProperty('--edit-Note-data', 'block');
     noteElement.style.setProperty('--edit-Note-buttons', 'inline-block');

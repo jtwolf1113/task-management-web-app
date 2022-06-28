@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, jsonify, sessions, redirect, abort
 from flask_login import login_required, current_user
 from matplotlib.pyplot import get
-from .models import Note, Board, Category, Task
+from .models import Note, Board, Category, Task, User
 from . import db
 import json
 from datetime import datetime
@@ -66,6 +66,10 @@ def toggle_note():
             note.completed = noteNewState
             db.session.commit()
     return redirect('/')
+
+@views.route('/update-note-info', methods=['POST'])
+def update_note_info():
+    pass
 
 
 
@@ -185,7 +189,6 @@ def add_task():
 
 @views.route('/boards/<board>/<category>/<task>', methods= ['GET'])
 def display_task(board, category, task):
-    print(task)
     return render_template("taskview.html", user = current_user, board = board, category = category, task = task)
         
 @views.route('/toggle-task-completion', methods=['POST'])
@@ -202,4 +205,26 @@ def toggle_task():
                 task.completed = taskCompleted
                 db.session.commit()
     return render_template("taskview.html", user =current_user, board = board, task = task)
-            
+
+@views.route('/update-task', methods = ['POST'])
+def update_task_information():
+    if request.method == 'POST':
+        taskobj = json.loads(request.data)
+        taskId = taskobj['taskId']
+        new_data_type = taskobj['key']
+        newData = taskobj['newData']
+        task = Task.query.get(taskId)
+
+        if task:
+            if task.user_id == current_user.id:
+                if new_data_type == 'title':
+                    task.name = newData
+                    db.session.commit()
+                elif new_data_type == 'due-Date':
+                    taskDueDate = datetime.strptime(newData, r'%Y-%m-%dT%H:%M')
+                    task.due_date = taskDueDate
+                    db.session.commit()
+                elif new_data_type == 'description':
+                    task.description = newData
+                    db.session.commit()
+    return render_template("taskview.html", user = current_user, task=task)

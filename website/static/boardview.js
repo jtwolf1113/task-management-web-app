@@ -93,7 +93,3 @@ function cancelEditCategory(categoryId){
   //document.getElementById("").style.setProperty("display", "none");
 }
 
-//default due date is now
-var date = new Date();
-var now = date.toLocaleString();
-document.getElementById("taskDueDateBox").defaultValue = now;

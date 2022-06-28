@@ -1,3 +1,25 @@
+.update-task{
+    display:none;
+}
+
+input.update-task{
+    vertical-align: center;
+    max-width: 60%;
+}
+textarea.update-task{
+    max-width: 80%;
+}
+
+div.update-task{
+    display: block;
+    align-items: center;
+    width: 100%;
+}
+
+
+
+
+
 div#task-complete{
     align-items: center;
 }
@@ -19,4 +41,9 @@ input#task-completed-checkbox{
 h4#task-status{
     display: inline-block;
 }
+
+
+
+
+
 

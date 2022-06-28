@@ -13,10 +13,99 @@
     {% if categoryObject.name == category%}
     {% for taskObject in categoryObject.tasks%}
     {% if task|int == taskObject.id %}
-    <h1 align="center" class="title", id="task-name-title">{{ taskObject.name }}</h1>
+    <h1 
+    align="center" 
+    class="show-task task-title" 
+    id="task-title"
+    ondblclick='editTaskElement(".task-title")'>{{ taskObject.name }}</h1>
+
+    <div id="change-name-div" class="update-task task-title" align="center">
+
+        <input
+        align="center"
+        name = "task-title"
+        class="form-control update-task task-title"
+        id="title-input"
+        type="text"
+        value="{{taskObject.name}}"
+        >
+        
+        <button 
+        onclick='updateTask({{ taskObject.id }}, "title-input");'
+        class="btn btn-primary task-title update-task"
+        id="submit-title"
+        >
+        Save
+        </button>
+        
+        <button
+        onclick='cancelEditTask(".task-title")'
+        class="btn btn-secondary task-title update-task"
+        id="cancel-title"
+        >
+        Cancel
+        </button>
+        </div>
     
-    <h3 align="center">Due: {{taskObject.due_date}}</h3>
-    <h4 align="center">{{taskObject.description}}</h4>
+    <h3 
+    id="task-due-date" 
+    class="show-task task-due" 
+    align="center"
+    ondblclick='setDefaultDate("{{taskObject.due_date}}"); editTaskElement(".task-due");'>Due: {{taskObject.due_date}}</h3>
+    <div id="change-duedate-div" align="center" class="update-task task-due">
+        <input 
+        id="due-date-input" 
+        class="form-control update-task task-due" 
+        type="datetime-local" 
+        >
+        <button 
+        onclick='updateTask({{ taskObject.id }}, "due-date-input");'
+        class="btn btn-primary task-due update-task"
+        id="submit-new-task-name"
+        >
+        Save
+        </button>
+        
+        <button
+        onclick='cancelEditTask(".task-due")'
+        class="btn btn-secondary task-due update-task"
+        id="cancel-new-task-name"
+        >
+        Cancel
+        </button>
+    </div>
+
+
+
+    <h4 
+    id="task-description" 
+    class="show-task task-description" 
+    align="center"
+    ondblclick='editTaskElement(".task-description")'>{{taskObject.description}}</h4>
+    <div id="change-description-div" align="center" class="update-task task-description">
+        <span class="task-description update-task">
+            <textarea 
+            name="" 
+            class="form-control update-task task-description" 
+            id="description-input"
+            >{{taskObject.description}}</textarea>
+        </span>
+        <button 
+        onclick='updateTask({{ taskObject.id }}, "description-input")'
+        class="btn btn-primary task-description update-task"
+        id="submit-new-task-name"
+        >
+        Save
+        </button>
+        
+        <button
+        onclick='cancelEditTask(".task-description")'
+        class="btn btn-secondary task-description update-task"
+        id="cancel-new-task-name"
+        >
+        Cancel
+        </button>
+    </div>
 
     <h5 align="center"><a href="/boards/{{ board }}">Return to Board</a></h5>
 

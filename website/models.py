@@ -41,6 +41,7 @@ class Category(db.Model):
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     created = db.Column(db.DateTime(timezone = True), default = func.now())
+    #last_modified = db.Column(db.DateTime(timezone = True), default = func.now())
     due_date = db.Column(db.DateTime(timezone = True))
     name = db.Column(db.String(100))
     description = db.Column(db.String(10000))

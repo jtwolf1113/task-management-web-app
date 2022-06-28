@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename = 'homeCheckBox.css') }}" />
 <script
   type="text/javascript"
- src="{{ url_for('static', filename='notes.js')}}"
+  src="{{ url_for('static', filename='notes.js')}}"
  
  ></script>
 {% endblock %}
@@ -47,9 +47,8 @@
       <textarea
       type="text"
       class="edit-note {{ noteIdentifierClass }}"
-      id="edit-note-textarea" >
-      {{note.data}}
-      </textarea>
+      id="edit-note-textarea" 
+      >{{note.data}}</textarea>
     </span>
     <div align ="center">
     <button 
