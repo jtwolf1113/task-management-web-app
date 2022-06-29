@@ -228,3 +228,17 @@ def update_task_information():
                     task.description = newData
                     db.session.commit()
     return render_template("taskview.html", user = current_user, task=task)
+
+@views.route('/delete-task', methods = ['POST'])
+def delete_task():
+    if request.method == 'POST':
+        taskobj = json.loads(request.data)
+        taskId = taskobj['taskId']
+        task = Task.query.get(taskId)
+        if task:
+            if task.user_id == current_user.id:
+                db.session.delete(task)
+                db.session.commit()
+                flash('Task Deleted', category='success')
+    return render_template("boardview.html", user = current_user)
+                

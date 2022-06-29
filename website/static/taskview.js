@@ -61,6 +61,7 @@ function startTimer(){
   document.getElementById("focus-timer-button").style.setProperty("display", "none");
   document.getElementById("time-remaining").style.setProperty("display", "none");
   document.getElementById("focus-timer-button").style.setProperty("display", "none");
+  document.getElementById("delete-task").style.setProperty("display","none");
 
   document.getElementById("focus-timer").style.setProperty("display", "inline");
 
@@ -75,6 +76,7 @@ function startTimer(){
       document.getElementById("focus-timer-selection").style.setProperty("display", "block");
       document.getElementById("focus-timer-button").style.setProperty("display", "inline-block");
       document.getElementById("time-remaining").style.setProperty("display", "block");
+      document.getElementById("delete-task").style.setProperty("display","block");
       document.getElementById("focus-timer").style.setProperty("display", "none");
       clearInterval(time);
     }
@@ -142,6 +144,16 @@ function updateTask(taskId, elementId){
   fetch("/update-task", {
     method: "POST",
     body: JSON.stringify({taskId: taskId, key: key, newData: data}),
+  }).then((_res) => {
+    window.location.href = redirectLocation;
+  });
+}
+
+function deleteTask(taskId, boardname){
+  const redirectLocation = "/boards/"+boardname;
+  fetch("/delete-task", {
+    method: "POST",
+    body: JSON.stringify({taskId: taskId}),
   }).then((_res) => {
     window.location.href = redirectLocation;
   });

@@ -15,10 +15,15 @@ div.update-task{
     align-items: center;
     width: 100%;
 }
+img#due-date-frame{
+    max-height: 0;
+    max-width: 0;
+}
 
-
-
-
+button#delete-task{
+    max-width: 7rem;
+    display: block;
+}
 
 div#task-complete{
     align-items: center;
@@ -41,7 +46,9 @@ input#task-completed-checkbox{
 h4#task-status{
     display: inline-block;
 }
-
+button#focus-timer-button{
+    max-width: 7rem;
+}
 
 
 

@@ -122,7 +122,12 @@
     class="task-view checkbox form-control"
     onclick="toggleTaskCompletion({{ taskObject.id }}, {{ taskObject.board }})"
     checked
-    > 
+    >
+    <button 
+    id="delete-task" 
+    class="form-control btn btn-primary"
+    onclick="deleteTask({{ taskObject.id }}, '{{ board }}');"
+    >Delete Task</button> 
     {% else %}
     <h4 id="task-status">Task Incomplete</h4>
     <input
@@ -136,6 +141,12 @@
     > 
     
     <h4 id="time-remaining"></h4>
+    <button 
+    id="delete-task" 
+    class="form-control btn btn-primary"
+    onclick="deleteTask({{ taskObject.id }}, '{{ board }}');"
+    >Delete Task</button>
+
     <img id="due-date-frame" src="" onerror="showDueDate('{{ taskObject.due_date }}')"></img><!--Nifty Trick to run script automatically here-->
     
     <div id="focus-timer-div" align="center">
