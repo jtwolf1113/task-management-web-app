@@ -50,6 +50,7 @@ def update_note():
     if note:
         if note.user_id == current_user.id:
             note.data = new_note_text
+            note.last_modified = datetime.now()
             db.session.commit()
             flash('Note Updated', category='success')
     return redirect('/')
@@ -63,14 +64,9 @@ def toggle_note():
     if note:
         if note.user_id == current_user.id:
             note.completed = noteNewState
+            note.last_modified = datetime.now()
             db.session.commit()
     return redirect('/')
-
-@views.route('/update-note-info', methods=['POST'])
-def update_note_info():
-    pass
-
-
 
 @views.route('/ani',methods=['GET'])
 def animation():
@@ -219,6 +215,7 @@ def toggle_task():
         if task:
             if task.user_id == current_user.id:
                 task.completed = taskCompleted
+                task.last_modified = datetime.now()
                 db.session.commit()
     return render_template("taskview.html", user =current_user, board = board, task = task)
 
@@ -235,13 +232,16 @@ def update_task_information():
             if task.user_id == current_user.id:
                 if new_data_type == 'title':
                     task.name = newData
+                    task.last_modified = datetime.now()
                     db.session.commit()
                 elif new_data_type == 'due-Date':
                     taskDueDate = datetime.strptime(newData, r'%Y-%m-%dT%H:%M')
                     task.due_date = taskDueDate
+                    task.last_modified = datetime.now()
                     db.session.commit()
                 elif new_data_type == 'description':
                     task.description = newData
+                    task.last_modified = datetime.now()
                     db.session.commit()
     return render_template("taskview.html", user = current_user, task=task)
 

@@ -16,7 +16,8 @@ class User(db.Model, UserMixin):
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10000))
-    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    created = db.Column(db.DateTime(timezone=True), default=func.now())
+    last_modified = db.Column(db.DateTime(timezone=True), default=func.now())
     completed = db.Column(db.Boolean, default = False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -33,6 +34,7 @@ class Board(db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(100))
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     board_id = db.Column(db.Integer,db.ForeignKey('board.id'))
     tasks = db.relationship('Task')
@@ -41,7 +43,7 @@ class Category(db.Model):
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     created = db.Column(db.DateTime(timezone = True), default = func.now())
-    #last_modified = db.Column(db.DateTime(timezone = True), default = func.now())
+    last_modified = db.Column(db.DateTime(timezone = True), default = func.now())
     due_date = db.Column(db.DateTime(timezone = True))
     name = db.Column(db.String(100))
     description = db.Column(db.String(10000))
@@ -50,7 +52,7 @@ class Task(db.Model):
     board = db.Column(db.Integer, db.ForeignKey('board.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-'''
+
 class Subtask(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     created=db.Column(db.DateTime(timezone = True), default = func.now())
@@ -63,4 +65,4 @@ class Subtask(db.Model):
     category = db.Column(db.Integer, db.ForeignKey('category.id'))
     board = db.Column(db.Integer, db.ForeignKey('board.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-'''
+
