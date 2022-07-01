@@ -50,7 +50,9 @@ button#focus-timer-button{
     max-width: 7rem;
 }
 
-
+button#return-to-board{
+    max-width: 9rem;
+}
 
 
 

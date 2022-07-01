@@ -105,16 +105,20 @@ id="envelop_content" >
 {% for cat in boardObject.categories %}
 
 <div class="category_container" name="{{ cat.name }}">
-    <h3 align="center" class="category_name {{cat.id}}" ondblclick="editCategoryDisplay('{{cat.id}}')", id="category-title-{{cat.id}} " >{{ cat.name }}</h3>
+    <h3 align="center" class="display-category category_name C{{cat.id}}" ondblclick="editCategoryDisplay('{{cat.id}}')", id="category-title-{{cat.id}} " >{{ cat.name }}</h3>
 
+    <div
+    class="edit-cat-name"
+    align="center">
     <input 
     align="center"
     type="text"
-    class="form-control new-category-title {{cat.id}}"
-    id="new-category-name-{{cat.id}}"
+    class="form-control edit-category new-category-title C{{cat.id}}"
+    id="title-input-{{cat.id}}"
     value="{{cat.name}}">
-
-
+    <button align="center" id="save-title-{{cat.id}}" class="edit-category btn btn-primary C{{cat.id}}" onclick="updateCategoryTitle({{cat.id}}, {{boardObject.id}});">Save</button>
+    <button align="center" id="cancel-title-{{cat.id}}" class="edit-category btn btn-secondary C{{cat.id}}" onclick="cancelEditCategory()">Cancel</button>
+    </div>
 
 
 
@@ -122,8 +126,13 @@ id="envelop_content" >
     {% for task in cat.tasks%}
     {% if task.completed == False %}
     <li align="center" class="task-item-incompleted">
+        <input
+        type="checkbox"
+        class="task-checkbox"
+        id="{{task.id}}"
+        onclick="toggleTaskCompletion({{task.id}}, {{boardObject.id}})"/>
         <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{cat.name}}/{{task.id}}">
-            <span class="incompleted-task-text">{{task.name}}, {{task.due_date.strftime('%m-%d %H:%M')}}</span>
+            <span class="incompleted-task-text">{{task.name}} <img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg"> </img> {{task.due_date.strftime('%m-%d %H:%M')}}</span>
         </a>
     </li>
     {% endif %}
@@ -132,6 +141,12 @@ id="envelop_content" >
     {% for task in cat.tasks%}
     {% if task.completed == True %}
     <li align="center" class="task-item-completed">
+        <input
+        type="checkbox"
+        class="task-checkbox"
+        id="{{task.id}}"
+        onclick="toggleTaskCompletion({{task.id}}, {{boardObject.id}})"
+        checked/>
         <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{cat.name}}/{{task.id}}">
             <span class="completed-task-text">{{task.name}}</span>
         </a>

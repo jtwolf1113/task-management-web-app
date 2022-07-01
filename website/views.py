@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, flash, jsonify, sessions, redirect, abort
 from flask_login import login_required, current_user
-from matplotlib.pyplot import get
 from .models import Note, Board, Category, Task, User
 from . import db
 import json
@@ -142,6 +141,23 @@ def update_title():
                     flash('Name Changed', category='success')
     return redirect('/boards/'+str(board.name))
 
+
+@views.route('/update-category-title', methods = ['POST'])
+def update_category_title():
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        categoryId = data['categoryId']
+        boardId = data['boardId']
+        title = data['newTitle']
+        category = Category.query.get(categoryId)
+        board = Board.query.get(boardId)
+        if board:
+            if category:
+                if board.user_id == current_user.id:
+                    category.name = title
+                    db.session.commit()
+    return redirect('/boards/<board>')
+
 @views.route('/boards/add-category', methods =['POST'])
 def add_category():
     if request.method == 'POST':
@@ -156,7 +172,7 @@ def add_category():
                 board.category_num += 1
                 db.session.commit()
                 flash('Category Created', category='success')
-    return redirect('/boards/'+str(board.name))
+    return render_template("boardview.html", user = current_user, board = board)
 
 
 

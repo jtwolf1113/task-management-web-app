@@ -81,15 +81,45 @@ function saveNewTask(boardId, category){
 }
 
 function editCategoryDisplay(categoryId){
-  //categoryId=categoryId.toLocaleString();
-  document.getElementById("category-title-"+categoryId).style.setProperty("display", "none");
-  document.getElementById("new-category-name-"+categoryId).style.setProperty("display", "inline");
-  document.getElementById("").style.setProperty("display", "inline");
+  cancelEditCategory();
+  document.querySelectorAll(".edit-category.C"+categoryId).forEach(element => {
+    element.style.setProperty("display", "inline-block");
+  });
+  document.querySelector(".display-category.C"+categoryId).style.setProperty("display", "none");
 }
 
-function cancelEditCategory(categoryId){
-  document.getElementById("category-title-"+categoryId).style.setProperty("display", "inline");
-  document.getElementById("new-category-name-"+categoryId).style.setProperty("display", "none");
-  //document.getElementById("").style.setProperty("display", "none");
+function cancelEditCategory(){
+  document.querySelectorAll(".edit-category").forEach(element => {
+    element.style.setProperty("display", "none");
+  });
+  document.querySelectorAll(".display-category").forEach(element=>{
+    element.style.setProperty("display", "block");
+  });
 }
 
+function updateCategoryTitle(categoryId, boardId){
+  const redirectLocation = window.location.href;
+  const new_title = document.getElementById("title-input-"+categoryId).value;
+
+  fetch("/update-category-title", {
+    method: "POST",
+    body: JSON.stringify({categoryId: categoryId, newTitle: new_title, boardId: boardId}),
+  }).then((_res)=> {
+    window.location.href = redirectLocation;
+  });
+
+}
+
+
+
+function toggleTaskCompletion(taskId, boardId) {
+  const redirectLocation = window.location.href;
+  const completed = document.getElementById(taskId).checked;
+  
+  fetch("/toggle-task-completion", {
+    method: "POST",
+    body: JSON.stringify({taskId: taskId, complete: completed, boardId: boardId}),
+  }).then((_res) => {
+    window.location.href = redirectLocation;
+  });
+}
