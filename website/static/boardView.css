@@ -154,6 +154,9 @@ input.edit-category{
     max-width: 95%;
 }
 
+.category_name:hover{
+    text-decoration: underline;
+}
 
 
 img#clock-svg{
@@ -163,4 +166,5 @@ img#clock-svg{
 a.edit_task_link{
     color:black;
 }
+
 

@@ -1,3 +1,4 @@
+
 .update-task{
     display:none;
 }
@@ -54,5 +55,12 @@ button#return-to-board{
     max-width: 9rem;
 }
 
+input#subtask-due-input{
+    display: none;
+}
+
+img#clock-svg{
+    width: 1.3rem;
+}
 
 

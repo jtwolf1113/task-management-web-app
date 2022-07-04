@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, flash, jsonify, sessions, redirect, abort
 from flask_login import login_required, current_user
-from .models import Note, Board, Category, Task, User
+from sqlalchemy import desc
+from .models import Note, Board, Category, Subtask, Task, Subtask, User
 from . import db
 import json
 from datetime import datetime
@@ -18,7 +19,7 @@ def home():
         note = request.form.get('note')
 
         if len(note) < 1:
-            flash('Note is empty you silly goose!', category='error')
+            flash('Note is empty', category='error')
         else:
             new_note = Note(data=note, user_id=current_user.id)
             db.session.add(new_note)
@@ -163,7 +164,11 @@ def add_category():
         board = Board.query.get(boardId)
         if board:
             if board.user_id == current_user.id:
-                newCategory = Category(name = categoryName, board_id = boardId, user_id = current_user.id)
+                newCategory = Category(
+                    name = categoryName, 
+                    board_id = boardId,
+                    user_id = current_user.id
+                )
                 db.session.add(newCategory)
                 board.category_num += 1
                 db.session.commit()
@@ -199,8 +204,39 @@ def add_task():
                 flash('Task Created', category='success')
     return redirect('/boards/'+str(board.name))
 
-@views.route('/boards/<board>/<category>/<task>', methods= ['GET'])
+@views.route('/boards/<board>/<category>/<task>', methods= ['GET', 'POST'])
 def display_task(board, category, task):
+    if request.method == 'POST':
+        name = request.form.get("subtask-name")
+        description = request.form.get("subtask-description")
+        if type(request.form.get("subtask-due")) == datetime:
+            due = request.form.get("subtask-due")
+            new_subtask = Subtask(
+            due_date = due,
+            name = name,
+            description = description,
+            parent_task = task,
+            category = category,
+            board = board,
+            user_id = current_user.id
+        )
+        else:
+            due = None
+            new_subtask = Subtask(
+            name = name,
+            description = description,
+            parent_task = task,
+            category = category,
+            board = board,
+            user_id = current_user.id
+        )
+
+        
+        db.session.add(new_subtask)
+        db.session.commit()
+        
+
+
     return render_template("taskview.html", user = current_user, board = board, category = category, task = task)
         
 @views.route('/toggle-task-completion', methods=['POST'])
@@ -253,8 +289,46 @@ def delete_task():
         task = Task.query.get(taskId)
         if task:
             if task.user_id == current_user.id:
+                for subtask in task.subtasks:
+                    db.session.delete(subtask)
                 db.session.delete(task)
                 db.session.commit()
                 flash('Task Deleted', category='success')
     return render_template("boardview.html", user = current_user)
-                
+
+@views.route('/add-subtask', methods=['POST'])
+def add_subtask():
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        name = data['name']
+        description = data['description']
+        parent_task = data['taskId']
+        category = data['categoryId']
+        board = data['boardId']
+        if current_user.id == board.user_id:
+            if board:
+                if category:
+                    if parent_task:
+                        newSubtask = Subtask(
+                            name = name,
+                            description = description,
+                            parent_task = parent_task,
+                            category = category,
+                            board = board,
+                            user_id = current_user.id
+                        )
+                        db.session.add(newSubtask)
+                        db.session.commit()
+
+@views.route('/delete-subtask', methods = ['POST'])
+def delete_subtask():
+    if request.method == 'POST':
+        subtaskobj = json.loads(request.data)
+        subtaskId = subtaskobj['subtaskId']
+        subtask = Subtask.query.get(subtaskId)
+        if subtask:
+            if subtask.user_id == current_user.id:
+                db.session.delete(subtask)
+                db.session.commit()
+                flash('Subtask Deleted', category='success')
+    return render_template("taskview.html", user = current_user)

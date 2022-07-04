@@ -50,8 +50,9 @@ class Task(db.Model):
     completed = db.Column(db.Boolean, default = False)
     category = db.Column(db.Integer, db.ForeignKey('category.id'))
     board = db.Column(db.Integer, db.ForeignKey('board.id'))
+    subtasks = db.relationship('Subtask')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
+    
 
 class Subtask(db.Model):
     id=db.Column(db.Integer, primary_key=True)

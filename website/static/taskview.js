@@ -178,3 +178,22 @@ function setDefaultDate(dateString){
   document.getElementById("due-date-input").defaultValue = due;
 }
 
+function subTaskDueOptions(){
+  var toggleVar = document.getElementById("subtask-duedate-check").checked;
+  if (toggleVar == true){
+    document.getElementById("subtask-due-input").style.setProperty("display", "inline-block");
+  }
+  else {
+    document.getElementById("subtask-due-input").style.setProperty("display", "none");
+  }
+}
+
+function deleteSubtask(subtaskId){
+  const redirectLocation = window.location.href;
+  fetch("/delete-subtask", {
+    method: "POST",
+    body: JSON.stringify({subtaskId: subtaskId}),
+  }).then((_res) => {
+    window.location.href = redirectLocation;
+  });
+}
