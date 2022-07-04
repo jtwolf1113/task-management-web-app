@@ -177,7 +177,7 @@
                 <h3 class="subtask-title {{subtask.id}} complete">{{ subtask.name }}</h3>
             {% else %}
                 <input id="s{{subtask.id}}" type="checkbox" />
-                <h3 class="subtask-title {{subtask.id}}">{{ subtask.name }}{% if subtask.due_date != None %}<img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg"> </img> {{subtask.due_date}} {% endif %}</h3>
+                <h3 class="subtask-title {{subtask.id}}">{{ subtask.name }} {% if subtask.due_date != None %}<img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg" /> {{subtask.due_date}} {% endif %}</h3>
                 <p class="subtask-description {{subtask.id}}">{{ subtask.description }}</p>
             {% endif %}
             <button type="button" class="close s{{ subtask.id }}" id="delete-subtask" onClick="deleteSubtask({{ subtask.id }})">
@@ -193,7 +193,7 @@
         <div align="center">
         <input type="checkbox" class="form-control" id="subtask-duedate-check" onclick="subTaskDueOptions();">Add Due Date
         </div>
-        <input name="subtask-due" type="datetime-local" class="form-control" id="subtask-due-input"/>
+        <input name="subtask-due" type="datetime-local" class="form-control" id="subtask-due-input">
 
         <div align="center">
             <button type="submit" class="btn btn-primary">Create</button>

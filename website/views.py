@@ -209,8 +209,9 @@ def display_task(board, category, task):
     if request.method == 'POST':
         name = request.form.get("subtask-name")
         description = request.form.get("subtask-description")
-        if type(request.form.get("subtask-due")) == datetime:
-            due = request.form.get("subtask-due")
+        due = request.form.get("subtask-due")
+        if type(due) != None:
+            due = datetime.strptime(request.form.get("subtask-due"), r"%Y-%m-%dT%H:%M")
             new_subtask = Subtask(
             due_date = due,
             name = name,
@@ -225,6 +226,7 @@ def display_task(board, category, task):
             new_subtask = Subtask(
             name = name,
             description = description,
+            due_date = None,
             parent_task = task,
             category = category,
             board = board,
@@ -296,29 +298,7 @@ def delete_task():
                 flash('Task Deleted', category='success')
     return render_template("boardview.html", user = current_user)
 
-@views.route('/add-subtask', methods=['POST'])
-def add_subtask():
-    if request.method == 'POST':
-        data = json.loads(request.data)
-        name = data['name']
-        description = data['description']
-        parent_task = data['taskId']
-        category = data['categoryId']
-        board = data['boardId']
-        if current_user.id == board.user_id:
-            if board:
-                if category:
-                    if parent_task:
-                        newSubtask = Subtask(
-                            name = name,
-                            description = description,
-                            parent_task = parent_task,
-                            category = category,
-                            board = board,
-                            user_id = current_user.id
-                        )
-                        db.session.add(newSubtask)
-                        db.session.commit()
+
 
 @views.route('/delete-subtask', methods = ['POST'])
 def delete_subtask():
