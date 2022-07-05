@@ -210,7 +210,7 @@ def display_task(board, category, task):
         name = request.form.get("subtask-name")
         description = request.form.get("subtask-description")
         due = request.form.get("subtask-due")
-        if type(due) != None:
+        if due != '':
             due = datetime.strptime(request.form.get("subtask-due"), r"%Y-%m-%dT%H:%M")
             new_subtask = Subtask(
             due_date = due,

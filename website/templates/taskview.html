@@ -107,7 +107,14 @@
         </button>
     </div>
 
-    <h5 align="center"><a href="/boards/{{ board }}"><button align="center" id="return-to-board" class="form-control btn btn-primary">Return to Board</button></a></h5>
+<div align="center" id="main-task-buttons-div">
+    <a href="/boards/{{ board }}"><button align="center" id="return-to-board" class="form-control btn btn-primary">Return to Board</button></a>
+    <button align="center"
+    id="delete-task" 
+    class="form-control btn btn-secondary"
+    onclick="deleteTask({{ taskObject.id }}, '{{ board }}');"
+    >Delete Task</button>
+</div>
 
 <div align="center" class="task-complete" >
 
@@ -123,12 +130,8 @@
     onclick="toggleTaskCompletion({{ taskObject.id }}, {{ taskObject.board }})"
     checked
     >
-    <button 
-    id="delete-task" 
-    class="form-control btn btn-primary"
-    onclick="deleteTask({{ taskObject.id }}, '{{ board }}');"
-    >Delete Task</button> 
-    {% else %}
+     
+    {% else %}<!--Task is not complete- show time remaining and focus timer-->
     <h4 id="task-status">Task Incomplete</h4>
     <input
     onshow="showDueDate('{{ taskObject.due_date }}');"
@@ -139,15 +142,8 @@
     class="task-view checkbox form-control"
     onclick="toggleTaskCompletion({{ taskObject.id }}, {{ taskObject.board }})"
     > 
-    
+    <img id="due-date-frame" src="" onerror="showDueDate('{{ taskObject.due_date }}')"/><!--Nifty Trick to run script automatically here-->
     <h4 id="time-remaining"></h4>
-    <button 
-    id="delete-task" 
-    class="form-control btn btn-primary"
-    onclick="deleteTask({{ taskObject.id }}, '{{ board }}');"
-    >Delete Task</button>
-
-    <img id="due-date-frame" src="" onerror="showDueDate('{{ taskObject.due_date }}')"></img><!--Nifty Trick to run script automatically here-->
     
     <div id="focus-timer-div" align="center">
     <label 
@@ -166,9 +162,10 @@
     <h5 id="focus-timer"></h5>
     </div>
 
+    {% endif %}<!--End check if task complete-->
 
     <div align="center" id="subtask">
-        <h1>Subtasks</h1>
+        <h3>Subtasks</h3>
         <ul class="subtask list-group list-group-flush" id="subtask-list">
             {% for subtask in taskObject.subtasks%}
             <li class="subtask-item">
@@ -186,8 +183,10 @@
             </li>
             {% endfor %}
         </ul>
-
-        <form method="post" class="new-subtask">
+        <div align="center">
+            <button class="btn btn-primary" onclick="showSubtaskForm();" id="show-form-button">Create New Subtask</button>
+        </div>
+        <form method="post" class="new-subtask" id="subtask-create-form">
         <input name ='subtask-name' type="text" class="create-new form-control" placeholder="Name">
         <textarea name ='subtask-description' class="create-new form-control" placeholder="Description"></textarea>
         <div align="center">
@@ -197,15 +196,11 @@
 
         <div align="center">
             <button type="submit" class="btn btn-primary">Create</button>
+            <button type="button" class="btn btn-secondary" onclick="hideSubtaskForm();">Cancel</button>
         </div>
 
         </form>
-    </div> 
-    
-    
-    
-
-    {% endif %}<!--End -->    
+    </div>     
 </div>
     {% endif %}<!--End check if this is the right  task-->
     {% endfor %} <!--End Task item iterator-->

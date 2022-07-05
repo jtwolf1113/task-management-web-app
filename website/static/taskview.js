@@ -185,6 +185,7 @@ function subTaskDueOptions(){
   }
   else {
     document.getElementById("subtask-due-input").style.setProperty("display", "none");
+    document.getElementById("subtask-due-input").value = '';
   }
 }
 
@@ -196,4 +197,14 @@ function deleteSubtask(subtaskId){
   }).then((_res) => {
     window.location.href = redirectLocation;
   });
+}
+
+function hideSubtaskForm(){
+  document.getElementById("subtask-create-form").style.setProperty("display", "none");
+  document.getElementById("show-form-button").style.setProperty("display", "inline-block");
+}
+
+function showSubtaskForm(){
+  document.getElementById("subtask-create-form").style.setProperty("display", "block");
+  document.getElementById("show-form-button").style.setProperty("display", "none");
 }

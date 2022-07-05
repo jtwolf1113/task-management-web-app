@@ -17,13 +17,13 @@ div.update-task{
     width: 100%;
 }
 img#due-date-frame{
-    max-height: 0;
-    max-width: 0;
+    width: 0;
+    height: 0;
 }
 
 button#delete-task{
     max-width: 7rem;
-    display: block;
+    display: inline-block;
 }
 
 div#task-complete{
@@ -34,7 +34,7 @@ div#focus-timer-div{
     max-width: 15rem;
 }
 label#focus-timer-label{
-    font-size: 2rem;
+    font-size: 1.75rem;
 }
 select#focus-timer-selection{
     text-align: center;
@@ -53,6 +53,7 @@ button#focus-timer-button{
 
 button#return-to-board{
     max-width: 9rem;
+    display: inline-block;
 }
 
 input#subtask-due-input{
@@ -63,4 +64,20 @@ img#clock-svg{
     width: 1.3rem;
 }
 
+input#subtask-duedate-check{
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    margin-right: 0.3rem;
+}
+
+#time-remaining{
+    margin: 0.25rem;
+}
+
+form{
+    max-width: 900px;
+    width: 60%;
+    display: none;
+}
 
