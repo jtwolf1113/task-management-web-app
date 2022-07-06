@@ -1,86 +1,13 @@
-{% extends "base.html" %} {% block title %}Notes{% endblock %} 
+{% extends "base.html" %} {% block title %}Boards{% endblock %} 
 
-{% block style %} 
-<link rel="stylesheet" href="{{ url_for('static', filename = 'homeCheckBox.css') }}" />
+{% block style%}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'home.css') }}" />
 <script
   type="text/javascript"
-  src="{{ url_for('static', filename='notes.js')}}"
- 
+  src="{{ url_for('static', filename='home.js')}}"
  ></script>
 {% endblock %}
 
-{% block content %}
-
-
-<h1 align="center">Notes</h1>
-<ul class="list-group list-group-flush" id="notes-list">
-  {% for note in user.notes %}
-  {% set noteIdentifierClass = "N"+note.id|string %}
-  <li class="list-group-item", style="word-wrap:break-word;", id="list-item"> <!-- Word Wrap to prevent overflow. -->
-    {% if note.completed == True %}
-    <input 
-    type="checkbox"
-    id="show-note-checkbox"
-    class="show-note {{ noteIdentifierClass }}"
-    onclick="toggleNoteCompletion({{ note.id }})" 
-    checked />
-    
-    {% else %}
-    <input 
-    type="checkbox"
-    id="show-note-checkbox"
-    class="show-note {{ noteIdentifierClass }}"
-    onclick="toggleNoteCompletion({{ note.id }})" />
-    
-    {% endif %}
-    
-    <span class="show-note {{ noteIdentifierClass }}"id="show-note-text", ondblclick="editNoteDisplay({{ note.id }})">
-      {{ note.data }}
-    </span>
-    <button type="button" class="close show-note {{ noteIdentifierClass }}" id="show-note-delete" onClick="deleteNote({{ note.id }})">
-      <span class="delete-button" aria-hidden="true">&times;</span>
-    </button>
-    
-    <span
-    id="edit-note"
-    class="edit-note {{ noteIdentifierClass }}">
-      <textarea
-      type="text"
-      class="edit-note {{ noteIdentifierClass }}"
-      id="edit-note-textarea" 
-      >{{note.data}}</textarea>
-    </span>
-    <div align ="center">
-    <button 
-    onclick="updateNoteData({{ note.id }})"
-    class="btn btn-primary edit-note {{ noteIdentifierClass }}"
-    id="edit-note"
-    >
-    Save Changes
-    </button>
-
-    <button
-    onclick="cancelNoteChange({{ note.id }})"
-    class="btn btn-secondary edit-note {{ noteIdentifierClass }}"
-    id="edit-note"
-    >
-    Cancel Changes
-    </button>
-    </div>
- 
-    
-  </li>
-  {% endfor %}
-</ul>
-<form method="POST">
-  <textarea name="note" id="note" class="form-control"></textarea>
-  <br />
-  <div align="center">
-    <button type="submit" class="btn btn-primary">Add Note</button>
-  </div>
-</form>
+{% block content%}
+<h1 align="center">Welcome</h1>
 {% endblock %}
-
-
-
-

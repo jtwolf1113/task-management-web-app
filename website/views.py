@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, sessions, redirect, abort
 from flask_login import login_required, current_user
+from importlib_metadata import method_cache
 from sqlalchemy import desc
 from .models import Note, Board, Category, Subtask, Task, Subtask, User
 from . import db
@@ -7,14 +8,22 @@ import json
 from datetime import datetime
 views = Blueprint('views', __name__)
 
+'''
+This page is meant to guide through the website
+'''
+@views.route('/', methods=['GET'])
+def home():
+    return render_template("home.html", user = current_user)
+
+
 
 '''
 View modify and Delete Notes
 '''
 
-@views.route('/', methods=['GET', 'POST'])
+@views.route('/notes', methods=['GET', 'POST'])
 @login_required
-def home():
+def notes():
     if request.method == 'POST':
         note = request.form.get('note')
 
@@ -26,7 +35,7 @@ def home():
             db.session.commit()
             flash('Note added', category='success')
 
-    return render_template("home.html", user=current_user)
+    return render_template("notes.html", user=current_user)
 
 
 @views.route('/delete-note', methods=['POST'])
@@ -175,7 +184,20 @@ def add_category():
                 flash('Category Created', category='success')
     return render_template("boardview.html", user = current_user, board = board)
 
-
+@views.route('/delete-category', methods=['POST'])
+def delete_category():
+    if request.method == "POST":
+        data = json.loads(request.data)
+        catId = data['catId']
+        category = Category.query.get(catId)
+        if category:
+            if category.user_id == current_user.id:
+                for task in category.tasks:
+                    db.session.delete(task)
+                db.session.delete(category)
+                db.session.commit()
+                flash('Category Deleted', category='success')
+    return render_template("boardview.html", user= current_user)
 
 @views.route('/boards/add-task', methods=['POST'])
 def add_task():

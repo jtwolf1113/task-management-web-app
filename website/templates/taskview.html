@@ -51,7 +51,7 @@
     id="task-due-date" 
     class="show-task task-due" 
     align="center"
-    ondblclick='setDefaultDate("{{taskObject.due_date}}"); editTaskElement(".task-due");'>Due: {{taskObject.due_date}}</h3>
+    ondblclick='setDefaultDate("{{taskObject.due_date}}"); editTaskElement(".task-due");'>Due: {{taskObject.due_date.strftime('%b %d, %I:%M %p')}}</h3>
     <div id="change-duedate-div" align="center" class="update-task task-due">
         <input 
         id="due-date-input" 
@@ -174,7 +174,7 @@
                 <h3 class="subtask-title {{subtask.id}} complete">{{ subtask.name }}</h3>
             {% else %}
                 <input id="s{{subtask.id}}" type="checkbox" />
-                <h3 class="subtask-title {{subtask.id}}">{{ subtask.name }} {% if subtask.due_date != None %}<img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg" /> {{subtask.due_date}} {% endif %}</h3>
+                <h3 class="subtask-title {{subtask.id}}">{{ subtask.name }} {% if subtask.due_date != None %}<img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg" /> {{subtask.due_date.strftime('%b %d, %I:%M %p')}} {% endif %}</h3>
                 <p class="subtask-description {{subtask.id}}">{{ subtask.description }}</p>
             {% endif %}
             <button type="button" class="close s{{ subtask.id }}" id="delete-subtask" onClick="deleteSubtask({{ subtask.id }})">

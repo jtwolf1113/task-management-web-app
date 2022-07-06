@@ -123,3 +123,13 @@ function toggleTaskCompletion(taskId, boardId) {
     window.location.href = redirectLocation;
   });
 }
+
+function deleteCategory(catId){
+  const redirectLocation = window.location.href;
+  fetch("/delete-category", {
+    method: "POST",
+    body: JSON.stringify({catId: catId}),
+  }).then((_res) => {
+    window.location.href = redirectLocation;
+  });
+}

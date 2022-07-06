@@ -120,6 +120,9 @@ id="envelop_content" >
     <button align="center" id="cancel-title-{{cat.id}}" class="edit-category btn btn-secondary C{{cat.id}}" onclick="cancelEditCategory()">Cancel</button>
     </div>
 
+    <div align="center" class="edit-category category-delete C{{cat.id}}">
+        <button align="center" onclick="deleteCategory({{cat.id}});" class="btn btn-secondary edit-category category-delete-button C{{cat.id}}">Delete Category</button>
+    </div>
 
 
     <ul class="task_list">
