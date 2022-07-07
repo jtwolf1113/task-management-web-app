@@ -129,8 +129,6 @@ function cancelEditTask(elementClassSelector){
 function updateTask(taskId, elementId){
   const redirectLocation = window.location.href;
   const data = document.getElementById(elementId).value;
-  console.log(data);
-  console.log(elementId);
   if (elementId == "due-date-input"){
     var key = "due-Date";
   }
@@ -207,4 +205,67 @@ function hideSubtaskForm(){
 function showSubtaskForm(){
   document.getElementById("subtask-create-form").style.setProperty("display", "block");
   document.getElementById("show-form-button").style.setProperty("display", "none");
+}
+
+function toggleSubtaskCompletion(subtaskId){
+  const redirectLocation = window.location.href;
+  const completed = document.getElementById("toggle-s"+subtaskId).checked;
+    
+    fetch("/toggle-subtask-completion", {
+      method: "POST",
+      body: JSON.stringify({subtaskId: subtaskId, complete: completed}),
+    }).then((_res) => {
+      window.location.href = redirectLocation;
+    });
+}
+
+//THE BELOW SHOULD BE MODIFIED FOR SUBTASKS
+function editSubtaskElement(elementClassSelector){
+  document.querySelectorAll(".show-subtask").forEach(element=>{
+    element.style.setProperty("display","block");
+  });
+  document.querySelectorAll(".edit-subtask").forEach(element=>{
+    element.style.setProperty("display","none");
+  });
+  document.querySelectorAll(elementClassSelector+".edit-subtask").forEach(element=>{
+    if (element.tagName == 'TEXTAREA' || element.tagName == 'SPAN' || element.tagName =='INPUT') {
+      element.style.setProperty("display", "block");
+    }
+    else {
+      element.style.setProperty("display", "inline-block");
+    }
+    element.style.setProperty("vertical-align", "center");
+  });
+  document.querySelector(elementClassSelector+".show-subtask").style.setProperty("display","none");
+}
+
+function cancelEditSubtask(){
+  document.querySelectorAll(".edit-subtask").forEach(element=>{
+    element.style.setProperty("display", "none");
+  });
+  document.querySelectorAll(".show-subtask").forEach(element=>{
+    element.style.setProperty("display", "block");
+  });
+}
+
+function updateSubtask(subtaskId, elementId){
+  const redirectLocation = window.location.href;
+  const data = document.getElementById(elementId).value;
+  
+  if (elementId == "due-date-input"){
+    var key = "due-Date";
+  }
+  else if (elementId == "subtask-title-input"){
+    var key = "title";
+  }
+  else if (elementId == "description-input"){
+    var key = "description";
+  }
+
+  fetch("/update-subtask", {
+    method: "POST",
+    body: JSON.stringify({subtaskId: subtaskId, key: key, newData: data}),
+  }).then((_res) => {
+    window.location.href = redirectLocation;
+  });
 }

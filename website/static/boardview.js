@@ -37,6 +37,7 @@ function updateTitle(boardId) {
 
 
 function showCategoryCreation() {
+  document.getElementById("create-task-overlay").style.setProperty('display', 'none');
   document.getElementById("create-category-overlay").style.setProperty('display', 'block');
 }
 
@@ -57,6 +58,7 @@ function saveNewCategory(boardId){
 
 
 function showTaskCreation(boardId, categoryId) {
+  document.getElementById("create-category-overlay").style.setProperty('display', 'none');
   document.getElementById("create-task-overlay").style.setProperty('display', 'block');
   document.getElementById("add-task-button").onclick= function () { saveNewTask(boardId, categoryId); };
 }

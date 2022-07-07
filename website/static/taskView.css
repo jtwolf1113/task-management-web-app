@@ -75,9 +75,24 @@ input#subtask-duedate-check{
     margin: 0.25rem;
 }
 
+button#delete-subtask{
+    display: inline-block;
+}
+
 form{
     max-width: 900px;
     width: 60%;
     display: none;
 }
 
+#description-p{
+    display: inline-block;
+}
+
+.edit-subtask{
+    display: none;
+}
+
+.complete{
+    text-decoration: line-through;
+}

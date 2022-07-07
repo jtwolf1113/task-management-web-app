@@ -334,3 +334,17 @@ def delete_subtask():
                 db.session.commit()
                 flash('Subtask Deleted', category='success')
     return render_template("taskview.html", user = current_user)
+
+@views.route('/toggle-subtask-completion', methods=['POST'])
+def toggle_subtask():
+    if request.method == 'POST':
+        subtaskobj = json.loads(request.data)
+        subtaskId = subtaskobj['subtaskId']
+        subtaskCompleted =subtaskobj['complete']
+        subtask = Subtask.query.get(subtaskId)
+        if subtask:
+            if subtask.user_id == current_user.id:
+                subtask.completed = subtaskCompleted
+                subtask.last_modified = datetime.now()
+                db.session.commit()
+    return render_template("taskview.html", user =current_user)
