@@ -99,12 +99,30 @@ function updateTaskTitle(taskId){
 }
 
 function editTaskElement(elementClassSelector){
+  //restore task editing to default
   document.querySelectorAll(".show-task").forEach(element=>{
     element.style.setProperty("display","block");
   });
   document.querySelectorAll(".update-task").forEach(element=>{
     element.style.setProperty("display","none");
   });
+
+
+ //restore all subtask editing to default
+  document.querySelectorAll(".show-subtask").forEach(element=>{
+    if (element.tagName == 'H4' || element.tagName == 'SPAN' || element.tagName == 'INPUT'){
+      element.style.setProperty("display","inline-block");
+    }
+    else{
+      element.style.setProperty("display","block");
+    }
+    
+  });
+  document.querySelectorAll(".edit-subtask").forEach(element=>{
+    element.style.setProperty("display","none");
+  });
+
+
   document.querySelectorAll(elementClassSelector+".update-task").forEach(element=>{
     if (element.tagName == 'TEXTAREA' || element.tagName == 'SPAN' || element.tagName =='INPUT') {
       element.style.setProperty("display", "block");
@@ -220,13 +238,33 @@ function toggleSubtaskCompletion(subtaskId){
 }
 
 //THE BELOW SHOULD BE MODIFIED FOR SUBTASKS
+
 function editSubtaskElement(elementClassSelector){
-  document.querySelectorAll(".show-subtask").forEach(element=>{
+  //restore task editing to default
+  document.querySelectorAll(".show-task").forEach(element=>{
     element.style.setProperty("display","block");
+  });
+  document.querySelectorAll(".update-task").forEach(element=>{
+    element.style.setProperty("display","none");
+  });
+
+
+ //restore all subtask editing to default
+  document.querySelectorAll(".show-subtask").forEach(element=>{
+    if (element.tagName == 'H4' || element.tagName == 'SPAN' || element.tagName == 'INPUT'){
+      element.style.setProperty("display","inline-block");
+    }
+    else{
+      element.style.setProperty("display","block");
+    }
+    
   });
   document.querySelectorAll(".edit-subtask").forEach(element=>{
     element.style.setProperty("display","none");
   });
+
+
+//for each relevant element check how to properly display it
   document.querySelectorAll(elementClassSelector+".edit-subtask").forEach(element=>{
     if (element.tagName == 'TEXTAREA' || element.tagName == 'SPAN' || element.tagName =='INPUT') {
       element.style.setProperty("display", "block");
@@ -236,15 +274,25 @@ function editSubtaskElement(elementClassSelector){
     }
     element.style.setProperty("vertical-align", "center");
   });
-  document.querySelector(elementClassSelector+".show-subtask").style.setProperty("display","none");
+  document.querySelectorAll(elementClassSelector+".show-subtask").forEach(element=>{
+    element.style.setProperty("display","none");
+  });
 }
+
+
 
 function cancelEditSubtask(){
   document.querySelectorAll(".edit-subtask").forEach(element=>{
     element.style.setProperty("display", "none");
   });
   document.querySelectorAll(".show-subtask").forEach(element=>{
-    element.style.setProperty("display", "block");
+    if (element.tagName == 'H4' || element.tagName == 'SPAN' || element.tagName == 'INPUT'){
+      element.style.setProperty("display","inline-block");
+    }
+    else{
+      element.style.setProperty("display", "block");
+    }
+    
   });
 }
 
@@ -252,19 +300,19 @@ function updateSubtask(subtaskId, elementId){
   const redirectLocation = window.location.href;
   const data = document.getElementById(elementId).value;
   
-  if (elementId == "due-date-input"){
+  if (elementId == "subtask-duedate-input-s"+subtaskId){
     var key = "due-Date";
   }
-  else if (elementId == "subtask-title-input"){
+  else if (elementId == "subtask-title-input-s"+subtaskId){
     var key = "title";
   }
-  else if (elementId == "description-input"){
+  else if (elementId == "subtask-description-input-s"+subtaskId){
     var key = "description";
   }
-
+  console.log(key);
   fetch("/update-subtask", {
     method: "POST",
-    body: JSON.stringify({subtaskId: subtaskId, key: key, newData: data}),
+    body: JSON.stringify({subtaskId: subtaskId, key: key, newData: data, url: redirectLocation}),
   }).then((_res) => {
     window.location.href = redirectLocation;
   });

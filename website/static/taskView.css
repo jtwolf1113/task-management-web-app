@@ -96,3 +96,38 @@ form{
 .complete{
     text-decoration: line-through;
 }
+
+div.edit-subtask{
+    max-width: 100%;
+    width: 50rem;
+}
+
+input.edit-subtask.subtask-description{
+    width: 100%
+}
+
+input.edit-subtask.subtask-duedate{
+    max-width: 20rem;
+}
+input.edit-subtask.subtask-title{
+    max-width: 35rem;
+    width: 60%;
+    text-align: center;
+}
+
+input.toggle-complete-box{
+    max-width: 1.3rem;
+    max-height: 1.3rem;
+    display: inline-block;
+}
+
+h4.show-subtask{
+    display: inline-block;
+    max-width: 95%;
+}
+
+span.delete-button{
+    display: inline-block;
+    float: none;
+}
+

@@ -3,7 +3,7 @@ function deleteNote(noteId) {
       method: "POST",
       body: JSON.stringify({ noteId: noteId }),
     }).then((_res) => {
-      window.location.href = "/";
+      window.location.href = "/notes";
     });
   }
   
@@ -17,7 +17,7 @@ function deleteNote(noteId) {
       method: "POST",
       body: JSON.stringify({noteId: noteId, complete: completed}),
     }).then((_res) => {
-      window.location.href = "/";
+      window.location.href = "/notes";
     });
   }
   
@@ -57,7 +57,7 @@ function deleteNote(noteId) {
       method: "POST",
       body: JSON.stringify({noteId: noteId, noteData: new_note_data}),
       }).then((_res)=> {
-        window.location.href = "/";
+        window.location.href = "/notes";
       });
   }
   

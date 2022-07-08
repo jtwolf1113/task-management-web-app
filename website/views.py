@@ -63,7 +63,7 @@ def update_note():
             note.last_modified = datetime.now()
             db.session.commit()
             flash('Note Updated', category='success')
-    return redirect('/')
+    return redirect('/notes')
 
 @views.route('/toggle-note', methods = ['POST'])
 def toggle_note():
@@ -76,7 +76,7 @@ def toggle_note():
             note.completed = noteNewState
             note.last_modified = datetime.now()
             db.session.commit()
-    return redirect('/')
+    return redirect('/notes')
 
 @views.route('/ani',methods=['GET'])
 def animation():
@@ -330,10 +330,11 @@ def delete_subtask():
         subtask = Subtask.query.get(subtaskId)
         if subtask:
             if subtask.user_id == current_user.id:
+                task = Task.query.get(subtask.parent_task)
                 db.session.delete(subtask)
                 db.session.commit()
                 flash('Subtask Deleted', category='success')
-    return render_template("taskview.html", user = current_user)
+    return render_template("taskview.html", user = current_user, task = task)
 
 @views.route('/toggle-subtask-completion', methods=['POST'])
 def toggle_subtask():
@@ -344,7 +345,37 @@ def toggle_subtask():
         subtask = Subtask.query.get(subtaskId)
         if subtask:
             if subtask.user_id == current_user.id:
+                task = Task.query.get(subtask.parent_task)
                 subtask.completed = subtaskCompleted
                 subtask.last_modified = datetime.now()
                 db.session.commit()
-    return render_template("taskview.html", user =current_user)
+    return render_template("taskview.html", user =current_user, task = task)
+
+
+@views.route('/update-subtask', methods=['POST'])
+def update_subtask():
+    if request.method == 'POST':
+        subtaskobj = json.loads(request.data)
+        subtaskId = subtaskobj['subtaskId']
+        new_data_type = subtaskobj['key']
+        newData = subtaskobj['newData']
+        subtask = Subtask.query.get(subtaskId)
+        url = subtaskobj['url']
+
+        if subtask:
+            if subtask.user_id == current_user.id:
+                task = Task.query.get(subtask.parent_task)
+                if new_data_type == 'title':
+                    subtask.name = newData
+                    subtask.last_modified = datetime.now()
+                    db.session.commit()
+                elif new_data_type == 'due-Date':
+                    subtaskDueDate = datetime.strptime(newData, r'%Y-%m-%dT%H:%M')
+                    subtask.due_date = subtaskDueDate
+                    subtask.last_modified = datetime.now()
+                    db.session.commit()
+                elif new_data_type == 'description':
+                    subtask.description = newData
+                    subtask.last_modified = datetime.now()
+                    db.session.commit()
+    return render_template("taskview.html", user=current_user, task = task)
