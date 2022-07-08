@@ -63,8 +63,8 @@ onclick="showCategoryCreation()"
 Create New Category
 </button>
 
-<button 
-onclick="deleteBoard({{ boardObject.id }})" 
+<button
+onclick="showDeleteConfirmation(`deleteBoard({{ boardObject.id }});`, 'board');"
 id="deleteBoard" 
 class="btn btn-secondary" 
 href="/boards" 
@@ -210,5 +210,12 @@ id="envelop_content" >
 {% endif %} <!--End board search-->
 
 {% endfor %}<!--End board search-->
-
+<div align="center" class="filter-out-background">
+    <div align="center" class="destroy-item" id="destroy-item-div">
+        <h3 class="destroy-item" id="destroy-item-heading"></h3>
+        <p class="destroy-item" id="destroy-item-message">This action will <b>Permanently Delete</b> all contained information. Proceed with Caution.</p>
+        <button align="center" class="btn btn-primary destroy-item" id="destroy-item-confirm">Delete</button>
+        <button align="center" class="btn btn-secondary destroy-item" id="destroy-item-cancel" onclick="cancelDeleteConfirmation();">Cancel</button>
+    </div>
+</div>
 {% endblock %}<!--End body addition template-->

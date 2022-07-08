@@ -112,7 +112,7 @@
     <button align="center"
     id="delete-task" 
     class="form-control btn btn-secondary"
-    onclick="deleteTask({{ taskObject.id }}, '{{ board }}');"
+    onclick= "showDeleteConfirmation(`deleteTask({{ taskObject.id }}, '{{ board }}');`, 'task');" 
     >Delete Task</button>
 </div>
 
@@ -190,7 +190,8 @@
             {% if subtask.completed == True %}
                 <input id="toggle-s{{subtask.id}}" class="toggle-complete-box form-control show-subtask subtask-title s{{subtask.id}}" type="checkbox" onclick="toggleSubtaskCompletion({{ subtask.id }})" checked />
                 <h4 class="show-subtask subtask-title s{{subtask.id}} complete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
-                <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="deleteSubtask({{ subtask.id }})">
+                <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');">
+                    <!--onclick= "showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');"-->
                     <span class="delete-button" aria-hidden="true">&times;</span>
                 </button>
                 <br>
@@ -225,7 +226,7 @@
             {% else %}
                 <input id="toggle-s{{subtask.id}}" class="toggle-complete-box form-control show-subtask subtask-title s{{subtask.id}}" type="checkbox" onclick="toggleSubtaskCompletion({{ subtask.id }})" />
                 <h4 class="show-subtask subtask-title s{{subtask.id}} incomplete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
-                <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="deleteSubtask({{ subtask.id }})">
+                <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');">
                     <span class="delete-button" aria-hidden="true">&times;</span>
                 </button>
                 <br>
@@ -318,12 +319,18 @@
             </li>
             {% endfor %}<!--End subtask iterator-->
         </ul>
-        
-        
     </div>     
 </div>
     {% endif %}<!--End check if this is the right  task-->
     {% endfor %} <!--End Task item iterator-->
     {% endif %}<!--End check category-->
     {% endfor %}<!--End category iterator-->
+<div align="center" class="filter-out-background">
+    <div align="center" class="destroy-item" id="destroy-item-div">
+        <h3 class="destroy-item" id="destroy-item-heading"></h3>
+        <p class="destroy-item" id="destroy-item-message">This action will <b>Permanently Delete</b> all contained information. Proceed with Caution.</p>
+        <button align="center" class="btn btn-primary destroy-item" id="destroy-item-confirm">Delete</button>
+        <button align="center" class="btn btn-secondary destroy-item" id="destroy-item-cancel" onclick="cancelDeleteConfirmation();">Cancel</button>
+    </div>
+</div>
 {% endblock %}

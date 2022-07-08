@@ -2,6 +2,10 @@
 
 {% block style%}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'boardView.css') }}" />
+<script
+  type="text/javascript"
+  src="{{ url_for('static', filename='boards.js')}}"
+ ></script>
 {% endblock %}
 
 {% block content%}
@@ -18,7 +22,7 @@
     <li class="list-group-item", style="word-wrap:break-word;"> <!-- Word Wrap to prevent overflow. -->
       <a href="/boards/{{ board.name }}">{{ board.name }}</a>
     
-        <button type="button" class="close" onClick="deleteBoard({{ board.id }})">
+        <button type="button" class="close" onClick="showDeleteConfirmation(`deleteBoard({{ board.id }});`, 'board');">
           <span aria-hidden="true">&times;</span>
         </button>
     </li>
@@ -45,4 +49,13 @@
       <button type="submit" class="btn btn-primary">Create New Board</button>
     </div>
   </form>
+
+  <div align="center" class="filter-out-background">
+    <div align="center" class="destroy-item" id="destroy-item-div">
+        <h3 class="destroy-item" id="destroy-item-heading"></h3>
+        <p class="destroy-item" id="destroy-item-message">This action will <b>Permanently Delete</b> all contained information. Proceed with Caution.</p>
+        <button align="center" class="btn btn-primary destroy-item" id="destroy-item-confirm">Delete</button>
+        <button align="center" class="btn btn-secondary destroy-item" id="destroy-item-cancel" onclick="cancelDeleteConfirmation();">Cancel</button>
+    </div>
+</div>
 {% endblock %}
