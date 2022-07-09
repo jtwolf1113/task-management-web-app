@@ -15,7 +15,11 @@
       crossorigin="anonymous"
     />
     <link rel="icon" href="{{ url_for('static', filename='icon.ico') }}" />
-
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css')}}"
+    />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon.ico') }}">
     {% block style %}{% endblock %}
 
     <title>{% block title %}Home{% endblock %}</title>
@@ -89,6 +93,17 @@
       src="{{ url_for('static', filename='index.js') }}"
     ></script>
     
-    <div id="container">{% block content %} {% endblock %}</div>
+    <div id="container">
+    {% block content %} {% endblock %}
+      <div align="center" class="filter-out-background">
+        <div align="center" class="destroy-item" id="destroy-item-div">
+            <h3 class="destroy-item" id="destroy-item-heading"></h3>
+            <p class="destroy-item" id="destroy-item-message">This action will <b>Permanently Delete</b> all contained information. Proceed with Caution.</p>
+            <button align="center" class="btn btn-primary destroy-item" id="destroy-item-confirm">Delete</button>
+            <button align="center" class="btn btn-secondary destroy-item" id="destroy-item-cancel" onclick="cancelDeleteConfirmation();">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
   </body>
 </html>

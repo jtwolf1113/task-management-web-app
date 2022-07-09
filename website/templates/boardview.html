@@ -118,12 +118,8 @@ id="envelop_content" >
     value="{{cat.name}}">
     <button align="center" id="save-title-{{cat.id}}" class="edit-category btn btn-primary C{{cat.id}}" onclick="updateCategoryTitle({{cat.id}}, {{boardObject.id}});">Save</button>
     <button align="center" id="cancel-title-{{cat.id}}" class="edit-category btn btn-secondary C{{cat.id}}" onclick="cancelEditCategory()">Cancel</button>
-    </div>
-
-    <div align="center" class="edit-category category-delete C{{cat.id}}">
-        <button align="center" onclick="deleteCategory({{cat.id}});" class="btn btn-secondary edit-category category-delete-button C{{cat.id}}">Delete Category</button>
-    </div>
-
+    <button align="center" onclick="showDeleteConfirmation(`deleteCategory({{cat.id}});`, 'category');" class="btn btn-secondary edit-category category-delete-button C{{cat.id}}">Delete Category</button>
+</div>
 
     <ul class="task_list">
     {% for task in cat.tasks%}
@@ -210,12 +206,4 @@ id="envelop_content" >
 {% endif %} <!--End board search-->
 
 {% endfor %}<!--End board search-->
-<div align="center" class="filter-out-background">
-    <div align="center" class="destroy-item" id="destroy-item-div">
-        <h3 class="destroy-item" id="destroy-item-heading"></h3>
-        <p class="destroy-item" id="destroy-item-message">This action will <b>Permanently Delete</b> all contained information. Proceed with Caution.</p>
-        <button align="center" class="btn btn-primary destroy-item" id="destroy-item-confirm">Delete</button>
-        <button align="center" class="btn btn-secondary destroy-item" id="destroy-item-cancel" onclick="cancelDeleteConfirmation();">Cancel</button>
-    </div>
-</div>
 {% endblock %}<!--End body addition template-->
