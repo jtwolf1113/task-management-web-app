@@ -2,10 +2,10 @@
 
 {% block style%}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'home.css') }}" />
-<script
+<!--script
   type="text/javascript"
   src="{{ url_for('static', filename='home.js')}}"
- ></script>
+ ></script-->
 {% endblock %}
 
 {% block content%}
@@ -14,11 +14,14 @@
 <h5 align="center">This page is currently incomplete and will function as a dashboard in the future. 
  <br> Please feel free to click around using the NavBar to investigate the features I have implemented thusfar. </h3>
 
-<input type="color" value="#9a9da0">Navbar Foreground
-<input type="color" value="#343a40">Navbar Background
-<input type="color" value="#ffffff">Site Background
-<input type="color" value="#000000">Text Color
-<input type="color" value="#007bff">Confirm Button Color
-<input type="color" value="#6c757d">Cancel Button Color
-<input type="color" value="#ff0000">Delete Button Color
+
+<div id="color-selection-div" class="color-selection">
+<input type="color" class="color-selection" value="#9a9da0"> Navbar Foreground<br>
+<input type="color" class="color-selection" value="#343a40"> Navbar Background<br>
+<input type="color" class="color-selection" value="#ffffff"> Site Background<br>
+<input type="color" class="color-selection" value="#000000"> Text Color<br>
+<input type="color" class="color-selection" value="#007bff"> Confirm Button Color<br>
+<input type="color" class="color-selection" value="#6c757d"> Cancel Button Color<br>
+<input type="color" class="color-selection" value="#ff0000"> Delete Button Color<br>
+</div>
 {% endblock %}
