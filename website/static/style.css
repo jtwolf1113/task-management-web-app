@@ -1,3 +1,14 @@
+:root{
+    --color-picker-display: none;
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --navbar-text-color: #9a9da0;
+    --navbar-background-color: #343a40;
+    --confirm-button-color: #007bff;
+    --delete-button-color: #6c757d;
+    --cancel-button-color: #ff0000;
+}
+
 div.destroy-item{
     vertical-align: center;
     position: absolute;
@@ -28,4 +39,20 @@ div.destroy-item{
 button#destroy-item-confirm{
     background-color: rgba(255,0,0,1);
     border-color: rgba(255,0,0,1);
+}
+
+input.color-selection{
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.color-selection{
+    display: var(--color-picker-display);
+    position: absolute;
+    z-index: 8;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    color:black;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }

@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Blueprint, render_template, request, flash, jsonify, sessions, redirect, abort
 from flask_login import login_required, current_user
 from importlib_metadata import method_cache
@@ -15,7 +16,9 @@ This page is meant to guide through the website
 def home():
     return render_template("home.html", user = current_user)
 
-
+@views.route('/settings', methods=['GET'])
+def settings():
+    return render_template("settings.html", user = current_user)
 
 '''
 View modify and Delete Notes

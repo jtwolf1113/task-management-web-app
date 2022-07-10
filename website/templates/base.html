@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Tasks">
+
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -40,6 +43,7 @@
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="Notes" href="/notes">Notes</a>
           <a class="nav-item nav-link" id="Boards" href="/boards">Boards</a>
+          <a class="nav-item nav-link" id="settings" href="/settings">Account Settings</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
           <!--<a class="nav-item nav-link" id="ani" href="/ani">Bored?</a>-->
           {% else %}
@@ -104,6 +108,15 @@
         </div>
       </div>
     </div>
+    <div align="center" id="color-selection-div" class="color-selection">
+      <input type="color" class="color-selection" value="#9a9da0"> Navbar Text<br>
+      <input type="color" class="color-selection" value="#343a40"> Navbar Background<br>
+      <input type="color" class="color-selection" value="#ffffff"> Site Background<br>
+      <input type="color" class="color-selection" value="#000000"> Text Color<br>
+      <input type="color" class="color-selection" value="#007bff"> Confirm Button Color<br>
+      <input type="color" class="color-selection" value="#6c757d"> Cancel Button Color<br>
+      <input type="color" class="color-selection" value="#ff0000"> Delete Button Color<br>
+      </div>
     
   </body>
 </html>
