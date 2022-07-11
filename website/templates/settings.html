@@ -7,3 +7,20 @@
   src="{{ url_for('static', filename='settings.js')}}"
  ></script>
 {% endblock %}
+
+{% block content %}
+<h2 align="center">Account Settings</h2>
+<ul class="list-group list-group-flush" id="settings-list">
+  <li align="center" class="list-group-item" style="word-wrap: break-word;">
+    <h4>Name</h4>
+
+  </li>
+  <li align="center" class="list-group-item" style="word-wrap: break-word;">
+    <h4>Email</h4>
+
+  </li>
+</ul>
+
+
+
+{% endblock %}
