@@ -3,6 +3,7 @@
     --background-color: #ffffff;
     --text-color: #000000;
     --navbar-text-color: #9a9da0;
+    --navbar-highlight-color: #ffffff;
     --navbar-background-color: #343a40;
     --confirm-button-color: #007bff;
     --delete-button-color: #6c757d;
@@ -41,3 +42,22 @@ button#destroy-item-confirm{
     border-color: rgba(255,0,0,1);
 }
 
+
+
+.dropdown-menu{
+    background-color: var(--navbar-background-color);
+    min-width: 1rem;
+    width: fit-content;
+    max-width: 15rem;
+}
+
+.dropdown-item{
+    color: var(--navbar-text-color);
+    text-align: left;
+    padding: .25rem 1.5rem;
+}
+
+.dropdown-item:hover{
+    background: var(--navbar-background-color);
+    color: var(--navbar-highlight-color);
+}

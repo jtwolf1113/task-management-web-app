@@ -256,13 +256,10 @@ def display_task(board, category, task):
             board = board,
             user_id = current_user.id
         )
-
         
         db.session.add(new_subtask)
         db.session.commit()
         
-    
-
     return render_template("taskview.html", user = current_user, board = board, category = category, task = task)
         
 @views.route('/toggle-task-completion', methods=['POST'])
