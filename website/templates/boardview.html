@@ -10,7 +10,7 @@
 
 {% block content %}<!--Actual body content-->
 {% for boardObject in user.boards%} 
-{% if boardObject.name == board %}<!--filter to find correct board information-->
+{% if boardObject.id == board|int %}<!--filter to find correct board information-->
 {% set boardname = boardObject.name|string %} <!--useless I believe-->
 <div class="board-title" id="board-title-div">
 
@@ -130,7 +130,7 @@ id="envelop_content" >
         class="task-checkbox"
         id="{{task.id}}"
         onclick="toggleTaskCompletion({{task.id}}, {{boardObject.id}})"/>
-        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{cat.name}}/{{task.id}}">
+        <a class="edit_task_link" href="/boards/{{boardObject.id}}/{{cat.name}}/{{task.id}}">
             <span class="incompleted-task-text">{{task.name}} <img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg"> </img> {{task.due_date.strftime('%m-%d %H:%M')}}</span>
         </a>
     </li>
@@ -172,6 +172,7 @@ id="envelop_content" >
             class="form-control new-task-menu" 
             id="taskTitleBox" 
             name="task-title" />
+
             <input 
             type="text"
             placeholder="Description" 

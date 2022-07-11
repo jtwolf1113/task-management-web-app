@@ -3,8 +3,44 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+    <!-- Apple Web App functionality-->
+    <!-- Apple code to be added later
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/app-icon/apple-icon-180.png"/>
+    <link rel="apple-touch-icon" sizes="167x167" href="/images/app-icon/apple-icon-167.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/app-icon/apple-icon-152.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/app-icon/apple-icon-120.png"/>
+
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Tasks">
+    <meta name="apple-mobile-web-app-title" content="To Do">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-2048-2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-2732-2048.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-1668-2388.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-2388-1668.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-1668-2224.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-2224-1668.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-1536-2048.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-2048-1536.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-1242-2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-2688-1242.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-1125-2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-2436-1125.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-828-1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-1792-828.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-1242-2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-2208-1242.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-750-1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-1334-750.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-640-1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/>
+    <link rel="apple-touch-startup-image" href="/images/splashscreen/apple-splash-1136-640.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/>
+    -->
+    <!--End Mobile Web App Functionality-->
 
     <link
       rel="stylesheet"
@@ -20,9 +56,10 @@
     <link rel="icon" href="{{ url_for('static', filename='icon.ico') }}" />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css')}}"
+      href="{{ url_for('static', filename='base.css')}}"
     />
     <link rel="shortcut icon" href="{{ url_for('static', filename='icon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='icon.ico') }}"/>
     {% block style %}{% endblock %}
 
     <title>{% block title %}Home{% endblock %}</title>
@@ -42,7 +79,14 @@
           {% if user.is_authenticated %}
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="Notes" href="/notes">Notes</a>
-          <a class="nav-item nav-link" id="Boards" href="/boards">Boards</a>
+
+          <a class=" nav-item nav-link" id="Boards" href="/boards">Boards</a>
+          <div class="dropdown-list">
+            {% for board in user.boards %}
+              <a class="nav-item nav-link" href="/boards/{{board.id}}">{{board.name}}</a>
+            {% endfor %}
+          </div>
+
           <a class="nav-item nav-link" id="settings" href="/settings">Settings</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
           <!--<a class="nav-item nav-link" id="ani" href="/ani">Bored?</a>-->
@@ -94,7 +138,7 @@
 
     <script
       type="text/javascript"
-      src="{{ url_for('static', filename='index.js') }}"
+      src="{{ url_for('static', filename='base.js') }}"
     ></script>
     
     <div id="container">
@@ -107,15 +151,6 @@
             <button align="center" class="btn btn-secondary destroy-item" id="destroy-item-cancel" onclick="cancelDeleteConfirmation();">Cancel</button>
         </div>
       </div>
-    </div>
-    <div align="center" id="color-selection-div" class="color-selection">
-      <input type="color" class="color-selection" value="#9a9da0"> Navbar Text<br>
-      <input type="color" class="color-selection" value="#343a40"> Navbar Background<br>
-      <input type="color" class="color-selection" value="#ffffff"> Site Background<br>
-      <input type="color" class="color-selection" value="#000000"> Text Color<br>
-      <input type="color" class="color-selection" value="#007bff"> Confirm Button Color<br>
-      <input type="color" class="color-selection" value="#6c757d"> Cancel Button Color<br>
-      <input type="color" class="color-selection" value="#ff0000"> Delete Button Color<br>
     </div>
     
   </body>

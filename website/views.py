@@ -113,7 +113,7 @@ Below we view and edit the board information
 @views.route('/boards/<board>', methods = ['GET'])
 @login_required
 def view_board(board):
-    return render_template("boardview.html", user = current_user, board = board, edit_title = True)
+    return render_template("boardview.html", user = current_user, board = board)
 
 @views.route('/boards/delete-board', methods=['POST'])
 def delete_board():
@@ -261,7 +261,7 @@ def display_task(board, category, task):
         db.session.add(new_subtask)
         db.session.commit()
         
-
+    
 
     return render_template("taskview.html", user = current_user, board = board, category = category, task = task)
         

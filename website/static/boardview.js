@@ -37,7 +37,9 @@ function updateTitle(boardId) {
 
 
 function showCategoryCreation() {
-  document.getElementById("create-task-overlay").style.setProperty('display', 'none');
+  if (document.getElementById("create-task-overlay") != null){
+    document.getElementById("create-task-overlay").style.setProperty('display', 'none');
+  }
   document.getElementById("create-category-overlay").style.setProperty('display', 'block');
 }
 

@@ -41,18 +41,3 @@ button#destroy-item-confirm{
     border-color: rgba(255,0,0,1);
 }
 
-input.color-selection{
-    display: inline-block;
-    margin-top: 1rem;
-}
-
-.color-selection{
-    display: var(--color-picker-display);
-    position: absolute;
-    z-index: 8;
-    top: 25%;
-    left: 25%;
-    width: 50%;
-    color:black;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-}
