@@ -5,9 +5,10 @@
     --navbar-text-color: #9a9da0;
     --navbar-highlight-color: #ffffff;
     --navbar-background-color: #343a40;
+    --button-text-color: #ffffff;
     --confirm-button-color: #007bff;
-    --delete-button-color: #6c757d;
-    --cancel-button-color: #ff0000;
+    --cancel-button-color: #6c757d;
+    --delete-button-color: #ff0000;
 }
 
 div.destroy-item{
@@ -38,8 +39,8 @@ div.destroy-item{
 }
 
 button#destroy-item-confirm{
-    background-color: rgba(255,0,0,1);
-    border-color: rgba(255,0,0,1);
+    background-color: var(--delete-button-color)!important;
+    border-color: var(--delete-button-color)!important;
 }
 
 
@@ -61,3 +62,44 @@ button#destroy-item-confirm{
     background: var(--navbar-background-color);
     color: var(--navbar-highlight-color);
 }
+
+.navbar{
+    background-color: var(--navbar-background-color)!important;
+}
+
+h1{
+    color: var(--text-color)!important;
+}
+
+h2{
+    color: var(--text-color)!important;
+}
+
+h3{
+    color: var(--text-color)!important;
+}
+
+h4{
+    color: var(--text-color)!important;
+}
+
+h5{
+    color: var(--text-color)!important;
+}
+
+p{
+    color: var(--text-color)!important;
+}
+
+button.btn.btn-primary{
+    background-color: var(--confirm-button-color)!important;
+    border-color: var(--confirm-button-color)!important;
+    color: var(--button-text-color)!important;
+}
+
+button.btn.btn-secondary{
+    background-color: var(--cancel-button-color)!important;
+    border-color: var(--cancel-button-color)!important;
+    color: var(--button-text-color)!important;
+}
+
