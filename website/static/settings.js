@@ -16,5 +16,9 @@ function toggleAppearance(varName){
     }
 }
 
+const color_inputs = document.querySelectorAll("input.color-selection");
+color_inputs.addEventListener('input', updateColorDisplay());
 
-
+function updateColorDisplay(){
+    
+}
