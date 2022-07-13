@@ -1,15 +1,48 @@
-input.color-selection{
-    display: inline-block;
-    margin-top: 1rem;
+:root{
+    --color-picker-display: none;
+    --name-display: none;
+    --email-display: none;
+    --password-display: none;
 }
 
-.color-selection{
+div#first-name-div{
+    display: var(--name-display);
+}
+
+div#email-display-div{
+    display: var(--email-display);
+}
+
+div#password-display-div{
+    display: var(--password-display);
+}
+
+input:not([type=color]){
+    min-width: fit-content;
+    width: 15rem;
+    text-align: center;
+}
+
+div.container{
+    display: grid;
+    margin: 0.5rem 0rem;
+    grid-template-columns: auto auto;
+    row-gap: .5rem;
+    column-gap: .25rem;
+    text-align: left;
+    width: fit-content;
+}
+
+
+
+
+
+div.color-selection{
     display: var(--color-picker-display);
-    position: absolute;
-    z-index: 8;
-    top: 25%;
-    left: 25%;
-    width: 50%;
-    color:black;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    margin: 1rem 0rem;
+}
+
+
+.color-selection-container input{
+    float: right;
 }

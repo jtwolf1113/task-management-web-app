@@ -13,29 +13,67 @@
 <ul class="list-group list-group-flush" id="settings-list">
   <li align="center" class="list-group-item" style="word-wrap: break-word;">
     <h4>Name</h4>
+    <button align="center" id="name-display" onclick="toggleAppearance('name-display');" class="btn btn-primary">Show</button>
+    <div align="center" id="first-name-div">
+      <div align="center" class="container">
+        <input name="name" type="text" placeholder="{{user.first_name}}">
+        <label for="name">Name</label>
+      </div>
+    </div>
   </li>
   <li align="center" class="list-group-item" style="word-wrap: break-word;">
     <h4>Email</h4>
+    <button align="center" id="email-display" onclick="toggleAppearance('email-display');" class="btn btn-primary">Show</button>
+    <div align="center" id="email-display-div">
+      <div align="center" class="container">
+        
+        <input name="email1" type="email" placeholder="{{user.email}}">
+        <label for="email1">Email</label>
+        
+        <input name="email2" type="email" placeholder="{{user.email}}">
+        <label for="email2">Confirm Email</label>
+      </div>
+    </div>
+    
   </li>
   <li align="center" class="list-group-item" style="word-wrap: break-word;">
     <h4>Password</h4>
+    <button align="center" id="password-display" onclick="toggleAppearance('password-display');" class="btn btn-primary">Show</button>
+    <div align="center" id="password-display-div">
+      <div align="center" class="container">
+        <input name="oldpassword" type="password">
+        <label for="oldpassword">Current Password</label>
+        <input name="newpassword" type="password">
+        <label for="newpassword">New Password</label>
+        <input name="confirmnewpassword" type="password">
+        <label for="confirmnewpassword">Confirm New Password</label>
+      </div>
+      </div>
   </li>
 </ul>
 
 <h2 align="center">Appearance</h2>
 <ul class="list-group list-group-flush" id="settings-list">
   <li align="center" class="list-group-item" style="word-wrap: break-word;">
-    <h4>Color</h4>
-    <button align="center" onclick="toggleAppearance();" class="btn btn-primary">Show Menu</button>
+    <h4>Site Colors</h4>
+    <button align="center" id="color-picker-display" onclick="toggleAppearance('color-picker-display');" class="btn btn-primary">Show</button>
     <div align="center" id="color-selection-div" class="color-selection">
-      <input type="color" class="color-selection" value="#9a9da0"> Navbar Text<br>
-      <input type="color" class="color-selection" value="#343a40"> Navbar Background<br>
-      <input type="color" class="color-selection" value="#ffffff"> Site Background<br>
-      <input type="color" class="color-selection" value="#000000"> Text Color<br>
-      <input type="color" class="color-selection" value="#007bff"> Confirm Button Color<br>
-      <input type="color" class="color-selection" value="#6c757d"> Cancel Button Color<br>
-      <input type="color" class="color-selection" value="#ff0000"> Delete Button Color<br>
-    </div>
+        <div class="container">
+        <input name="navbar-text-color" type="color" class="color-selection" value="#9a9da0"> Navbar Text
+        <input name="navbar-highlight-color" type="color" class="color-selection" value="#ffffff"> Navbar Text Highlight
+        <input name="navbar-background-color" type="color" class="color-selection" value="#343a40"> Navbar Background
+        <input name="background-color" type="color" class="color-selection" value="#ffffff"> Site Background
+        <input name="text-color" type="color" class="color-selection" value="#000000"> Text Color
+        <input name="button-text-color" type="color" class="color-selection" value="#ffffff"> Button Text Color
+        <input name="confirm-button-color" type="color" class="color-selection" value="#007bff"> Confirm Button Color
+        <input name="cancel-button-color" type="color" class="color-selection" value="#6c757d"> Cancel Button Color
+        <input name="delete-button-color" type="color" class="color-selection" value="#ff0000"> Delete Button Color
+        <input name="delete-screen-filter" type="color" class="color-selection" value="#ff0000"> Delete Screen Filter
+        </div>
+      </div>
+  </li>
+  <li align="center" class="list-group-item" style="word-wrap: break-word;">
+    <h4>Fonts</h4>
   </li>
 </ul>
 
