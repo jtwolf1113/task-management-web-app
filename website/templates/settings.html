@@ -2,10 +2,6 @@
 
 {% block style%}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'settings.css') }}" />
-<script
-  type="text/javascript"
-  src="{{ url_for('static', filename='settings.js')}}"
- ></script>
 {% endblock %}
 
 {% block content %}
@@ -57,26 +53,35 @@
   <li align="center" class="list-group-item" style="word-wrap: break-word;">
     <h4>Site Colors</h4>
     <button align="center" id="color-picker-display" onclick="toggleAppearance('color-picker-display');" class="btn btn-primary">Show</button>
-    <div align="center" id="color-selection-div" class="color-selection">
+    <div align="center" id="color-selection-div" class="color-selection-div">
         <div class="container">
-        <input name="navbar-text-color" type="color" class="color-selection" value="#9a9da0"> Navbar Text
-        <input name="navbar-highlight-color" type="color" class="color-selection" value="#ffffff"> Navbar Text Highlight
-        <input name="navbar-background-color" type="color" class="color-selection" value="#343a40"> Navbar Background
-        <input name="background-color" type="color" class="color-selection" value="#ffffff"> Site Background
-        <input name="text-color" type="color" class="color-selection" value="#000000"> Text Color
-        <input name="button-text-color" type="color" class="color-selection" value="#ffffff"> Button Text Color
-        <input name="confirm-button-color" type="color" class="color-selection" value="#007bff"> Confirm Button Color
-        <input name="cancel-button-color" type="color" class="color-selection" value="#6c757d"> Cancel Button Color
-        <input name="delete-button-color" type="color" class="color-selection" value="#ff0000"> Delete Button Color
-        <input name="delete-screen-filter" type="color" class="color-selection" value="ff0000"> Delete Screen Filter
+        <input name="text-color" id="text-color" type="color" class="color-selection" value="#000000" onchange="previewColorChange('text-color');"> Text Color
+        <input name="background-color" id="background-color" type="color" class="color-selection" value="#ffffff" onchange="previewColorChange('background-color');"> Site Background
+        <input name="navbar-text-color" id="navbar-text-color" type="color" class="color-selection" value="#9a9da0" onchange="previewColorChange('navbar-text-color');"> Navbar Text
+        <input name="navbar-highlight-color" id="navbar-highlight-color" type="color" class="color-selection" value="#ffffff" onchange="previewColorChange('navbar-highlight-color');"> Navbar Highlight
+        <input name="navbar-background-color" id="navbar-background-color" type="color" class="color-selection" value="#343a40" onchange="previewColorChange('navbar-background-color');"> Navbar Background
+        <input name="button-text-color" id="button-text-color" type="color" class="color-selection" value="#ffffff" onchange="previewColorChange('button-text-color');"> Button Text Color
+        <input name="confirm-button-color" id="confirm-button-color" type="color" class="color-selection" value="#007bff" onchange="previewColorChange('confirm-button-color');"> Confirm Button Color
+        <input name="cancel-button-color" id="cancel-button-color" type="color" class="color-selection" value="#6c757d" onchange="previewColorChange('cancel-button-color');"> Cancel Button Color
+        <input name="delete-button-color" id="delete-button-color" type="color" class="color-selection" value="#ff0000" onchange="previewColorChange('delete-button-color');"> Delete Button Color
         </div>
+        <button class="btn btn-primary" onclick="saveColors();">Save</button>
+        <button class="btn btn-secondary" onclick="revertColors();">Revert</button>
       </div>
   </li>
   <li align="center" class="list-group-item" style="word-wrap: break-word;">
     <h4>Fonts</h4>
+
+    <button class="btn btn-primary" onclick="showDeleteConfirmation('a', 'board');">Temp Delete</button>
+
+
+
   </li>
 </ul>
 
-
+<script
+  type="text/javascript"
+  src="{{ url_for('static', filename='settings.js')}}"
+ ></script>
 
 {% endblock %}

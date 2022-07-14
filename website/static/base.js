@@ -1,3 +1,13 @@
+//On startup need to adjust the colors to user selections
+
+//adjusts the navbar collapse icon colors
+var iconColor = getComputedStyle(document.documentElement).getPropertyValue('--navbar-text-color');
+var navbarIconColor = iconColor.substring(2,8);
+const iconURL = `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='%23`+navbarIconColor+`' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")`;
+document.getElementById("navbar-icon").style.setProperty('background-image', iconURL,"important");
+
+
+//show delete item menu
 function showDeleteConfirmation(passed_command, item_type){
     document.querySelector(".filter-out-background").style.setProperty("display", "block");
   
@@ -26,8 +36,9 @@ function showDeleteConfirmation(passed_command, item_type){
       }
     });
     
-  }
-  
-  function cancelDeleteConfirmation(){
-    document.querySelector(".filter-out-background").style.setProperty("display", "none");
-  } 
+}
+// hide the delete item menu
+function cancelDeleteConfirmation(){
+  document.querySelector(".filter-out-background").style.setProperty("display", "none");
+} 
+        

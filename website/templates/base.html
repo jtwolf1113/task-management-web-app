@@ -68,12 +68,12 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button
-        class="navbar-toggler"
+        class="navbar-toggler custom-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbar"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span id="navbar-icon" class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
@@ -123,6 +123,19 @@
     </div>
     {% endif %} {% endfor %} {% endif %} {% endwith %}
 
+
+    <div id="container">
+      {% block content %} {% endblock %}
+        <div align="center" class="filter-out-background">
+          <div align="center" class="destroy-item" id="destroy-item-div">
+              <h3 class="destroy-item" id="destroy-item-heading"></h3>
+              <p class="destroy-item" id="destroy-item-message">This action will <b>Permanently Delete</b> all contained information. Proceed with Caution.</p>
+              <button align="center" class="btn btn-primary destroy-item" id="destroy-item-confirm">Delete</button>
+              <button align="center" class="btn btn-secondary destroy-item" id="destroy-item-cancel" onclick="cancelDeleteConfirmation();">Cancel</button>
+          </div>
+        </div>
+      </div>
+
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -143,18 +156,5 @@
       type="text/javascript"
       src="{{ url_for('static', filename='base.js') }}"
     ></script>
-    
-    <div id="container">
-    {% block content %} {% endblock %}
-      <div align="center" class="filter-out-background">
-        <div align="center" class="destroy-item" id="destroy-item-div">
-            <h3 class="destroy-item" id="destroy-item-heading"></h3>
-            <p class="destroy-item" id="destroy-item-message">This action will <b>Permanently Delete</b> all contained information. Proceed with Caution.</p>
-            <button align="center" class="btn btn-primary destroy-item" id="destroy-item-confirm">Delete</button>
-            <button align="center" class="btn btn-secondary destroy-item" id="destroy-item-cancel" onclick="cancelDeleteConfirmation();">Cancel</button>
-        </div>
-      </div>
-    </div>
-    
   </body>
 </html>

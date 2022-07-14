@@ -16,9 +16,13 @@ function toggleAppearance(varName){
     }
 }
 
-const color_inputs = document.querySelectorAll("input.color-selection");
-color_inputs.addEventListener('input', updateColorDisplay());
-
-function updateColorDisplay(){
-    
+function previewColorChange(id){
+    const newColor = document.getElementById(id).value;
+    root.style.setProperty('--'+id, newColor);
+    var navbarIconColor = newColor.substring(1,8);
+    //need to update collapse icon like so
+    if (id == "navbar-text-color"){
+        const iconURL = `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='%23`+navbarIconColor+`' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")`;
+        document.getElementById("navbar-icon").style.setProperty('background-image', iconURL,"important");
+    }
 }

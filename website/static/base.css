@@ -1,5 +1,4 @@
 :root{
-
     /* COLOR SETTINGS */
     --background-color: #ffffff;
     --text-color: #000000;
@@ -10,7 +9,7 @@
     --confirm-button-color: #007bff;
     --cancel-button-color: #6c757d;
     --delete-button-color: #ff0000;
-    --delete-screen-filter: rgba(255,0,0,0.7);
+    --delete-screen-filter:rgba(255,0,0,.6);
 }
 
 div.destroy-item{
@@ -21,7 +20,7 @@ div.destroy-item{
     max-height: 100%;
     top: 30vh;
     left: 20vw;
-    background-color: var(--background-color);
+    background-color: var(--background-color)!important;
     border-radius: 4px;
     border: 2px;
     border-color: var(--cancel-button-color);
@@ -31,7 +30,7 @@ div.destroy-item{
 
 .filter-out-background{
     z-index: 4;
-    background-color: var(--delete-screen-filter);
+    background-color: var(--delete-screen-filter)!important;
     position: fixed;
     display: none;
     width: 100%;
@@ -84,32 +83,86 @@ button#destroy-item-confirm{
     color: var(--navbar-highlight-color);
 }
 
+
 .navbar{
     background-color: var(--navbar-background-color)!important;
 }
 
+.nav-link:hover{
+    color: var(--navbar-highlight-color)!important;
+}
+.dropdown-item:hover{
+    color: var(--navbar-highlight-color)!important;
+}
+
+.custom-toggler.navbar-toggler{
+    outline-color: var(--navbar-text-color)!important;
+    border-color: var(--navbar-text-color)!important;
+}
+
+.custom-toggler.navbar-toggler:focus{
+    border-color: var(--navbar-highlight-color)!important;
+    outline-color: var(--navbar-highlight-color)!important;
+    outline: 0px;
+}
+
+.custom-toggler.navbar-toggler:hover{
+    border-color: var(--navbar-highlight-color)!important;
+    outline-color: var(--navbar-highlight-color)!important;
+    outline: 0px;
+}
+
+body{
+    background-color: var(--background-color)!important;
+}
+
+div{
+    color: var(--text-color);
+}
+
+div.dropdown-menu.show{
+    background-color: var(--navbar-background-color)!important;
+}
+
+div.navbar-collapse.collapse{
+    background-color: var(--navbar-background-color)!important;
+}
+
+.navbar a{
+    color: var(--navbar-text-color)!important;
+    background-color: var(--navbar-background-color)!important;
+}
+
+li.list-group-item{
+    background-color: var(--background-color);
+}
+
+li.dropdown{
+    background-color: var(--navbar-background-color)!important;
+}
+
 h1{
-    color: var(--text-color)!important;
+    color: var(--text-color);
 }
 
 h2{
-    color: var(--text-color)!important;
+    color: var(--text-color);
 }
 
 h3{
-    color: var(--text-color)!important;
+    color: var(--text-color);
 }
 
 h4{
-    color: var(--text-color)!important;
+    color: var(--text-color);
 }
 
 h5{
-    color: var(--text-color)!important;
+    color: var(--text-color);
 }
 
 p{
-    color: var(--text-color)!important;
+    color: var(--text-color);
 }
 
 button.btn.btn-primary{
@@ -124,3 +177,6 @@ button.btn.btn-secondary{
     color: var(--button-text-color)!important;
 }
 
+button.btn.btn-primary.destroy-item#destroy-item-confirm{
+    background-color: var;
+}
