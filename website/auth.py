@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
+import json
 from importlib_metadata import method_cache
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -69,6 +70,11 @@ def sign_up():
 @auth.route("/update-password", methods=['POST'])
 @login_required
 def update_password():
-    pass
-
-
+    data = json.loads(request.data)
+    if not check_password_hash(current_user.password, data['old']):
+        flash('Incorrect Password', category='error')
+    else:
+        current_user.password = generate_password_hash(data['new'], method='sha256')
+        db.session.commit()
+        flash('Password Changed', category='success')
+    return jsonify({})

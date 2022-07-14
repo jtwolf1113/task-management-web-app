@@ -55,7 +55,33 @@ function revertEmail(){
     document.getElementById("email2").style.setProperty('border-color', 'revert');
 }
 
+function saveNewPassword(){
+    oldPassword = document.getElementById("oldPassword").value;
+    newPassword = document.getElementById("newPassword").value;
+    confirmNewPassword = document.getElementById("confirmNewPassword").value;
 
+    if(newPassword == confirmNewPassword){
+        document.getElementById("password-dont-match").style.setProperty('display','none');
+        document.getElementById("confirmNewPassword").style.setProperty('border-color', 'revert');
+        fetch("/update-password",{
+            method: "POST",
+            body: JSON.stringify({old: oldPassword, new: newPassword, confirm: confirmNewPassword}),
+        });
+        
+    }
+    else {
+        document.getElementById("confirmNewPassword").style.setProperty('border-color', '#f00');
+        document.getElementById("password-dont-match").style.setProperty('display','block');
+    }
+}
+
+function revertPassword(){
+    document.getElementById("oldPassword").value = document.getElementById("oldPassword").defaultValue;
+    document.getElementById("newPassword").value = document.getElementById("newPassword").defaultValue;
+    document.getElementById("confirmNewPassword").value = document.getElementById("confirmNewPassword").defaultValue;
+    document.getElementById("password-dont-match").style.setProperty('display','none');
+    document.getElementById("confirmNewPassword").style.setProperty('border-color', 'revert');
+}
 
 function previewColorChange(id){
     const newColor = document.getElementById(id).value;

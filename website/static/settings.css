@@ -3,6 +3,7 @@
     --name-display: none;
     --email-display: none;
     --password-display: none;
+    --font-picker-display: none;
 }
 
 div#first-name-div{
@@ -15,6 +16,10 @@ div#email-display-div{
 
 div#password-display-div{
     display: var(--password-display);
+}
+
+div#font-selection-div{
+    display: var(--font-picker-display);
 }
 
 input:not([type=color]){
@@ -44,6 +49,12 @@ div.color-selection-div{
 }
 
 #email-dont-match{
+    text-align: center;
+    color: red!important;
+    display: none;
+}
+
+#password-dont-match{
     text-align: center;
     color: red!important;
     display: none;

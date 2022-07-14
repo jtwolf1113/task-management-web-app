@@ -42,13 +42,16 @@
     <button align="center" id="password-display" onclick="toggleSectionAppearance('password-display');" class="btn btn-primary">Show</button>
     <div align="center" id="password-display-div">
       <div align="center" class="container">
-        <input name="oldpassword" type="password">
+        <input id="oldPassword" name="oldpassword" type="password">
         <label for="oldpassword">Current Password</label>
-        <input name="newpassword" type="password">
+        <input id="newPassword" name="newpassword" type="password">
         <label for="newpassword">New Password</label>
-        <input name="confirmnewpassword" type="password">
+        <input id="confirmNewPassword" name="confirmnewpassword" type="password">
         <label for="confirmnewpassword">Confirm New Password</label>
+        <label for="confirmnewpassword" id="password-dont-match">Passwords Don't Match</label>
       </div>
+      <button class="btn btn-primary" onclick="saveNewPassword();">Save</button>
+      <button class="btn btn-secondary" onclick="revertPassword();">Clear</button>
       </div>
   </li>
 </ul>
@@ -76,11 +79,17 @@
   </li>
   <li align="center" class="list-group-item" style="word-wrap: break-word;">
     <h4>Fonts</h4>
-
-    <button class="btn btn-primary" onclick="showDeleteConfirmation('a', 'board');">Temp Delete</button>
-
-
-
+    <button align="center" id="font-picker-display" onclick="toggleSectionAppearance('font-picker-display');" class="btn btn-primary">Show</button>
+    <div align="center" id="font-selection-div" class="font-selection-div">
+        <div class="container">
+          <input id="font1" type="text"/>
+          <script>
+          $('input#font1').fontpicker();
+          </script>
+        </div>
+        <button class="btn btn-primary" onclick="saveFont();">Save</button>
+        <button class="btn btn-secondary" onclick="revertFont();">Revert</button>
+    </div>
   </li>
 </ul>
 
@@ -88,5 +97,4 @@
   type="text/javascript"
   src="{{ url_for('static', filename='settings.js')}}"
  ></script>
-
 {% endblock %}
