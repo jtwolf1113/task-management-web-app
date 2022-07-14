@@ -10,7 +10,7 @@
 
 {% block content %}
     {% for categoryObject in current_user.categories %}
-    {% if categoryObject.name == category%}
+    {% if categoryObject.id == category|int%}
     {% for taskObject in categoryObject.tasks%}
     {% if task|int == taskObject.id %}
     <h1 

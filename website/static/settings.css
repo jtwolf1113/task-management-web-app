@@ -42,3 +42,9 @@ div.color-selection-div{
 .color-selection-container input{
     float: right;
 }
+
+#email-dont-match{
+    text-align: center;
+    color: red!important;
+    display: none;
+}

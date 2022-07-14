@@ -1,10 +1,12 @@
+from email.policy import default
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
+import uuid
 
 
 class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String, primary_key=True, default=str(uuid.uuid4()))
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))

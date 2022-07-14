@@ -9,32 +9,37 @@
 <ul class="list-group list-group-flush" id="settings-list">
   <li align="center" class="list-group-item" style="word-wrap: break-word;">
     <h4>Name</h4>
-    <button align="center" id="name-display" onclick="toggleAppearance('name-display');" class="btn btn-primary">Show</button>
+    <button align="center" id="name-display" onclick="toggleSectionAppearance('name-display');" class="btn btn-primary">Show</button>
     <div align="center" id="first-name-div">
       <div align="center" class="container">
-        <input name="name" type="text" placeholder="{{user.first_name}}">
+        <input id="name-input" name="name" type="text" value="" placeholder="{{user.first_name}}">
         <label for="name">Name</label>
       </div>
+      <button class="btn btn-primary" onclick="saveName();">Save</button>
+      <button class="btn btn-secondary" onclick="revertName();">Clear</button>
     </div>
   </li>
   <li align="center" class="list-group-item" style="word-wrap: break-word;">
     <h4>Email</h4>
-    <button align="center" id="email-display" onclick="toggleAppearance('email-display');" class="btn btn-primary">Show</button>
+    <button align="center" id="email-display" onclick="toggleSectionAppearance('email-display');" class="btn btn-primary">Show</button>
     <div align="center" id="email-display-div">
       <div align="center" class="container">
         
-        <input name="email1" type="email" placeholder="{{user.email}}">
-        <label for="email1">Email</label>
+        <input id="email1" name="email1" type="email" placeholder="{{user.email}}">
+        <label for="email1">New Email</label>
         
-        <input name="email2" type="email" placeholder="{{user.email}}">
-        <label for="email2">Confirm Email</label>
+        <input id="email2" name="email2" type="email" placeholder="{{user.email}}">
+        <label for="email2">Confirm New Email</label>
+        <label id="email-dont-match" for="email2">Emails Don't Match</label>
       </div>
+      <button class="btn btn-primary" onclick="saveNewEmail();">Save</button>
+      <button class="btn btn-secondary" onclick="revertEmail();">Clear</button>
     </div>
     
   </li>
   <li align="center" class="list-group-item" style="word-wrap: break-word;">
     <h4>Password</h4>
-    <button align="center" id="password-display" onclick="toggleAppearance('password-display');" class="btn btn-primary">Show</button>
+    <button align="center" id="password-display" onclick="toggleSectionAppearance('password-display');" class="btn btn-primary">Show</button>
     <div align="center" id="password-display-div">
       <div align="center" class="container">
         <input name="oldpassword" type="password">
@@ -52,18 +57,18 @@
 <ul class="list-group list-group-flush" id="settings-list">
   <li align="center" class="list-group-item" style="word-wrap: break-word;">
     <h4>Site Colors</h4>
-    <button align="center" id="color-picker-display" onclick="toggleAppearance('color-picker-display');" class="btn btn-primary">Show</button>
+    <button align="center" id="color-picker-display" onclick="toggleSectionAppearance('color-picker-display');" class="btn btn-primary">Show</button>
     <div align="center" id="color-selection-div" class="color-selection-div">
         <div class="container">
-        <input name="text-color" id="text-color" type="color" class="color-selection" value="#000000" onchange="previewColorChange('text-color');"> Text Color
-        <input name="background-color" id="background-color" type="color" class="color-selection" value="#ffffff" onchange="previewColorChange('background-color');"> Site Background
-        <input name="navbar-text-color" id="navbar-text-color" type="color" class="color-selection" value="#9a9da0" onchange="previewColorChange('navbar-text-color');"> Navbar Text
-        <input name="navbar-highlight-color" id="navbar-highlight-color" type="color" class="color-selection" value="#ffffff" onchange="previewColorChange('navbar-highlight-color');"> Navbar Highlight
-        <input name="navbar-background-color" id="navbar-background-color" type="color" class="color-selection" value="#343a40" onchange="previewColorChange('navbar-background-color');"> Navbar Background
-        <input name="button-text-color" id="button-text-color" type="color" class="color-selection" value="#ffffff" onchange="previewColorChange('button-text-color');"> Button Text Color
-        <input name="confirm-button-color" id="confirm-button-color" type="color" class="color-selection" value="#007bff" onchange="previewColorChange('confirm-button-color');"> Confirm Button Color
-        <input name="cancel-button-color" id="cancel-button-color" type="color" class="color-selection" value="#6c757d" onchange="previewColorChange('cancel-button-color');"> Cancel Button Color
-        <input name="delete-button-color" id="delete-button-color" type="color" class="color-selection" value="#ff0000" onchange="previewColorChange('delete-button-color');"> Delete Button Color
+        <input name="text-color" id="text-color" type="color" class="color-selection" value="{{user.text_color}}" onchange="previewColorChange('text-color');"> Text Color
+        <input name="background-color" id="background-color" type="color" class="color-selection" value="{{user.background_color}}" onchange="previewColorChange('background-color');"> Site Background
+        <input name="navbar-text-color" id="navbar-text-color" type="color" class="color-selection" value="{{user.navbar_text_color}}" onchange="previewColorChange('navbar-text-color');"> Navbar Text
+        <input name="navbar-highlight-color" id="navbar-highlight-color" type="color" class="color-selection" value="{{user.navbar_highlight_color}}" onchange="previewColorChange('navbar-highlight-color');"> Navbar Highlight
+        <input name="navbar-background-color" id="navbar-background-color" type="color" class="color-selection" value="{{user.navbar_background_color}}" onchange="previewColorChange('navbar-background-color');"> Navbar Background
+        <input name="button-text-color" id="button-text-color" type="color" class="color-selection" value="{{user.button_text_color}}" onchange="previewColorChange('button-text-color');"> Button Text Color
+        <input name="confirm-button-color" id="confirm-button-color" type="color" class="color-selection" value="{{user.confirm_button_color}}" onchange="previewColorChange('confirm-button-color');"> Confirm Button Color
+        <input name="cancel-button-color" id="cancel-button-color" type="color" class="color-selection" value="{{user.cancel_button_color}}" onchange="previewColorChange('cancel-button-color');"> Cancel Button Color
+        <input name="delete-button-color" id="delete-button-color" type="color" class="color-selection" value="{{user.delete_button_color}}" onchange="previewColorChange('delete-button-color');"> Delete Button Color
         </div>
         <button class="btn btn-primary" onclick="saveColors();">Save</button>
         <button class="btn btn-secondary" onclick="revertColors();">Revert</button>

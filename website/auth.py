@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from importlib_metadata import method_cache
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
@@ -65,6 +66,9 @@ def sign_up():
 
     return render_template("sign_up.html", user=current_user)
 
-
+@auth.route("/update-password", methods=['POST'])
+@login_required
+def update_password():
+    pass
 
 

@@ -15,9 +15,45 @@ This page is meant to guide through the website
 def home():
     return render_template("home.html", user = current_user)
 
+'''
+Settings and their modifications
+'''
+
 @views.route('/settings', methods=['GET'])
+@login_required
 def settings():
     return render_template("settings.html", user = current_user)
+
+@views.route('/update-name', methods=['POST'])
+@login_required
+def update_name():
+    nameData = json.loads(request.data)
+    current_user.first_name = nameData['name']
+    db.session.commit()
+    return jsonify({})
+
+@views.route('/update-email', methods=['POST'])
+@login_required
+def update_email():
+    emailData = json.loads(request.data)
+    current_user.email = emailData['newEmail']
+    db.session.commit()
+    return jsonify({})
+
+@views.route('/update-colors', methods=['POST'])
+@login_required
+def update_colors():
+    colorData = json.loads(request.data)
+    for key in colorData:
+        db_key = key.replace('-','_')
+        setattr(current_user, db_key, colorData[key])
+    db.session.commit()
+    return jsonify({})
+
+@views.route('/update-font', methods=['POST'])
+@login_required
+def update_font():
+    pass
 
 '''
 View modify and Delete Notes
@@ -41,6 +77,7 @@ def notes():
 
 
 @views.route('/delete-note', methods=['POST'])
+@login_required
 def delete_note():
     note = json.loads(request.data)
     noteId = note['noteId']
@@ -54,6 +91,7 @@ def delete_note():
     return jsonify({})
 
 @views.route('/update-note', methods = ['POST'])
+@login_required
 def update_note():
     note = json.loads(request.data)
     noteId = note['noteId']
@@ -68,6 +106,7 @@ def update_note():
     return redirect('/notes')
 
 @views.route('/toggle-note', methods = ['POST'])
+@login_required
 def toggle_note():
     note_data = json.loads(request.data)
     noteId = note_data['noteId']
@@ -112,6 +151,7 @@ def view_board(board):
     return render_template("boardview.html", user = current_user, board = board)
 
 @views.route('/boards/delete-board', methods=['POST'])
+@login_required
 def delete_board():
     boardobj = json.loads(request.data)
     boardId = boardobj['boardId']
@@ -130,6 +170,7 @@ def delete_board():
 
 
 @views.route('/boards/update-title', methods = ['POST'])
+@login_required
 def update_title():
     if request.method == 'POST':
         boardobj = json.loads(request.data)
@@ -147,6 +188,7 @@ def update_title():
 
 
 @views.route('/update-category-title', methods = ['POST'])
+@login_required
 def update_category_title():
     if request.method == 'POST':
         data = json.loads(request.data)
@@ -163,6 +205,7 @@ def update_category_title():
     return redirect('/boards/<board>')
 
 @views.route('/boards/add-category', methods =['POST'])
+@login_required
 def add_category():
     if request.method == 'POST':
         categoryobj = json.loads(request.data)
@@ -183,6 +226,7 @@ def add_category():
     return render_template("boardview.html", user = current_user, board = board)
 
 @views.route('/delete-category', methods=['POST'])
+@login_required
 def delete_category():
     if request.method == "POST":
         data = json.loads(request.data)
@@ -198,6 +242,7 @@ def delete_category():
     return render_template("boardview.html", user= current_user)
 
 @views.route('/boards/add-task', methods=['POST'])
+@login_required
 def add_task():
     if request.method == 'POST':
         taskobj = json.loads(request.data)
@@ -225,6 +270,7 @@ def add_task():
     return redirect('/boards/'+str(board.name))
 
 @views.route('/boards/<board>/<category>/<task>', methods= ['GET', 'POST'])
+@login_required
 def display_task(board, category, task):
     if request.method == 'POST':
         name = request.form.get("subtask-name")
@@ -232,6 +278,7 @@ def display_task(board, category, task):
         due = request.form.get("subtask-due")
         if due != '':
             due = datetime.strptime(request.form.get("subtask-due"), r"%Y-%m-%dT%H:%M")
+
             new_subtask = Subtask(
             due_date = due,
             name = name,
@@ -243,6 +290,7 @@ def display_task(board, category, task):
         )
         else:
             due = None
+
             new_subtask = Subtask(
             name = name,
             description = description,
@@ -259,6 +307,7 @@ def display_task(board, category, task):
     return render_template("taskview.html", user = current_user, board = board, category = category, task = task)
         
 @views.route('/toggle-task-completion', methods=['POST'])
+@login_required
 def toggle_task():
     if request.method == 'POST':
         taskobj = json.loads(request.data)
@@ -275,6 +324,7 @@ def toggle_task():
     return render_template("taskview.html", user =current_user, board = board, task = task)
 
 @views.route('/update-task', methods = ['POST'])
+@login_required
 def update_task_information():
     if request.method == 'POST':
         taskobj = json.loads(request.data)
@@ -301,6 +351,7 @@ def update_task_information():
     return render_template("taskview.html", user = current_user, task=task)
 
 @views.route('/delete-task', methods = ['POST'])
+@login_required
 def delete_task():
     if request.method == 'POST':
         taskobj = json.loads(request.data)
@@ -318,6 +369,7 @@ def delete_task():
 
 
 @views.route('/delete-subtask', methods = ['POST'])
+@login_required
 def delete_subtask():
     if request.method == 'POST':
         subtaskobj = json.loads(request.data)
@@ -332,6 +384,7 @@ def delete_subtask():
     return render_template("taskview.html", user = current_user, task = task)
 
 @views.route('/toggle-subtask-completion', methods=['POST'])
+@login_required
 def toggle_subtask():
     if request.method == 'POST':
         subtaskobj = json.loads(request.data)
@@ -348,6 +401,7 @@ def toggle_subtask():
 
 
 @views.route('/update-subtask', methods=['POST'])
+@login_required
 def update_subtask():
     if request.method == 'POST':
         subtaskobj = json.loads(request.data)

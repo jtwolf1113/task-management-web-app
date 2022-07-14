@@ -1,6 +1,6 @@
 let root = document.documentElement;
 
-function toggleAppearance(varName){
+function toggleSectionAppearance(varName){
     var element = document.getElementById(varName);
     if (root.style.getPropertyValue('--'+varName) == 'none'){
         root.style.setProperty('--'+varName, 'block');
@@ -15,6 +15,47 @@ function toggleAppearance(varName){
         element.innerHTML = 'Hide';
     }
 }
+
+function saveName(){
+    const new_name = document.getElementById("name-input").value;
+    document.getElementById("name-input").placeholder = new_name;
+    fetch("/update-name", {
+        method: "POST",
+        body: JSON.stringify({name: new_name}),
+    });
+}
+
+function revertName(){
+    document.getElementById("name-input").value = document.getElementById("name-input").defaultValue;
+}
+
+function saveNewEmail(){
+    email = document.getElementById("email1").value;
+    confirm_email = document.getElementById("email2").value;
+    if (email == confirm_email){
+        document.getElementById("email1").placeholder = email;
+        document.getElementById("email2").placeholder = email;
+        fetch("/update-email", {
+            method: "POST",
+            body: JSON.stringify({newEmail: email}),
+        });
+        document.getElementById("email2").style.setProperty('border-color', 'revert');
+        document.getElementById("email-dont-match").style.setProperty('display','none');
+    }
+    else {
+        document.getElementById("email2").style.setProperty('border-color', '#f00');
+        document.getElementById("email-dont-match").style.setProperty('display','block');
+    }
+}
+
+function revertEmail(){
+    document.getElementById("email1").value = document.getElementById("email1").defaultValue;
+    document.getElementById("email2").value = document.getElementById("email2").defaultValue;
+    document.getElementById("email-dont-match").style.setProperty('display','none');
+    document.getElementById("email2").style.setProperty('border-color', 'revert');
+}
+
+
 
 function previewColorChange(id){
     const newColor = document.getElementById(id).value;
@@ -35,13 +76,10 @@ function revertColors(){
 }
 
 function saveColors(){
-    //gather all the data into a json
-    //send the json to the backend
-    //update info on the backend
-    //don't refresh the page
     var colorData = {};
     document.querySelectorAll(".color-selection").forEach(element=>{
         colorData[element.id] = element.value;
+        element.defaultValue = element.value;
     })
     
     fetch("/update-colors", {

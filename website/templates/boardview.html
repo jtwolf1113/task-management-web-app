@@ -130,7 +130,7 @@ id="envelop_content" >
         class="task-checkbox"
         id="{{task.id}}"
         onclick="toggleTaskCompletion({{task.id}}, {{boardObject.id}})"/>
-        <a class="edit_task_link" href="/boards/{{boardObject.id}}/{{cat.name}}/{{task.id}}">
+        <a class="edit_task_link" href="/boards/{{boardObject.id}}/{{cat.id}}/{{task.id}}">
             <span class="incompleted-task-text">{{task.name}} <img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg"> </img> {{task.due_date.strftime('%m-%d %H:%M')}}</span>
         </a>
     </li>
@@ -146,7 +146,7 @@ id="envelop_content" >
         id="{{task.id}}"
         onclick="toggleTaskCompletion({{task.id}}, {{boardObject.id}})"
         checked/>
-        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{cat.name}}/{{task.id}}">
+        <a class="edit_task_link" href="/boards/{{boardObject.name}}/{{cat.id}}/{{task.id}}">
             <span class="completed-task-text">{{task.name}}</span>
         </a>
     </li>
