@@ -26,3 +26,26 @@ function previewColorChange(id){
         document.getElementById("navbar-icon").style.setProperty('background-image', iconURL,"important");
     }
 }
+
+function revertColors(){
+    document.querySelectorAll(".color-selection").forEach(element =>{
+        element.value = element.defaultValue;
+        previewColorChange(element.id);
+    });
+}
+
+function saveColors(){
+    //gather all the data into a json
+    //send the json to the backend
+    //update info on the backend
+    //don't refresh the page
+    var colorData = {};
+    document.querySelectorAll(".color-selection").forEach(element=>{
+        colorData[element.id] = element.value;
+    })
+    
+    fetch("/update-colors", {
+        method: "POST",
+        body: JSON.stringify(colorData),
+    });
+}

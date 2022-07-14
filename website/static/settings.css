@@ -33,10 +33,6 @@ div.container{
     width: fit-content;
 }
 
-
-
-
-
 div.color-selection-div{
     display: var(--color-picker-display);
     margin: 1rem 0rem;

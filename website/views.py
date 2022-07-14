@@ -80,10 +80,6 @@ def toggle_note():
             db.session.commit()
     return redirect('/notes')
 
-@views.route('/ani',methods=['GET'])
-def animation():
-    return render_template("ani.html", user = current_user)
-
 '''
 List all of the Boards
 '''
