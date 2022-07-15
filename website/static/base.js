@@ -1,4 +1,10 @@
-//On startup need to adjust the colors to user selections
+//On startup need to adjust the colors and fonts to user selections
+
+document.addEventListener("DOMContentLoaded", function(){
+  document.querySelectorAll("p.template-information-section").forEach(element=>{
+    document.documentElement.style.setProperty('--'+element.id, element.innerHTML);
+  });
+});
 
 //adjusts the navbar collapse icon colors
 var iconColor = getComputedStyle(document.documentElement).getPropertyValue('--navbar-text-color');
@@ -16,7 +22,10 @@ function showDeleteConfirmation(passed_command, item_type){
         element.setAttribute('onclick', passed_command);
       }
       else if (element.tagName == 'H3'){
-        if (item_type == "board"){
+        if (item_type == "account"){
+          var message = "account and all its associated data."
+        }
+        else if (item_type == "board"){
           var message = "board, and its categories, tasks and subtasks?";
         }
         else if(item_type == "category"){

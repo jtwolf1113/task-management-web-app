@@ -10,7 +10,19 @@
     --cancel-button-color: #6c757d;
     --delete-button-color: #ff0000;
     --delete-screen-filter:rgba(255,0,0,.6);
+
+    /* FONT SETTINGS*/
+    --font-family: -apple-system, BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+    --font-style: none;
+    --font-weight: 500;
+
 }
+
+.template-information-section{
+    display: none!important;
+}
+
+
 
 div.destroy-item{
     vertical-align: center;
@@ -59,6 +71,9 @@ button#destroy-item-confirm{
 .dropdown-item{
     color: var(--navbar-text-color);
     text-align: left;
+    font-weight: var(--font-weight);
+    font-family: var(--font-family);
+    font-style: var(--font-style);
 }
 
 @media (max-width: 992px) {
@@ -88,10 +103,7 @@ button#destroy-item-confirm{
     background-color: var(--navbar-background-color)!important;
 }
 
-.nav-link:hover{
-    color: var(--navbar-highlight-color)!important;
-}
-.dropdown-item:hover{
+.nav-link:hover, .dropdown-item:hover{
     color: var(--navbar-highlight-color)!important;
 }
 
@@ -100,31 +112,13 @@ button#destroy-item-confirm{
     border-color: var(--navbar-text-color)!important;
 }
 
-.custom-toggler.navbar-toggler:focus{
+.custom-toggler.navbar-toggler:focus, .custom-toggler.navbar-toggler:hover{
     border-color: var(--navbar-highlight-color)!important;
     outline-color: var(--navbar-highlight-color)!important;
     outline: 0px;
 }
 
-.custom-toggler.navbar-toggler:hover{
-    border-color: var(--navbar-highlight-color)!important;
-    outline-color: var(--navbar-highlight-color)!important;
-    outline: 0px;
-}
-
-body{
-    background-color: var(--background-color)!important;
-}
-
-div{
-    color: var(--text-color);
-}
-
-div.dropdown-menu.show{
-    background-color: var(--navbar-background-color)!important;
-}
-
-div.navbar-collapse.collapse{
+div.dropdown-menu.show, div.navbar-collapse.collapse, li.dropdown{
     background-color: var(--navbar-background-color)!important;
 }
 
@@ -133,50 +127,36 @@ div.navbar-collapse.collapse{
     background-color: var(--navbar-background-color)!important;
 }
 
-li.list-group-item{
+h1, h2, h3, h4, h5, h6, p, div, body, a, li.list-group-item{
+    color: var(--text-color);
     background-color: var(--background-color);
-}
-
-li.dropdown{
-    background-color: var(--navbar-background-color)!important;
-}
-
-h1{
-    color: var(--text-color);
-}
-
-h2{
-    color: var(--text-color);
-}
-
-h3{
-    color: var(--text-color);
-}
-
-h4{
-    color: var(--text-color);
-}
-
-h5{
-    color: var(--text-color);
-}
-
-p{
-    color: var(--text-color);
+    font-weight: var(--font-weight);
+    font-family: var(--font-family);
+    font-style: var(--font-style);
 }
 
 button.btn.btn-primary{
     background-color: var(--confirm-button-color)!important;
     border-color: var(--confirm-button-color)!important;
     color: var(--button-text-color)!important;
+    font-weight: var(--font-weight);
+    font-family: var(--font-family);
+    font-style: var(--font-style);
 }
 
 button.btn.btn-secondary{
     background-color: var(--cancel-button-color)!important;
     border-color: var(--cancel-button-color)!important;
     color: var(--button-text-color)!important;
+    font-weight: var(--font-weight);
+    font-family: var(--font-family);
+    font-style: var(--font-style);
 }
 
 button.btn.btn-primary.destroy-item#destroy-item-confirm{
-    background-color: var;
+    background-color: var(--delete-button-color);
+    border-color: var(--delete-button-color);
+    font-weight: var(--font-weight);
+    font-family: var(--font-family);
+    font-style: var(--font-style);
 }

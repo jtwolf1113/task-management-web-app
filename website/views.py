@@ -53,7 +53,12 @@ def update_colors():
 @views.route('/update-font', methods=['POST'])
 @login_required
 def update_font():
-    pass
+    fontData =json.loads(request.data)
+    for key in fontData:
+        db_key = 'font_'+key
+        setattr(current_user, db_key, fontData[key])
+    db.session.commit()
+    return jsonify({})
 
 '''
 View modify and Delete Notes

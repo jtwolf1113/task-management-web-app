@@ -1,4 +1,3 @@
-from email.policy import default
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
@@ -19,7 +18,9 @@ class User(db.Model, UserMixin):
     confirm_button_color = db.Column(db.String(7), default = "#007bff")
     delete_button_color = db.Column(db.String(7), default = "#ff0000")
     cancel_button_color = db.Column(db.String(7), default = "#6c757d")
-    font = db.Column(db.String(1000))
+    font_family = db.Column(db.String(1000), default= "-apple-system, BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji'")
+    font_style = db.Column(db.String(100), default='none')
+    font_weight = db.Column(db.String(10), default='500')
     notes = db.relationship('Note')
     categories = db.relationship('Category')
     tasks = db.relationship('Task')

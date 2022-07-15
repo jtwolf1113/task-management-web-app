@@ -83,12 +83,27 @@ function revertPassword(){
     document.getElementById("confirmNewPassword").style.setProperty('border-color', 'revert');
 }
 
+//when a color is updated run the preview function
+document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll("input.color-selection").forEach(element=>{
+        element.addEventListener('change', (event)=> {
+            previewColorChange(element.id);
+        });
+    });
+});
+
+
+
 function previewColorChange(id){
     const newColor = document.getElementById(id).value;
-    root.style.setProperty('--'+id, newColor);
+    //change the css vars
+    root.style.setProperty('--'+id.slice(0, -6), newColor);
     var navbarIconColor = newColor.substring(1,8);
+    if (id == "text-color-input"){
+        document.querySelector("span.fp-fontspec").style.setProperty('color', newColor);
+    }
     //need to update collapse icon like so
-    if (id == "navbar-text-color"){
+    else if (id == "navbar-text-color-input"){
         const iconURL = `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='%23`+navbarIconColor+`' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")`;
         document.getElementById("navbar-icon").style.setProperty('background-image', iconURL,"important");
     }
@@ -104,7 +119,7 @@ function revertColors(){
 function saveColors(){
     var colorData = {};
     document.querySelectorAll(".color-selection").forEach(element=>{
-        colorData[element.id] = element.value;
+        colorData[element.id.slice(0,-6)] = element.value;
         element.defaultValue = element.value;
     })
     
@@ -112,4 +127,20 @@ function saveColors(){
         method: "POST",
         body: JSON.stringify(colorData),
     });
+}
+
+function saveFont(){
+    var family_property = document.querySelector("div.font-picker.fp-select").style.getPropertyValue('font-family');
+    var style_property = document.querySelector("div.font-picker.fp-select").style.getPropertyValue('font-style');
+    var weight_property = document.querySelector("div.font-picker.fp-select").style.getPropertyValue('font-weight');
+    fetch("/update-font",{
+        method: "POST",
+        body: JSON.stringify({family: family_property, weight: weight_property, style: style_property})
+    });
+}
+
+function previewFontChange(){
+    root.style.setProperty('--font-family',document.querySelector("div.font-picker.fp-select").style.getPropertyValue('font-family'));
+    root.style.setProperty('--font-style',document.querySelector("div.font-picker.fp-select").style.getPropertyValue('font-style'));
+    root.style.setProperty('--font-weight',document.querySelector("div.font-picker.fp-select").style.getPropertyValue('font-weight'));
 }

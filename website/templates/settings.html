@@ -63,15 +63,15 @@
     <button align="center" id="color-picker-display" onclick="toggleSectionAppearance('color-picker-display');" class="btn btn-primary">Show</button>
     <div align="center" id="color-selection-div" class="color-selection-div">
         <div class="container">
-        <input name="text-color" id="text-color" type="color" class="color-selection" value="{{user.text_color}}" onchange="previewColorChange('text-color');"> Text Color
-        <input name="background-color" id="background-color" type="color" class="color-selection" value="{{user.background_color}}" onchange="previewColorChange('background-color');"> Site Background
-        <input name="navbar-text-color" id="navbar-text-color" type="color" class="color-selection" value="{{user.navbar_text_color}}" onchange="previewColorChange('navbar-text-color');"> Navbar Text
-        <input name="navbar-highlight-color" id="navbar-highlight-color" type="color" class="color-selection" value="{{user.navbar_highlight_color}}" onchange="previewColorChange('navbar-highlight-color');"> Navbar Highlight
-        <input name="navbar-background-color" id="navbar-background-color" type="color" class="color-selection" value="{{user.navbar_background_color}}" onchange="previewColorChange('navbar-background-color');"> Navbar Background
-        <input name="button-text-color" id="button-text-color" type="color" class="color-selection" value="{{user.button_text_color}}" onchange="previewColorChange('button-text-color');"> Button Text Color
-        <input name="confirm-button-color" id="confirm-button-color" type="color" class="color-selection" value="{{user.confirm_button_color}}" onchange="previewColorChange('confirm-button-color');"> Confirm Button Color
-        <input name="cancel-button-color" id="cancel-button-color" type="color" class="color-selection" value="{{user.cancel_button_color}}" onchange="previewColorChange('cancel-button-color');"> Cancel Button Color
-        <input name="delete-button-color" id="delete-button-color" type="color" class="color-selection" value="{{user.delete_button_color}}" onchange="previewColorChange('delete-button-color');"> Delete Button Color
+        <input name="text-color" id="text-color-input" type="color" class="color-selection" value="{{user.text_color}}"> Text Color
+        <input name="background-color" id="background-color-input" type="color" class="color-selection" value="{{user.background_color}}"> Site Background
+        <input name="navbar-text-color" id="navbar-text-color-input" type="color" class="color-selection" value="{{user.navbar_text_color}}"> Navbar Text
+        <input name="navbar-highlight-color" id="navbar-highlight-color-input" type="color" class="color-selection" value="{{user.navbar_highlight_color}}"> Navbar Highlight
+        <input name="navbar-background-color" id="navbar-background-color-input" type="color" class="color-selection" value="{{user.navbar_background_color}}"> Navbar Background
+        <input name="button-text-color" id="button-text-color-input" type="color" class="color-selection" value="{{user.button_text_color}}"> Button Text Color
+        <input name="confirm-button-color" id="confirm-button-color-input" type="color" class="color-selection" value="{{user.confirm_button_color}}"> Confirm Button Color
+        <input name="cancel-button-color" id="cancel-button-color-input" type="color" class="color-selection" value="{{user.cancel_button_color}}"> Cancel Button Color
+        <input name="delete-button-color" id="delete-button-color-input" type="color" class="color-selection" value="{{user.delete_button_color}}"> Delete Button Color
         </div>
         <button class="btn btn-primary" onclick="saveColors();">Save</button>
         <button class="btn btn-secondary" onclick="revertColors();">Revert</button>
@@ -82,13 +82,17 @@
     <button align="center" id="font-picker-display" onclick="toggleSectionAppearance('font-picker-display');" class="btn btn-primary">Show</button>
     <div align="center" id="font-selection-div" class="font-selection-div">
         <div class="container">
-          <input id="font1" type="text"/>
+          <input id="font-input" type="text" value="{{user.font}}" onchange="previewFontChange();"/>
           <script>
-          $('input#font1').fontpicker();
+          $('input#font-input').fontpicker({
+            lang: 'en',
+            variants: true,
+            nrRecents: 5,
+            showClear: true,
+          });
           </script>
         </div>
         <button class="btn btn-primary" onclick="saveFont();">Save</button>
-        <button class="btn btn-secondary" onclick="revertFont();">Revert</button>
     </div>
   </li>
 </ul>
