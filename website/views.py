@@ -90,8 +90,6 @@ def delete_note():
         if note.user_id == current_user.id:
             db.session.delete(note)
             db.session.commit()
-            flash('Note Deleted', category='success')
-
     return jsonify({})
 
 @views.route('/update-note', methods = ['POST'])
@@ -106,8 +104,7 @@ def update_note():
             note.data = new_note_text
             note.last_modified = datetime.now()
             db.session.commit()
-            flash('Note Updated', category='success')
-    return redirect('/notes')
+    return jsonify({})
 
 @views.route('/toggle-note', methods = ['POST'])
 @login_required
@@ -121,7 +118,7 @@ def toggle_note():
             note.completed = noteNewState
             note.last_modified = datetime.now()
             db.session.commit()
-    return redirect('/notes')
+    return jsonify({})
 
 '''
 List all of the Boards

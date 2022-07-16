@@ -15,7 +15,7 @@
 <ul class="list-group list-group-flush" id="notes-list">
   {% for note in user.notes %}
   {% set noteIdentifierClass = "N"+note.id|string %}
-  <li class="list-group-item", style="word-wrap:break-word;", id="list-item"> <!-- Word Wrap to prevent overflow. -->
+  <li class="list-group-item {{noteIdentifierClass}}", style="word-wrap:break-word;", id="list-item"> <!-- Word Wrap to prevent overflow. -->
     {% if note.completed == True %}
     <input 
     type="checkbox"
