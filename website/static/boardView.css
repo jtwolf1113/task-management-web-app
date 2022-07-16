@@ -57,39 +57,52 @@ button#board-title{
     /*
     This is all of the board information besides the title 
     */
-    width: 100%;
     position: relative;
-    min-height: 80vh;
-    gap: 1.5% 2%;
+    display: grid;
+    grid-template-rows: 1fr;
+    min-width: 100%;
+    overflow-x: auto;
+    min-height: 100%;
+    gap: 0% 1%;
     background-color: none; 
     margin-bottom: 1%;
+    padding: 0.5% 1%;
     
 }
 
+
 @media screen and (max-width: 992px) {
+    /*Narrowest Screen*/
     .board_content{
-        display: grid;
-        /*grid-template-columns: repeat(2, 1fr);*/
-        grid-template-rows: repeat(1,1fr);
+        grid-auto-columns: 99%;
     }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 992px) and (max-width: 1400px) {
+    /*Mid screen*/
     .board_content{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-auto-columns: 49%;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    /*Widescreen*/
+    .board_content{
+        grid-auto-columns: 24%;
     }
 }
 
 div.category-container{
+    justify-content: center;
+    grid-row: 1;
     background-color: var(--category-background-color);
-    border-radius: 1.5em;
-    min-height: fit-content;
-    height: auto;
-    max-height: 100%;
+    border-radius: 1.5rem;
+    height: 99.4%;
+    width: 100%;
+    max-height: none;
     padding: 0.25rem;
     margin: 0.25rem;
-    min-width: 20%;
 }
+
 
 
 #create-task-overlay{
@@ -171,7 +184,6 @@ ul.task_list{
     background-color: var(--category-background-color);
     overflow-y: auto;
     min-height: fit-content;
-    max-height: 62%;
 }
 
 .incompleted-task-text, .completed-task-text {
