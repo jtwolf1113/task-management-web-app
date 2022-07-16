@@ -1,8 +1,9 @@
 :root{
-    --color-picker-display: none;
     --name-display: none;
     --email-display: none;
     --password-display: none;
+    --remove-display: none;
+    --color-picker-display: none;
     --font-picker-display: none;
 }
 
@@ -16,6 +17,10 @@ div#email-display-div{
 
 div#password-display-div{
     display: var(--password-display);
+}
+
+div#remove-display-div{
+    display: var(--remove-display);
 }
 
 div#font-selection-div{

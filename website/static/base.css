@@ -19,6 +19,21 @@
 
 }
 
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+::-webkit-scrollbar-track {
+    background: var(--navbar-background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--navbar-text-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--navbar-highlight-color);
+  }
+
 .template-information-section{
     display: none!important;
 }

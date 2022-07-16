@@ -54,6 +54,21 @@
       <button class="btn btn-secondary" onclick="revertPassword();">Clear</button>
       </div>
   </li>
+  <li align="center" class="list-group-item" style="word-wrap: break-word;">
+    <h4>Delete Account</h4>
+    <button align="center" id="remove-display" onclick="toggleSectionAppearance('remove-display');" class="btn btn-primary">Show</button>
+    <div align="center" id="remove-display-div">
+      <div align="center" class="container">
+        <input id="password" name="password" type="password">
+        <label for="password">Enter Password</label>
+      </div>
+      <button class="btn btn-primary" onclick="showDeleteConfirmation(`deleteAccount('{{user.id}}')`, `account`)">Delete</button>
+      <button class="btn btn-secondary" onclick="revertDelete();">Cancel</button>
+    </div>
+  </li>
+
+
+
 </ul>
 
 <h2 align="center">Appearance</h2>

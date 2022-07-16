@@ -104,7 +104,7 @@ id="envelop_content" >
 
 {% for cat in boardObject.categories %}
 
-<div class="category_container" name="{{ cat.name }}">
+<div align="center" class="category-container" name="{{ cat.name }}">
     <h3 align="center" class="display-category category_name C{{cat.id}}" ondblclick="editCategoryDisplay('{{cat.id}}')", id="category-title-{{cat.id}}" >{{ cat.name }}</h3>
 
     <div
@@ -131,7 +131,7 @@ id="envelop_content" >
         id="{{task.id}}"
         onclick="toggleTaskCompletion({{task.id}}, {{boardObject.id}})"/>
         <a class="edit_task_link" href="/boards/{{boardObject.id}}/{{cat.id}}/{{task.id}}">
-            <span class="incompleted-task-text">{{task.name}}<br><img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg"> </img> {{task.due_date.strftime('%b %d %H:%M')}}</span>
+            <span class="incompleted-task-text">{{task.name}}<br><img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg"> {{task.due_date.strftime('%b %d %H:%M')}}</span>
         </a>
     </li>
     {% endif %}
@@ -153,7 +153,7 @@ id="envelop_content" >
     {% endif %}
     {% endfor %}
     </ul>
-    <div id="new-task-container-div" class="new-task-container" align="center">
+    <div align="center" id="new-task-container-div" class="new-task-container">
     <button
     class="btn btn-primary"
     id="createTask"

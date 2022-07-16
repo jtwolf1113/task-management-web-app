@@ -83,6 +83,22 @@ function revertPassword(){
     document.getElementById("confirmNewPassword").style.setProperty('border-color', 'revert');
 }
 
+function deleteAccount(userId) {
+    const password = document.getElementById("password").value;
+
+    fetch("/delete-account", {
+        method: "POST",
+        body: JSON.stringify({userId: userId, password: password}),
+    }).then((_res) => {
+        window.location.href = "/delete-account";
+    });
+}
+
+
+function revertDelete(){
+    document.getElementById("password").value = document.getElementById("password").defaultValue;
+}
+
 //when a color is updated run the preview function
 document.addEventListener("DOMContentLoaded", function(){
     document.querySelectorAll("input.color-selection").forEach(element=>{

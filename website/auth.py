@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 import json
-from importlib_metadata import method_cache
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
@@ -23,9 +22,9 @@ def login():
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
-                flash('Incorrect password, try again.', category='error')
+                flash('Email and/or Password Incorrect', category='error')
         else:
-            flash('Email does not exist.', category='error')
+            flash('Email and/or Password Incorrect', category='error')
 
     return render_template("login.html", user=current_user)
 
@@ -33,6 +32,7 @@ def login():
 @auth.route('/logout')
 @login_required
 def logout():
+    flash('Logout Successful', category='success')
     logout_user()
     return redirect(url_for('auth.login'))
 
@@ -78,3 +78,31 @@ def update_password():
         db.session.commit()
         flash('Password Changed', category='success')
     return jsonify({})
+
+
+@auth.route("/delete-account")
+@login_required
+def delete_account():
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        if not check_password_hash(current_user.password, data['password']):
+            flash('Incorrect Password', category='error')
+            return redirect(url_for('views.settings'))
+        else:
+            user = User.query.get(data['userId'])
+            for subtask in user.subtasks:
+                db.session.delete(subtask)
+            for task in user.tasks:
+                db.session.delete(task)
+            for category in user.categories:
+                db.session.delete(category)
+            for board in user.boards:
+                db.session.delete(board)
+            for note in user.notes:
+                db.session.delete(note)
+            db.session.delete(user)
+            db.session.commit()
+            return redirect("/delete-account")
+    flash('Account Deleted', 'success')
+    logout_user()
+    return redirect(url_for('auth.sign_up'))
