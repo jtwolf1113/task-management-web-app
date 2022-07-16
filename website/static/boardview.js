@@ -26,12 +26,17 @@ function cancelDisplayChange(){
 
 function updateTitle(boardId) {
   const get_new_title = document.getElementById("board-title-input").value;
-
+  document.querySelector("#board-title").innerHTML = get_new_title;
+  cancelDisplayChange();
+  //update the navbar here
+  document.querySelectorAll("a.dropdown-item").forEach(element => {
+    if (element.href == window.location.href){
+      element.innerHTML = get_new_title;
+    }
+  });
   fetch("/boards/update-title", {
   method: "POST",
   body: JSON.stringify({boardId: boardId, boardName: get_new_title}),
-  }).then((_res)=> {
-    window.location.href = "/boards/"+get_new_title;
   });
 }
 
@@ -102,16 +107,13 @@ function cancelEditCategory(){
 }
 
 function updateCategoryTitle(categoryId, boardId){
-  const redirectLocation = window.location.href;
   const new_title = document.getElementById("title-input-"+categoryId).value;
-
+  document.querySelector("#category-title-"+categoryId).innerHTML = new_title;
+  cancelEditCategory();
   fetch("/update-category-title", {
     method: "POST",
     body: JSON.stringify({categoryId: categoryId, newTitle: new_title, boardId: boardId}),
-  }).then((_res)=> {
-    window.location.href = redirectLocation;
   });
-
 }
 
 

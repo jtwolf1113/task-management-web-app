@@ -74,10 +74,10 @@ Delete Board
 </div>
 
 <div id="create-category-overlay" class="new-category-menu">
-    <div align="center" id="new-task-buttons">
+    <div align="center" id="new-category-menu">
         <input 
         type="text"
-        placeholder="Enter Title for New Category" 
+        placeholder="Category Title" 
         class="form-control new-category-menu" 
         id="categoryTitleBox" 
         name="category-title" />
@@ -105,7 +105,7 @@ id="envelop_content" >
 {% for cat in boardObject.categories %}
 
 <div class="category_container" name="{{ cat.name }}">
-    <h3 align="center" class="display-category category_name C{{cat.id}}" ondblclick="editCategoryDisplay('{{cat.id}}')", id="category-title-{{cat.id}} " >{{ cat.name }}</h3>
+    <h3 align="center" class="display-category category_name C{{cat.id}}" ondblclick="editCategoryDisplay('{{cat.id}}')", id="category-title-{{cat.id}}" >{{ cat.name }}</h3>
 
     <div
     class="edit-cat-name"
@@ -131,7 +131,7 @@ id="envelop_content" >
         id="{{task.id}}"
         onclick="toggleTaskCompletion({{task.id}}, {{boardObject.id}})"/>
         <a class="edit_task_link" href="/boards/{{boardObject.id}}/{{cat.id}}/{{task.id}}">
-            <span class="incompleted-task-text">{{task.name}} <img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg"> </img> {{task.due_date.strftime('%m-%d %H:%M')}}</span>
+            <span class="incompleted-task-text">{{task.name}}<br><img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg"> </img> {{task.due_date.strftime('%b %d %H:%M')}}</span>
         </a>
     </li>
     {% endif %}
@@ -164,27 +164,29 @@ id="envelop_content" >
     </div>
 
     <div id="create-task-overlay" class="new-task-menu">
-        <div align="center" id="new-task-buttons">
+        <div align="center" id="new-task-menu">
             
             <input 
             type="text"
-            placeholder="Name" 
+            placeholder="Task Name" 
             class="form-control new-task-menu" 
             id="taskTitleBox" 
             name="task-title" />
 
             <input 
             type="text"
-            placeholder="Description" 
+            placeholder="Task Description" 
             class="form-control new-task-menu" 
             id="taskDescriptionBox" 
             name="task-description" />
             
             <input
-            type="datetime-local"
+            type="text"
+            placeholder="Task Due Date"
             class="form-control new-task-menu"
             id="taskDueDateBox"
             name="due-date"
+            onfocus="(this.type=`datetime-local`)"
             />
     
             <button class="new-task-menu btn btn-primary" id="add-task-button">

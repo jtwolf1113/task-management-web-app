@@ -56,7 +56,7 @@
         <input 
         id="due-date-input" 
         class="form-control update-task task-due" 
-        type="datetime-local" 
+        type="datetime-local"
         >
         <button 
         onclick='updateTask({{ taskObject.id }}, "due-date-input");'
@@ -175,7 +175,7 @@
             <div align="center">
             <input type="checkbox" class="form-control" id="subtask-duedate-check" onclick="subTaskDueOptions();">Add Due Date
             </div>
-            <input name="subtask-due" type="datetime-local" class="form-control" id="subtask-due-input">
+            <input name="subtask-due" type="text" placeholder="Due Date" class="form-control" id="subtask-due-input" onfocus="(this.type=`datetime-local`)">
     
             <div align="center">
                 <button type="submit" class="btn btn-primary">Create</button>

@@ -9,6 +9,7 @@
     --confirm-button-color: #007bff;
     --cancel-button-color: #6c757d;
     --delete-button-color: #ff0000;
+    --create-screen-filter:rgba(0,0,255,.4);
     --delete-screen-filter:rgba(255,0,0,.6);
 
     /* FONT SETTINGS*/
@@ -22,8 +23,6 @@
     display: none!important;
 }
 
-
-
 div.destroy-item{
     vertical-align: center;
     position: absolute;
@@ -35,7 +34,7 @@ div.destroy-item{
     background-color: var(--background-color)!important;
     border-radius: 4px;
     border: 2px;
-    border-color: var(--cancel-button-color);
+    border-color: black;
     padding: 2%;
     
 }
