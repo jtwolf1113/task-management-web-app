@@ -60,6 +60,7 @@ button#board-title{
     position: relative;
     display: grid;
     grid-template-rows: 1fr;
+    grid-auto-columns: 30rem;
     min-width: 100%;
     overflow-x: auto;
     min-height: 100%;
@@ -71,25 +72,6 @@ button#board-title{
 }
 
 
-@media screen and (max-width: 992px) {
-    /*Narrowest Screen*/
-    .board_content{
-        grid-auto-columns: 99%;
-    }
-}
-@media only screen and (min-width: 992px) and (max-width: 1400px) {
-    /*Mid screen*/
-    .board_content{
-        grid-auto-columns: 49%;
-    }
-}
-
-@media only screen and (min-width: 1400px) {
-    /*Widescreen*/
-    .board_content{
-        grid-auto-columns: 24%;
-    }
-}
 
 div.category-container{
     justify-content: center;
@@ -101,6 +83,8 @@ div.category-container{
     max-height: none;
     padding: 0.25rem;
     margin: 0.25rem;
+    border: 2px;
+    border-color: var(--navbar-background-color);
 }
 
 
