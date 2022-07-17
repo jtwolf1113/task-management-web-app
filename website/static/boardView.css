@@ -26,7 +26,7 @@ div#board-title-div{
     --show-title: block;
     --show-input-box: None; /*toggles to inline*/
     --show-changename-button: None;
-    --category-background-color: lightcoral;
+    --category-background-color: var(--background-color);
 }
 
 input{
@@ -60,7 +60,7 @@ button#board-title{
     position: relative;
     display: grid;
     grid-template-rows: 1fr;
-    grid-auto-columns: 30rem;
+    grid-auto-columns: 25rem;
     min-width: 100%;
     overflow-x: auto;
     min-height: 100%;
@@ -76,15 +76,16 @@ button#board-title{
 div.category-container{
     justify-content: center;
     grid-row: 1;
-    background-color: var(--category-background-color);
+    background-color: var(--background-color);
     border-radius: 1.5rem;
     height: 99.4%;
     width: 100%;
     max-height: none;
     padding: 0.25rem;
     margin: 0.25rem;
-    border: 2px;
     border-color: var(--navbar-background-color);
+    border-width: .2rem;
+    border-style: solid;
 }
 
 
