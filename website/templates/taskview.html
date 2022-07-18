@@ -109,6 +109,7 @@
                     </button>
                 </div><!--End description section-->
                 {% if taskObject.completed == True %}<!--Task Complete Checkbox-->
+                    <h4 style="display: none;" id="time-remaining"></h4>
                     <div align="center" class="task-complete checkbox-section">
                         <input
                         align="center"
@@ -123,6 +124,7 @@
                         <h4 id="task-status">Task Complete</h4>
                     </div>
                 {% else %}<!--Task Incomplete Checkbox-->
+                    <h4 id="time-remaining"></h4>
                     <div align="center" class="task-incomplete checkbox-section">
                         <input
                         onshow="showDueDate('{{ taskObject.due_date }}');"
@@ -145,16 +147,31 @@
                     >Delete Task</button>
                 </div><!--End Two buttons section-->
 
-                {% if taskObject.completed == False %}
                 <div class="hidden" id="due-date-info">{{taskObject.due_date}}</div>
-                <h4 id="time-remaining"></h4>
-                {% endif %}<!--End Show Countdown-->
+                
+                
 
             </div><!--End Task header section-->
         
             {% if taskObject.completed == False %}
             <div align="center" id="focus-timer-button-container">
                 <button align="center" onclick="toggleTimerMenu('focus-timer-display');" class="btn btn-primary" id="focus-timer-display">Show Focus Timer</button>
+            </div>
+            <div align="center" id="focus-timer-div">
+                <h4 id="focus-timer-label">Focus Timer</h4>
+                <select id="focus-timer-selection" class="form-control" >
+                    <option value="1">1 min</option>
+                    <option value="15">15 min</option>
+                    <option value="30" selected>30 min</option>
+                    <option value="45">45 min</option>
+                    <option value="60">60 min</option>
+                </select>
+                <button onclick="startTimer();" class="form-control btn btn-primary" id="focus-timer-button">Start Timer</button>
+                <h5 id="focus-timer"></h5>
+            </div><!--End focus timer section-->
+            {% elif taskObject.completed == True %}
+            <div align="center" id="focus-timer-button-container">
+                <button style="display: none;" align="center" onclick="toggleTimerMenu('focus-timer-display');" class="btn btn-primary" id="focus-timer-display">Show Focus Timer</button>
             </div>
             <div align="center" id="focus-timer-div">
                 <h4 id="focus-timer-label">Focus Timer</h4>
@@ -182,7 +199,8 @@
                     <input name ='subtask-name' type="text" class="create-new form-control" placeholder="Name">
                     <textarea name ='subtask-description' class="create-new form-control" placeholder="Description"></textarea>
                     <div align="center">
-                    <input type="checkbox" class="form-control" id="subtask-duedate-check" onclick="subTaskDueOptions();">Add Due Date
+                    <input type="checkbox" class="form-control" id="subtask-duedate-check" onclick="subTaskDueOptions();">
+                    <p id="label-for-optional-duedate">Add Due Date</p>
                     </div>
                     <input name="subtask-due" type="text" placeholder="Due Date" class="form-control" id="subtask-due-input" onfocus="(this.type=`datetime-local`)">
             
@@ -258,7 +276,7 @@
                     </div>
                     
                     <input type="text" class="edit-subtask s{{subtask.id}}" id="subtask-name-input" value="{{subtask.name}}">
-                {% else %}
+                {% else %}<!--Task is not completed-->
                     <input id="toggle-s{{subtask.id}}" class="toggle-complete-box form-control show-subtask subtask-title s{{subtask.id}}" type="checkbox" onclick="toggleSubtaskCompletion({{ subtask.id }})" />
                     <h4 class="show-subtask subtask-title s{{subtask.id}} incomplete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
                     <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');">

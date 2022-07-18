@@ -1,20 +1,23 @@
 function toggleTaskCompletion(taskId, boardId) {
-    const redirectLocation = window.location.href;
     const completed = document.getElementById("task-completed-checkbox").checked;
 
     if (completed == true){
-
+      //hide the show timer button and countdown timer
+      document.querySelector("h4#time-remaining").style.setProperty('display', 'none');
+      document.querySelector("button#focus-timer-display").style.setProperty('display', 'none');
+      document.querySelector("h4#task-status").innerHTML = "Task Complete";
+      document.querySelector("h5#focus-timer").style.setProperty('display','none');
+      //toggleTimerMenu('focus-timer-display');
     }
-    else if(completed == false){
-
+    else {
+      document.querySelector("h4#time-remaining").style.setProperty('display', 'block');
+      document.querySelector("button#focus-timer-display").style.setProperty('display', 'inline-block');
+      document.querySelector("h4#task-status").innerHTML = "Task Incomplete";
+      document.querySelector("h5#focus-timer").style.setProperty('display','inline');
     }
-
-    
     fetch("/toggle-task-completion", {
       method: "POST",
       body: JSON.stringify({taskId: taskId, complete: completed, boardId: boardId}),
-    }).then((_res) => {
-      window.location.href = redirectLocation;
     });
 }
   
@@ -89,7 +92,6 @@ function startTimer(){
   document.getElementById("focus-timer-selection").style.setProperty("display", "none");
   document.getElementById("focus-timer-button").style.setProperty("display", "none");
   document.getElementById("focus-timer-button").style.setProperty("display", "none");
-  document.getElementById("delete-task").style.setProperty("display","none");
   document.getElementById("focus-timer").style.setProperty("display", "inline");
 
   var time = setInterval(function(){
@@ -102,7 +104,6 @@ function startTimer(){
       document.getElementById("focus-timer-label").style.setProperty("display", "inline-block");
       document.getElementById("focus-timer-selection").style.setProperty("display", "block");
       document.getElementById("focus-timer-button").style.setProperty("display", "inline-block");
-      document.getElementById("delete-task").style.setProperty("display","inline-block");
       document.getElementById("focus-timer").style.setProperty("display", "none");
       clearInterval(time);
     }
@@ -249,14 +250,26 @@ function showSubtaskForm(){
 }
 
 function toggleSubtaskCompletion(subtaskId){
-  const redirectLocation = window.location.href;
   const completed = document.getElementById("toggle-s"+subtaskId).checked;
-    
+  const detect_timer_element = document.querySelector(".subtask-duedate.s"+subtaskId);
+
+  if(completed == true){
+    if (typeof(detect_timer_element) != 'undefined' && detect_timer_element!=null){
+      detect_timer_element.style.setProperty('display', 'none');
+    }
+    document.querySelector("p.show-subtask.subtask-description.s"+subtaskId).style.setProperty('text-decoration','line-through');
+    document.querySelector("h4.show-subtask.subtask-title.s"+subtaskId).style.setProperty('text-decoration','line-through');
+  }
+  else if(completed == false){
+    if (typeof(detect_timer_element) != 'undefined' && detect_timer_element!=null){
+      detect_timer_element.style.setProperty('display', 'block');
+    }
+    document.querySelector("p.show-subtask.subtask-description.s"+subtaskId).style.setProperty('text-decoration','none');
+    document.querySelector("h4.show-subtask.subtask-title.s"+subtaskId).style.setProperty('text-decoration','none');
+  }  
     fetch("/toggle-subtask-completion", {
       method: "POST",
       body: JSON.stringify({subtaskId: subtaskId, complete: completed}),
-    }).then((_res) => {
-      window.location.href = redirectLocation;
     });
 }
 
@@ -332,7 +345,6 @@ function updateSubtask(subtaskId, elementId){
   else if (elementId == "subtask-description-input-s"+subtaskId){
     var key = "description";
   }
-  console.log(key);
   fetch("/update-subtask", {
     method: "POST",
     body: JSON.stringify({subtaskId: subtaskId, key: key, newData: data, url: redirectLocation}),

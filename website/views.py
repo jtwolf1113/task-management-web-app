@@ -322,7 +322,7 @@ def toggle_task():
                 task.completed = taskCompleted
                 task.last_modified = datetime.now()
                 db.session.commit()
-    return render_template("taskview.html", user =current_user, board = board, task = task)
+    return jsonify({})
 
 @views.route('/update-task', methods = ['POST'])
 @login_required
@@ -398,8 +398,7 @@ def toggle_subtask():
                 subtask.completed = subtaskCompleted
                 subtask.last_modified = datetime.now()
                 db.session.commit()
-    return render_template("taskview.html", user =current_user, task = task)
-
+    return jsonify({})
 
 @views.route('/update-subtask', methods=['POST'])
 @login_required
