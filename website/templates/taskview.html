@@ -153,7 +153,9 @@
             </div><!--End Task header section-->
         
             {% if taskObject.completed == False %}
-            <button align="center" onclick="toggleTimerMenu();" class="btn btn-primary" id="show-focus-menu">Show Focus Timer</button>
+            <div align="center" id="focus-timer-button-container">
+                <button align="center" onclick="toggleTimerMenu('focus-timer-display');" class="btn btn-primary" id="focus-timer-display">Show Focus Timer</button>
+            </div>
             <div align="center" id="focus-timer-div">
                 <h4 id="focus-timer-label">Focus Timer</h4>
                 <select id="focus-timer-selection" class="form-control" >

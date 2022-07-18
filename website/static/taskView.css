@@ -1,5 +1,9 @@
 /*All Task Content*/
 
+:root{
+    --focus-timer-display: none;
+}
+
 div.all-task-content{
     /*Sort the Task info and subtask info to each half of the screen*/
     display: grid;
@@ -66,7 +70,12 @@ h4#time-remaining{
 div#focus-timer-div{
     margin: auto;
     width: 28rem;
-    display: none;
+    display: var(--focus-timer-display);
+}
+
+button#focus-timer-display{
+    align-self: center;
+    margin: .8rem;
 }
 
 h5#focus-timer {

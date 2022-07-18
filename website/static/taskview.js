@@ -56,16 +56,22 @@ function showDueDate(due){
   }, 1000);
 }
 
-function toggleTimerMenu(){
-  console.log(document.getElementById("show-focus-timer").innerHTML);
-  if (document.getElementById("show-focus-timer").innerHTML == "Show Focus Timer"){
-  document.getElementById("focus-timer-div").style.setProperty('display', 'block');
-  document.getElementById("show-focus-timer").innerHTML = "Hide Focus Timer";
+function toggleTimerMenu(varName){
+  const root = document.documentElement;
+  var element = document.getElementById(varName);
+
+  if (root.style.getPropertyValue('--'+varName) == 'none'){
+    root.style.setProperty('--'+varName, 'block');
+    element.innerHTML = 'Hide Focus Timer';
   }
-  else{
-    document.getElementById("focus-timer-div").style.setProperty('display', 'none');
-    document.getElementById("show-focus-timer").innerHTML = "Show Focus Timer";
+  else if (root.style.getPropertyValue('--'+varName) == 'block'){
+      root.style.setProperty('--'+varName, 'none');
+      element.innerHTML = 'Show Focus Timer';
   }
+  else if (root.style.getPropertyValue('--'+varName) == ''){
+      root.style.setProperty('--'+varName, 'block');
+      element.innerHTML = 'Hide Focus Timer';
+}
 }
   
 function startTimer(){
@@ -74,10 +80,8 @@ function startTimer(){
   document.getElementById("focus-timer-label").style.setProperty("display", "none");
   document.getElementById("focus-timer-selection").style.setProperty("display", "none");
   document.getElementById("focus-timer-button").style.setProperty("display", "none");
-  //document.getElementById("time-remaining").style.setProperty("display", "none");
   document.getElementById("focus-timer-button").style.setProperty("display", "none");
   document.getElementById("delete-task").style.setProperty("display","none");
-
   document.getElementById("focus-timer").style.setProperty("display", "inline");
 
   var time = setInterval(function(){
@@ -90,8 +94,7 @@ function startTimer(){
       document.getElementById("focus-timer-label").style.setProperty("display", "inline-block");
       document.getElementById("focus-timer-selection").style.setProperty("display", "block");
       document.getElementById("focus-timer-button").style.setProperty("display", "inline-block");
-      //document.getElementById("time-remaining").style.setProperty("display", "block");
-      document.getElementById("delete-task").style.setProperty("display","block");
+      document.getElementById("delete-task").style.setProperty("display","inline-block");
       document.getElementById("focus-timer").style.setProperty("display", "none");
       clearInterval(time);
     }
