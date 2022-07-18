@@ -9,320 +9,329 @@
 {% endblock %}
 
 {% block content %}
-    {% for categoryObject in current_user.categories %}
-    {% if categoryObject.id == category|int%}
-    {% for taskObject in categoryObject.tasks%}
-    {% if task|int == taskObject.id %}
-    <h1 
-    align="center" 
-    class="show-task task-title" 
-    id="task-title"
-    ondblclick='editTaskElement(".task-title")'>{{ taskObject.name }}</h1>
+    {% for boardObject in current_user.boards %}
+    {% if boardObject.id == board|int%}<!--Find the right board-->
+    {% for taskObject in boardObject.tasks%}
+    {% if task|int == taskObject.id %}<!--Find the right task within the board-->
 
-    <div id="change-name-div" class="update-task task-title" align="center">
+    <div class="all-task-content">
+        <div class="contain-task">
+            <div class="task-header">
+                <h1 
+                align="center" 
+                class="show-task task-title" 
+                id="task-title"
+                ondblclick='editTaskElement(".task-title")'>{{ taskObject.name }}</h1>
 
-        <input
-        align="center"
-        name = "task-title"
-        class="form-control update-task task-title"
-        id="title-input"
-        type="text"
-        value="{{taskObject.name}}"
-        >
-        
-        <button 
-        onclick='updateTask({{ taskObject.id }}, "title-input");'
-        class="btn btn-primary task-title update-task"
-        id="submit-title"
-        >
-        Save
-        </button>
-        
-        <button
-        onclick='cancelEditTask(".task-title")'
-        class="btn btn-secondary task-title update-task"
-        id="cancel-title"
-        >
-        Cancel
-        </button>
-        </div>
-    
-    <h3 
-    id="task-due-date" 
-    class="show-task task-due" 
-    align="center"
-    ondblclick='setDefaultDate("{{taskObject.due_date}}"); editTaskElement(".task-due");'>Due: {{taskObject.due_date.strftime('%b %d, %I:%M %p')}}</h3>
-    <div id="change-duedate-div" align="center" class="update-task task-due">
-        <input 
-        id="due-date-input" 
-        class="form-control update-task task-due" 
-        type="datetime-local"
-        >
-        <button 
-        onclick='updateTask({{ taskObject.id }}, "due-date-input");'
-        class="btn btn-primary task-due update-task"
-        id="submit-new-task-name"
-        >
-        Save
-        </button>
-        
-        <button
-        onclick='cancelEditTask(".task-due")'
-        class="btn btn-secondary task-due update-task"
-        id="cancel-new-task-name"
-        >
-        Cancel
-        </button>
-    </div>
+                <div align="center" id="change-name-div" class="update-task task-title" >
 
-
-
-    <h4 
-    id="task-description" 
-    class="show-task task-description" 
-    align="center"
-    ondblclick='editTaskElement(".task-description")'>{{taskObject.description}}</h4>
-    <div id="change-description-div" align="center" class="update-task task-description">
-        <span class="task-description update-task">
-            <textarea 
-            name="" 
-            class="form-control update-task task-description" 
-            id="description-input"
-            >{{taskObject.description}}</textarea>
-        </span>
-        <button 
-        onclick='updateTask({{ taskObject.id }}, "description-input")'
-        class="btn btn-primary task-description update-task"
-        id="submit-new-task-name"
-        >
-        Save
-        </button>
-        
-        <button
-        onclick='cancelEditTask(".task-description")'
-        class="btn btn-secondary task-description update-task"
-        id="cancel-new-task-name"
-        >
-        Cancel
-        </button>
-    </div>
-
-<div align="center" id="main-task-buttons-div">
-    <a href="/boards/{{ board }}"><button align="center" id="return-to-board" class="form-control btn btn-primary">Return to Board</button></a>
-    <button align="center"
-    id="delete-task" 
-    class="form-control btn btn-secondary"
-    onclick= "showDeleteConfirmation(`deleteTask({{ taskObject.id }}, '{{ board }}');`, 'task');" 
-    >Delete Task</button>
-</div>
-
-<div align="center" class="task-complete" >
-
-    {% if taskObject.completed == True %}
-    <h4 id="task-status">Task Complete</h4>
-    <input
-    align="center"
-    name="check-box"
-    type="checkbox"
-    aria-label="Complete"
-    id="task-completed-checkbox"
-    class="task-view checkbox form-control"
-    onclick="toggleTaskCompletion({{ taskObject.id }}, {{ taskObject.board }})"
-    checked
-    >
-     
-    {% else %}<!--Task is not complete- show time remaining and focus timer-->
-    <h4 id="task-status">Task Incomplete</h4>
-    <input
-    onshow="showDueDate('{{ taskObject.due_date }}');"
-    type="checkbox"
-    name="check-box"
-    aria-label="Complete"
-    id="task-completed-checkbox"
-    class="task-view checkbox form-control"
-    onclick="toggleTaskCompletion({{ taskObject.id }}, {{ taskObject.board }})"
-    > 
-    <img id="due-date-frame" src="" onerror="showDueDate('{{ taskObject.due_date }}')"/><!--Nifty Trick to run script automatically here-->
-    <h4 id="time-remaining"></h4>
-    
-    <div id="focus-timer-div" align="center">
-    <label 
-    for="focus-timer-selection"
-    id="focus-timer-label">
-    Focus Timer
-    </label>
-    <select id="focus-timer-selection" class="form-control" >
-        <option value="1">1 min</option>
-        <option value="15">15 min</option>
-        <option value="30" selected>30 min</option>
-        <option value="45">45 min</option>
-        <option value="60">60 min</option>
-    </select>
-    <button onclick="startTimer()" class="form-control btn btn-primary" id="focus-timer-button">Start Timer</button>
-    <h5 id="focus-timer"></h5>
-    </div>
-
-    {% endif %}<!--End check if task complete-->
-
-    <div align="center" id="subtask">
-        <h2>Subtasks</h2>
-        <div align="center">
-            <button class="btn btn-primary" onclick="showSubtaskForm();" id="show-form-button">Create New Subtask</button>
-        </div>
-        <form method="post" class="new-subtask" id="subtask-create-form">
-            <input name ='subtask-name' type="text" class="create-new form-control" placeholder="Name">
-            <textarea name ='subtask-description' class="create-new form-control" placeholder="Description"></textarea>
-            <div align="center">
-            <input type="checkbox" class="form-control" id="subtask-duedate-check" onclick="subTaskDueOptions();">Add Due Date
-            </div>
-            <input name="subtask-due" type="text" placeholder="Due Date" class="form-control" id="subtask-due-input" onfocus="(this.type=`datetime-local`)">
-    
-            <div align="center">
-                <button type="submit" class="btn btn-primary">Create</button>
-                <button type="button" class="btn btn-secondary" onclick="hideSubtaskForm();">Cancel</button>
-            </div>
-    
-        </form>
-
-        <ul class="subtask list-group-flush" id="subtask-list">
-            {% for subtask in taskObject.subtasks%}
-            <li class="subtask-item list-group-item">
-            {% if subtask.completed == True %}
-                <input id="toggle-s{{subtask.id}}" class="toggle-complete-box form-control show-subtask subtask-title s{{subtask.id}}" type="checkbox" onclick="toggleSubtaskCompletion({{ subtask.id }})" checked />
-                <h4 class="show-subtask subtask-title s{{subtask.id}} complete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
-                <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');">
-                    <!--onclick= "showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');"-->
-                    <span class="delete-button" aria-hidden="true">&times;</span>
-                </button>
-                <br>
-                <div id="change-name-div" class="edit-subtask subtask-title s{{subtask.id}}" align="center">
                     <input
                     align="center"
-                    name = "subtask-title"
-                    class="form-control edit-subtask subtask-title s{{subtask.id}}"
-                    id="subtask-title-input-s{{subtask.id}}"
+                    name = "task-title"
+                    class="form-control update-task task-title"
+                    id="title-input"
                     type="text"
-                    value="{{subtask.name}}"
+                    value="{{taskObject.name}}"
                     >
                     
                     <button 
-                    onclick='updateSubtask({{ subtask.id }}, "subtask-title-input-s{{subtask.id}}");'
-                    class="btn btn-primary subtask-title edit-subtask s{{subtask.id}}"
-                    id="submit-subtask-title"
+                    onclick='updateTask({{ taskObject.id }}, "title-input");'
+                    class="btn btn-primary task-title update-task"
+                    id="submit-title"
                     >
                     Save
                     </button>
                     
                     <button
-                    onclick='cancelEditSubtask();'
-                    class="btn btn-secondary subtask-title edit-subtask s{{subtask.id}}"
+                    onclick='cancelEditTask(".task-title")'
+                    class="btn btn-secondary task-title update-task"
                     id="cancel-title"
                     >
                     Cancel
                     </button>
-                </div>
-                
-                <input type="text" class="edit-subtask s{{subtask.id}}" id="subtask-name-input" value="{{subtask.name}}">
-            {% else %}
-                <input id="toggle-s{{subtask.id}}" class="toggle-complete-box form-control show-subtask subtask-title s{{subtask.id}}" type="checkbox" onclick="toggleSubtaskCompletion({{ subtask.id }})" />
-                <h4 class="show-subtask subtask-title s{{subtask.id}} incomplete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
-                <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');">
-                    <span class="delete-button" aria-hidden="true">&times;</span>
-                </button>
-                <br>
-                <div id="change-name-div-sub" class="edit-subtask subtask-title s{{subtask.id}}" align="center">
-                    <input
-                    align="center"
-                    name = "subtask-title"
-                    class="form-control edit-subtask subtask-title s{{subtask.id}}"
-                    id="subtask-title-input-s{{subtask.id}}"
-                    type="text"
-                    value="{{subtask.name}}"
-                    >
-                    
-                    <button 
-                    onclick='updateSubtask({{ subtask.id }}, "subtask-title-input-s{{subtask.id}}");'
-                    class="btn btn-primary subtask-title edit-subtask s{{subtask.id}}"
-                    id="submit-subtask-title"
-                    >
-                    Save
-                    </button>
-                    
-                    <button
-                    onclick='cancelEditSubtask();'
-                    class="btn btn-secondary subtask-title edit-subtask s{{subtask.id}}"
-                    id="cancel-title"
-                    >
-                    Cancel
-                    </button>
-                </div>
-                
-                {% if subtask.due_date != None %}
-                <h5 class="show-subtask show-duedate subtask-duedate s{{subtask.id}}" id="due-date-display" ondblclick="editSubtaskElement('.subtask-duedate.s{{subtask.id}}');"><img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg" /> {{subtask.due_date.strftime('%b %d, %I:%M %p')}}</h5>
-                <div id="change-duedate-div-sub" class="edit-subtask subtask-duedate s{{subtask.id}}" align="center">
-                    <input
-                    align="center"
-                    name = "subtask-duedate"
-                    class="form-control edit-subtask subtask-duedate s{{subtask.id}}"
-                    id="subtask-duedate-input-s{{subtask.id}}"
+                </div><!--End edit task name section-->
+
+                <h3 
+                id="task-due-date" 
+                class="show-task task-due" 
+                align="center"
+                ondblclick='setDefaultDate("{{taskObject.due_date}}"); editTaskElement(".task-due");'>Due: {{taskObject.due_date.strftime('%b %d, %I:%M %p')}}</h3>
+                <div id="change-duedate-div" align="center" class="update-task task-due">
+                    <input 
+                    id="due-date-input" 
+                    class="form-control update-task task-due" 
                     type="datetime-local"
-                    value="{{subtask.due_date}}"
                     >
-                    
                     <button 
-                    onclick='updateSubtask({{ subtask.id }}, "subtask-duedate-input-s{{subtask.id}}");'
-                    class="btn btn-primary subtask-duedate edit-subtask s{{subtask.id}}"
-                    id="submit-subtask-duedate"
+                    onclick='updateTask({{ taskObject.id }}, "due-date-input");'
+                    class="btn btn-primary task-due update-task"
+                    id="submit-new-task-name"
                     >
                     Save
                     </button>
                     
                     <button
-                    onclick='cancelEditSubtask();'
-                    class="btn btn-secondary subtask-duedate edit-subtask s{{subtask.id}}"
-                    id="cancel-subtask"
+                    onclick='cancelEditTask(".task-due")'
+                    class="btn btn-secondary task-due update-task"
+                    id="cancel-new-task-name"
                     >
                     Cancel
                     </button>
-                </div>
-                <input type="datetime-local" class="edit-subtask" id="subtask-duedate-input" value="{{subtask.due_date}}">
-                {% endif %}<!--End check for duedate-->
+                </div><!--End edit Duedate section-->
 
-                <p id="description-p" class="show-subtask subtask-description s{{subtask.id}}" ondblclick="editSubtaskElement('.subtask-description.s{{subtask.id}}');">{{ subtask.description }}</p>
-                <div id="change-description-div-sub" class="edit-subtask subtask-description s{{subtask.id}}" align="center">
-
-                    <textarea 
-                    align="center" 
-                    name="subtask-description"
-                    class="form-control edit-subtask subtask-description s{{subtask.id}}" 
-                    id="subtask-description-input-s{{subtask.id}}">{{subtask.description}}</textarea>
-                    
+                <h4 
+                id="task-description" 
+                class="show-task task-description" 
+                align="center"
+                ondblclick='editTaskElement(".task-description")'>{{taskObject.description}}</h4>
+                <div id="change-description-div" align="center" class="update-task task-description">
+                    <span class="task-description update-task">
+                        <textarea 
+                        name="" 
+                        class="form-control update-task task-description" 
+                        id="description-input"
+                        >{{taskObject.description}}</textarea>
+                    </span>
                     <button 
-                    onclick='updateSubtask({{ subtask.id }}, "subtask-description-input-s{{subtask.id}}");'
-                    class="btn btn-primary subtask-description edit-subtask s{{subtask.id}}"
-                    id="submit-subtask-description"
+                    onclick='updateTask({{ taskObject.id }}, "description-input")'
+                    class="btn btn-primary task-description update-task"
+                    id="submit-new-task-name"
                     >
                     Save
                     </button>
                     
                     <button
-                    onclick='cancelEditSubtask();'
-                    class="btn btn-secondary subtask-description edit-subtask s{{subtask.id}}"
-                    id="cancel-subtask"
+                    onclick='cancelEditTask(".task-description")'
+                    class="btn btn-secondary task-description update-task"
+                    id="cancel-new-task-name"
                     >
                     Cancel
                     </button>
+                </div><!--End description section-->
+                {% if taskObject.completed == True %}<!--Task Complete Checkbox-->
+                    <div align="center" class="task-complete checkbox-section">
+                        <input
+                        align="center"
+                        name="check-box"
+                        type="checkbox"
+                        aria-label="Complete"
+                        id="task-completed-checkbox"
+                        class="task-view checkbox form-control"
+                        onclick="toggleTaskCompletion({{ taskObject.id }}, {{ taskObject.board }})"
+                        checked
+                        >
+                        <h4 id="task-status">Task Complete</h4>
+                    </div>
+                {% else %}<!--Task Incomplete Checkbox-->
+                    <div align="center" class="task-incomplete checkbox-section">
+                        <input
+                        onshow="showDueDate('{{ taskObject.due_date }}');"
+                        type="checkbox"
+                        name="check-box"
+                        aria-label="Complete"
+                        id="task-completed-checkbox"
+                        class="task-view checkbox form-control"
+                        onclick="toggleTaskCompletion({{ taskObject.id }}, {{ taskObject.board }})"
+                        > 
+                        <h4 id="task-status">Task Incomplete</h4>
+                    </div>
+                {% endif %}<!--End Checkbox Section-->
+                <div align="center" id="main-task-buttons-div">
+                    <a href="/boards/{{ board }}"><button align="center" id="return-to-board" class="form-control btn btn-primary">Return to Board</button></a>
+                    <button align="center"
+                    id="delete-task" 
+                    class="form-control btn btn-secondary"
+                    onclick= "showDeleteConfirmation(`deleteTask({{ taskObject.id }}, '{{ board }}');`, 'task');" 
+                    >Delete Task</button>
+                </div><!--End Two buttons section-->
+
+                {% if taskObject.completed == False %}
+                <div class="hidden" id="due-date-info">{{taskObject.due_date}}</div>
+                <h4 id="time-remaining"></h4>
+                {% endif %}<!--End Show Countdown-->
+
+            </div><!--End Task header section-->
+        
+            {% if taskObject.completed == False %}
+            <button align="center" onclick="toggleTimerMenu();" class="btn btn-primary" id="show-focus-menu">Show Focus Timer</button>
+            <div align="center" id="focus-timer-div">
+                <h4 id="focus-timer-label">Focus Timer</h4>
+                <select id="focus-timer-selection" class="form-control" >
+                    <option value="1">1 min</option>
+                    <option value="15">15 min</option>
+                    <option value="30" selected>30 min</option>
+                    <option value="45">45 min</option>
+                    <option value="60">60 min</option>
+                </select>
+                <button onclick="startTimer();" class="form-control btn btn-primary" id="focus-timer-button">Start Timer</button>
+                <h5 id="focus-timer"></h5>
+            </div><!--End focus timer section-->
+            {% endif %}
+
+        
+        </div><!--End task data container-->
+        <div class="contain-subtasks">
+            <div align="center" id="subtask-list-header">
+                <h2>Subtasks</h2>
+                <div align="center">
+                    <button class="btn btn-primary" onclick="showSubtaskForm();" id="show-form-button">Create New Subtask</button>
                 </div>
-                
-            {% endif %}<!--End check if subtask is complete-->
-                
-            </li>
-            {% endfor %}<!--End subtask iterator-->
-        </ul>
-    </div>     
-</div>
-    {% endif %}<!--End check if this is the right  task-->
+                <form method="post" class="new-subtask" id="subtask-create-form">
+                    <input name ='subtask-name' type="text" class="create-new form-control" placeholder="Name">
+                    <textarea name ='subtask-description' class="create-new form-control" placeholder="Description"></textarea>
+                    <div align="center">
+                    <input type="checkbox" class="form-control" id="subtask-duedate-check" onclick="subTaskDueOptions();">Add Due Date
+                    </div>
+                    <input name="subtask-due" type="text" placeholder="Due Date" class="form-control" id="subtask-due-input" onfocus="(this.type=`datetime-local`)">
+            
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideSubtaskForm();">Cancel</button>
+                    </div>
+            
+                </form>
+            </div>
+
+            <ul class="subtask list-group-flush" id="subtask-list">
+                {% for subtask in taskObject.subtasks%}
+                <li class="subtask-item list-group-item">
+                {% if subtask.completed == True %}
+                    <input id="toggle-s{{subtask.id}}" class="toggle-complete-box form-control show-subtask subtask-title s{{subtask.id}}" type="checkbox" onclick="toggleSubtaskCompletion({{ subtask.id }})" checked />
+                    <h4 class="show-subtask subtask-title s{{subtask.id}} complete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
+                    <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');">
+                        <span class="delete-button" aria-hidden="true">&times;</span>
+                    </button>
+                    <br>
+                    <div id="change-name-div" class="edit-subtask subtask-title s{{subtask.id}}" align="center">
+                        <input
+                        align="center"
+                        name = "subtask-title"
+                        class="form-control edit-subtask subtask-title s{{subtask.id}}"
+                        id="subtask-title-input-s{{subtask.id}}"
+                        type="text"
+                        value="{{subtask.name}}"
+                        >
+                        
+                        <button 
+                        onclick='updateSubtask({{ subtask.id }}, "subtask-title-input-s{{subtask.id}}");'
+                        class="btn btn-primary subtask-title edit-subtask s{{subtask.id}}"
+                        id="submit-subtask-title"
+                        >
+                        Save
+                        </button>
+                        
+                        <button
+                        onclick='cancelEditSubtask();'
+                        class="btn btn-secondary subtask-title edit-subtask s{{subtask.id}}"
+                        id="cancel-title"
+                        >
+                        Cancel
+                        </button>
+                    </div><!--End change subtask name-->
+                    
+                    <input type="text" class="edit-subtask s{{subtask.id}}" id="subtask-name-input" value="{{subtask.name}}">
+                {% else %}
+                    <input id="toggle-s{{subtask.id}}" class="toggle-complete-box form-control show-subtask subtask-title s{{subtask.id}}" type="checkbox" onclick="toggleSubtaskCompletion({{ subtask.id }})" />
+                    <h4 class="show-subtask subtask-title s{{subtask.id}} incomplete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
+                    <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');">
+                        <span class="delete-button" aria-hidden="true">&times;</span>
+                    </button>
+                    <br>
+                    <div id="change-name-div-sub" class="edit-subtask subtask-title s{{subtask.id}}" align="center">
+                        <input
+                        align="center"
+                        name = "subtask-title"
+                        class="form-control edit-subtask subtask-title s{{subtask.id}}"
+                        id="subtask-title-input-s{{subtask.id}}"
+                        type="text"
+                        value="{{subtask.name}}"
+                        >
+                        
+                        <button 
+                        onclick='updateSubtask({{ subtask.id }}, "subtask-title-input-s{{subtask.id}}");'
+                        class="btn btn-primary subtask-title edit-subtask s{{subtask.id}}"
+                        id="submit-subtask-title"
+                        >
+                        Save
+                        </button>
+                        
+                        <button
+                        onclick='cancelEditSubtask();'
+                        class="btn btn-secondary subtask-title edit-subtask s{{subtask.id}}"
+                        id="cancel-title"
+                        >
+                        Cancel
+                        </button>
+                    </div> <!---->
+                    
+                    {% if subtask.due_date != None %}
+                    <h5 class="show-subtask show-duedate subtask-duedate s{{subtask.id}}" id="due-date-display" ondblclick="editSubtaskElement('.subtask-duedate.s{{subtask.id}}');"><img src="{{url_for('static', filename = 'clock.svg')}}" class="clock-svg" /> {{subtask.due_date.strftime('%b %d, %I:%M %p')}}</h5>
+                    <div align="center" id="change-duedate-div-sub" class="edit-subtask subtask-duedate s{{subtask.id}}" align="center">
+                        <input
+                        align="center"
+                        name = "subtask-duedate"
+                        class="form-control edit-subtask subtask-duedate s{{subtask.id}}"
+                        id="subtask-duedate-input-s{{subtask.id}}"
+                        type="datetime-local"
+                        value="{{subtask.due_date}}"
+                        >
+                        
+                        <button 
+                        onclick='updateSubtask({{ subtask.id }}, "subtask-duedate-input-s{{subtask.id}}");'
+                        class="btn btn-primary subtask-duedate edit-subtask s{{subtask.id}}"
+                        id="submit-subtask-duedate"
+                        >
+                        Save
+                        </button>
+                        
+                        <button
+                        onclick='cancelEditSubtask();'
+                        class="btn btn-secondary subtask-duedate edit-subtask s{{subtask.id}}"
+                        id="cancel-subtask"
+                        >
+                        Cancel
+                        </button>
+                    </div>
+                    <input type="datetime-local" class="edit-subtask" id="subtask-duedate-input" value="{{subtask.due_date}}">
+                    {% endif %}<!--End check for duedate-->
+    
+                    <p id="description-p" class="show-subtask subtask-description s{{subtask.id}}" ondblclick="editSubtaskElement('.subtask-description.s{{subtask.id}}');">{{ subtask.description }}</p>
+                    <div id="change-description-div-sub" class="edit-subtask subtask-description s{{subtask.id}}" align="center">
+    
+                        <textarea 
+                        align="center" 
+                        name="subtask-description"
+                        class="form-control edit-subtask subtask-description s{{subtask.id}}" 
+                        id="subtask-description-input-s{{subtask.id}}">{{subtask.description}}</textarea>
+                        
+                        <button 
+                        onclick='updateSubtask({{ subtask.id }}, "subtask-description-input-s{{subtask.id}}");'
+                        class="btn btn-primary subtask-description edit-subtask s{{subtask.id}}"
+                        id="submit-subtask-description"
+                        >
+                        Save
+                        </button>
+                        
+                        <button
+                        onclick='cancelEditSubtask();'
+                        class="btn btn-secondary subtask-description edit-subtask s{{subtask.id}}"
+                        id="cancel-subtask"
+                        >
+                        Cancel
+                        </button>
+                    </div>
+                    
+                {% endif %}<!--End check if subtask is complete-->
+                    
+                </li>
+                {% endfor %}<!--End subtask iterator-->
+            </ul>
+
+        </div><!--End Subtask Section-->
+    </div>
+
+    {% endif %}
     {% endfor %} <!--End Task item iterator-->
-    {% endif %}<!--End check category-->
-    {% endfor %}<!--End category iterator-->
+    {% endif %}
+    {% endfor %}<!--End board iterator-->
 {% endblock %}

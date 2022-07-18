@@ -10,7 +10,10 @@ function toggleTaskCompletion(taskId, boardId) {
     });
 }
   
-  
+document.addEventListener("DOMContentLoaded", function(){
+  const due = document.querySelector("div#due-date-info.hidden").innerHTML;
+  showDueDate(due);
+});
   
 function showDueDate(due){
   const dueDate = new Date(due).getTime();
@@ -36,7 +39,7 @@ function showDueDate(due){
 
       var displayMessage = days + "d " + hours + "h "
     + minutes + "m " + seconds + "s ";
-      displayMessage = displayMessage+ " Overdue!";
+      displayMessage = "Task Overdue by: "+displayMessage;
       document.getElementById("time-remaining").innerHTML = displayMessage;
       document.getElementById("time-remaining").style.setProperty('color', 'red');
       
@@ -52,6 +55,18 @@ function showDueDate(due){
 
   }, 1000);
 }
+
+function toggleTimerMenu(){
+  console.log(document.getElementById("show-focus-timer").innerHTML);
+  if (document.getElementById("show-focus-timer").innerHTML == "Show Focus Timer"){
+  document.getElementById("focus-timer-div").style.setProperty('display', 'block');
+  document.getElementById("show-focus-timer").innerHTML = "Hide Focus Timer";
+  }
+  else{
+    document.getElementById("focus-timer-div").style.setProperty('display', 'none');
+    document.getElementById("show-focus-timer").innerHTML = "Show Focus Timer";
+  }
+}
   
 function startTimer(){
   const timeMin = document.getElementById("focus-timer-selection").value;
@@ -59,7 +74,7 @@ function startTimer(){
   document.getElementById("focus-timer-label").style.setProperty("display", "none");
   document.getElementById("focus-timer-selection").style.setProperty("display", "none");
   document.getElementById("focus-timer-button").style.setProperty("display", "none");
-  document.getElementById("time-remaining").style.setProperty("display", "none");
+  //document.getElementById("time-remaining").style.setProperty("display", "none");
   document.getElementById("focus-timer-button").style.setProperty("display", "none");
   document.getElementById("delete-task").style.setProperty("display","none");
 
@@ -69,21 +84,18 @@ function startTimer(){
     timeRemaining = timeRemaining - 1;
     var Min = Math.floor(timeRemaining / 60);
     var Sec = (timeRemaining % 60);
-    displayMessage = Min+"m "+Sec+"s";
+    displayMessage = "Focus for: "+Min+"m "+Sec+"s";
     document.getElementById("focus-timer").innerHTML=displayMessage;
     if (timeRemaining == 0){
       document.getElementById("focus-timer-label").style.setProperty("display", "inline-block");
       document.getElementById("focus-timer-selection").style.setProperty("display", "block");
       document.getElementById("focus-timer-button").style.setProperty("display", "inline-block");
-      document.getElementById("time-remaining").style.setProperty("display", "block");
+      //document.getElementById("time-remaining").style.setProperty("display", "block");
       document.getElementById("delete-task").style.setProperty("display","block");
       document.getElementById("focus-timer").style.setProperty("display", "none");
       clearInterval(time);
     }
   }, 1000);
-
-
-
 }
 
 function updateTaskTitle(taskId){
