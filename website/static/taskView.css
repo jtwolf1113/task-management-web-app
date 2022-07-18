@@ -94,6 +94,10 @@ img.clock-svg{
     max-width: 1.3rem;
 }
 
+.subtask-completed{
+    text-decoration: line-through;
+}
+
 .edit-subtask{
     display: none;
 }

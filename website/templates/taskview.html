@@ -199,7 +199,7 @@
                 <li class="subtask-item list-group-item">
                 {% if subtask.completed == True %}
                     <input id="toggle-s{{subtask.id}}" class="toggle-complete-box form-control show-subtask subtask-title s{{subtask.id}}" type="checkbox" onclick="toggleSubtaskCompletion({{ subtask.id }})" checked />
-                    <h4 class="show-subtask subtask-title s{{subtask.id}} complete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
+                    <h4 class="show-subtask subtask-completed subtask-title s{{subtask.id}} complete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
                     <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');">
                         <span class="delete-button" aria-hidden="true">&times;</span>
                     </button>
@@ -230,6 +230,32 @@
                         Cancel
                         </button>
                     </div><!--End change subtask name-->
+
+                    <p id="description-p" class="show-subtask subtask-completed subtask-description s{{subtask.id}}" ondblclick="editSubtaskElement('.subtask-description.s{{subtask.id}}');">{{ subtask.description }}</p>
+                    <div id="change-description-div-sub" class="edit-subtask subtask-description s{{subtask.id}}" align="center">
+    
+                        <textarea 
+                        align="center" 
+                        name="subtask-description"
+                        class="form-control edit-subtask subtask-description s{{subtask.id}}" 
+                        id="subtask-description-input-s{{subtask.id}}">{{subtask.description}}</textarea>
+                        
+                        <button 
+                        onclick='updateSubtask({{ subtask.id }}, "subtask-description-input-s{{subtask.id}}");'
+                        class="btn btn-primary subtask-description edit-subtask s{{subtask.id}}"
+                        id="submit-subtask-description"
+                        >
+                        Save
+                        </button>
+                        
+                        <button
+                        onclick='cancelEditSubtask();'
+                        class="btn btn-secondary subtask-description edit-subtask s{{subtask.id}}"
+                        id="cancel-subtask"
+                        >
+                        Cancel
+                        </button>
+                    </div>
                     
                     <input type="text" class="edit-subtask s{{subtask.id}}" id="subtask-name-input" value="{{subtask.name}}">
                 {% else %}

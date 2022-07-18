@@ -1,6 +1,14 @@
 function toggleTaskCompletion(taskId, boardId) {
     const redirectLocation = window.location.href;
     const completed = document.getElementById("task-completed-checkbox").checked;
+
+    if (completed == true){
+
+    }
+    else if(completed == false){
+
+    }
+
     
     fetch("/toggle-task-completion", {
       method: "POST",
