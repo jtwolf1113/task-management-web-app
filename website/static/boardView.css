@@ -63,7 +63,8 @@ button#board-title{
     grid-auto-columns: 25rem;
     min-width: 100%;
     overflow-x: auto;
-    min-height: 100%;
+    min-height: 86.7%;
+    max-height: fit-content;
     gap: 0% 1%;
     background-color: none; 
     margin-bottom: 1%;

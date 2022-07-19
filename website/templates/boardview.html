@@ -1,4 +1,12 @@
-{% extends "base.html" %}{% block title %} {{ board }} {% endblock%}
+{% extends "base.html" %}
+
+{% block title %}
+{% for boardObject in user.boards%} 
+{% if boardObject.id == board|int %}
+Board: {{ boardObject.name }}
+{% endif %}
+{% endfor %}
+{% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'boardView.css') }}" />
@@ -121,10 +129,10 @@ id="envelop_content" >
     <button align="center" onclick="showDeleteConfirmation(`deleteCategory({{cat.id}});`, 'category');" class="btn btn-secondary edit-category category-delete-button C{{cat.id}}">Delete Category</button>
 </div>
 
-    <ul class="task_list">
+    <ul class="list-group list-group-flush task_list">
     {% for task in cat.tasks%}
     {% if task.completed == False %}
-    <li align="center" class="task-item-incompleted">
+    <li align="center" class="list-group-item task-item-incompleted">
         <input
         type="checkbox"
         class="task-checkbox"
@@ -139,7 +147,7 @@ id="envelop_content" >
 
     {% for task in cat.tasks%}
     {% if task.completed == True %}
-    <li align="center" class="task-item-completed">
+    <li align="center" class="list-group-item task-item-completed">
         <input
         type="checkbox"
         class="task-checkbox"

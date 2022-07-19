@@ -1,7 +1,14 @@
+html{
+    height: 100vh;
+    min-width: 99.5vw;
+    max-width: 100vw;
+    background-color: var(--navbar-background-color);
+}
+
 :root{
     /* COLOR SETTINGS */
-    --background-color: #ffffff;
-    --text-color: #000000;
+    --background-color: #343a40;
+    --text-color: #ffffff;
     --navbar-text-color: #9a9da0;
     --navbar-highlight-color: #ffffff;
     --navbar-background-color: #343a40;
@@ -19,8 +26,28 @@
 
 }
 
+body{
+    width: 100%;
+    min-height: 100vh;
+    color: var(--text-color);
+    background-color: var(--navbar-background-color);
+    font-weight: var(--font-weight);
+    font-family: var(--font-family);
+    font-style: var(--font-style);
+}
+
+nav.navbar {
+    height: 6.3vh;
+}
+
+div#container {
+    height: 93.7vh;
+    min-width: 100%;
+    background-color: var(--background-color);
+}
+
 ::-webkit-scrollbar {
-    width: 0.5rem;
+    width: 0.5vw;
 }
 ::-webkit-scrollbar-track {
     background: var(--navbar-background-color);
@@ -141,7 +168,7 @@ div.dropdown-menu.show, div.navbar-collapse.collapse, li.dropdown{
     background-color: var(--navbar-background-color)!important;
 }
 
-h1, h2, h3, h4, h5, h6, p, div, body, a, li.list-group-item{
+h1, h2, h3, h4, h5, h6, p, div, a, li.list-group-item{
     color: var(--text-color);
     background-color: var(--background-color);
     font-weight: var(--font-weight);
