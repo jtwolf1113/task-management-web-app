@@ -36,10 +36,6 @@ body{
     font-style: var(--font-style);
 }
 
-nav.navbar {
-    height: 6.3vh;
-}
-
 div#container {
     height: 93.7vh;
     min-width: 100%;
