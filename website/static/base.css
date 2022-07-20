@@ -1,6 +1,6 @@
 html{
     height: 100vh;
-    min-width: 99.5vw;
+    min-width: 99vw;
     max-width: 100vw;
     background-color: var(--navbar-background-color);
 }
@@ -36,24 +36,16 @@ body{
     font-style: var(--font-style);
 }
 
-nav.navbar{
-    position: fixed;
-    width: 100vw;
-    z-index: 1000000;
-    height: 6.3vh;
-}
-
 div#container {
     position: relative;
-    top: 6.3vh;
-    height: 93.7vh;
+    height: 93.6vh;
     min-width: 100%;
     background-color: var(--background-color);
     overflow-y: auto;
 }
 
 ::-webkit-scrollbar {
-    width: 0.5vw;
+    width: 1vw;
 }
 ::-webkit-scrollbar-track {
     background: var(--navbar-background-color);
