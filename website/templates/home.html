@@ -1,17 +1,37 @@
 {% extends "base.html" %} {% block title %}Welcome{% endblock %} 
 
 {% block style%}
-<link rel="stylesheet" href="{{ url_for('static', filename = 'home.css') }}" />
-<!--script
+<!--link rel="stylesheet" href="{{ url_for('static', filename = 'home.css') }}" />
+<script
   type="text/javascript"
   src="{{ url_for('static', filename='home.js')}}"
  ></script-->
 {% endblock %}
 
 {% block content%}
-<h1 align="center">Welcome {{user.first_name}}!</h1>
+<h1 align="center">Welcome{% if user.is_authenticated %} {{user.first_name}}{% endif %}!</h1>
 
-<h5 align="center">This page is currently incomplete and will function as a dashboard in the future. 
- <br> Please feel free to click around using the NavBar to investigate the features I have implemented thusfar. 
- <br> Nearly All aspects of this site are editable, simply double click and change it. </h3>
+{% if user.is_authenticated %}
+<h5 align="center">
+  This page is currently incomplete and will function as a dashboard in the future. 
+  <br> Please feel free to click around using the above links to investigate the features I have implemented thusfar. 
+  <br></h5>
+
+<h3 align="center">Explanation</h3>
+<h5 align="center">
+  Boards can be used to visually sort todo items into different categories and tasks.<br> The tasks can contain actionable items deemed subtasks.<br>
+  Notes can be used for a more simplistic visual display to store information. <br>
+  Nearly all information on this site is editable, simply double click the information you'd like to change and change it. <br>
+  On the settings page you can change all aspects of your user account, including <b><i>all colors and the font</i></b> sitewide. <br>
+  Source Code for this site can be found <a href="https://github.com/jtwolf1113/task-management-web-app">here</a>.
+</h5>
+{% else %}
+<h5 align="center">
+  This is my task-management web application site.<br> It's built using Flask and helped me improve my full-stack web development skills. <br>
+  To use the site, a user profile is required - hit the sign-up button above to get started. <br>
+  An email is required, however it is only used to ensure user accounts are unique; future development plans include a forgot password email feature. <br>
+  Source Code for this site can be found <a href="https://github.com/jtwolf1113/task-management-web-app">here</a>.
+</h5>
+
+{%endif%}
 {% endblock %}
