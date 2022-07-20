@@ -36,10 +36,20 @@ body{
     font-style: var(--font-style);
 }
 
+nav.navbar{
+    position: fixed;
+    width: 100vw;
+    z-index: 1000000;
+    height: 6.3vh;
+}
+
 div#container {
+    position: relative;
+    top: 6.3vh;
     height: 93.7vh;
     min-width: 100%;
     background-color: var(--background-color);
+    overflow-y: auto;
 }
 
 ::-webkit-scrollbar {

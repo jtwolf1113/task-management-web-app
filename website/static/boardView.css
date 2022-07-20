@@ -1,23 +1,6 @@
-body {
-    /* This is in the template  contains:
-    navbar, 
-    the flashed messages, 
-    the content container,
-    and various scripts*/
-    width: 100%;
-    height: 80vh;
-}
-
-#container {
-    /* This is the base templates subdiv within the body*/
-    width: 100%;
-    height: 100%;
-}
-
 div#board-title-div{
     align-items: center;
     display:block;
-    width:100%;
     min-width: 100%;
     padding: 0.5rem;
 }
@@ -31,6 +14,10 @@ div#board-title-div{
 
 input{
     text-align: center;
+}
+
+div.board-title{
+    height: 7vh;
 }
 
 h1#board-title{
@@ -53,6 +40,10 @@ button#board-title{
     margin: 0;
 }
 
+div.main-buttons{
+    height: 5vh;
+}
+
 .board_content { 
     /*
     This is all of the board information besides the title 
@@ -62,8 +53,8 @@ button#board-title{
     grid-template-rows: 1fr;
     grid-auto-columns: 25rem;
     min-width: 100%;
+    min-height: 81.7vh;
     overflow-x: auto;
-    min-height: 86.7%;
     max-height: fit-content;
     gap: 0% 1%;
     background-color: none; 
@@ -79,7 +70,7 @@ div.category-container{
     grid-row: 1;
     background-color: var(--background-color);
     border-radius: 1.5rem;
-    height: 99.4%;
+    height: 100%;
     width: 100%;
     max-height: none;
     padding: 0.25rem;
@@ -168,7 +159,6 @@ ul.task_list{
     word-wrap:break-word;
     max-width: 100%;
     background-color: var(--category-background-color);
-    overflow-y: auto;
     min-height: fit-content;
 }
 
