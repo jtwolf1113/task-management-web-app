@@ -21,6 +21,13 @@ div.all-task-content{
     }
 }
 
+div.contain-task, div.contain-subtasks{
+    max-width: 90%;
+    align-items: center;
+    justify-content: center;
+}
+
+
 input, textarea, select, h4 {
     text-align: center;
 }
