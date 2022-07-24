@@ -139,3 +139,7 @@ function deleteCategory(catId){
     window.location.href = redirectLocation;
   });
 }
+
+function dragInitCategory(catID){
+  
+}

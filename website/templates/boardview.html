@@ -112,7 +112,7 @@ id="envelop_content" >
 
 {% for cat in boardObject.categories %}
 
-<div align="center" class="category-container" name="{{ cat.name }}">
+<div align="center" class="category-container" name="{{ cat.name }}" draggable="true" ondragstart="dragInitCategory({{cat.id}});">
     <h3 align="center" class="display-category category_name C{{cat.id}}" ondblclick="editCategoryDisplay('{{cat.id}}')", id="category-title-{{cat.id}}" >{{ cat.name }}</h3>
 
     <div
@@ -127,7 +127,7 @@ id="envelop_content" >
     <button align="center" id="save-title-{{cat.id}}" class="edit-category btn btn-primary C{{cat.id}}" onclick="updateCategoryTitle({{cat.id}}, {{boardObject.id}});">Save</button>
     <button align="center" id="cancel-title-{{cat.id}}" class="edit-category btn btn-secondary C{{cat.id}}" onclick="cancelEditCategory()">Cancel</button>
     <button align="center" onclick="showDeleteConfirmation(`deleteCategory({{cat.id}});`, 'category');" class="btn btn-secondary edit-category category-delete-button C{{cat.id}}">Delete Category</button>
-</div>
+    </div>
 
     <ul class="list-group list-group-flush task_list">
     {% for task in cat.tasks%}
