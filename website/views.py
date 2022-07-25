@@ -15,6 +15,14 @@ def home():
     return render_template("home.html", user = current_user)
 
 '''
+This is a summary Page meant to summarize upcoming tasks and their due dates
+'''
+@views.route('/dashboard', methods=['GET'])
+@login_required
+def dashboard():
+    return render_template("dashboard.html", user=current_user)
+
+'''
 Settings and their modifications
 '''
 

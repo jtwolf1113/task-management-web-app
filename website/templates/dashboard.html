@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %}Dashboard{% endblock %} 
+{% block style%}
+<!--link rel="stylesheet" href="{{ url_for('static', filename = 'home.css') }}" /-->
+<script
+  type="text/javascript"
+  src="{{ url_for('static', filename='dashboard.js')}}"
+ ></script>
+{% endblock %}
+
+{% block content%}
+<h1 align="center">Upcoming Tasks</h1>
+<h3 align="center" id="current-time"></h3>
+<ul class="list-group list-group-flush" id="upcoming-tasks"></ul>
+{% for task in user.tasks|sort(attribute='due_date')%}   
+    <li align="center" class="list-group-item">
+        <h3 class="task-name"><a href="/boards/{{task.board}}/{{task.category}}/{{task.id}}">{{task.name}}</a></h3>
+        <h5 class="task-due">{{task.due_date.strftime('%B %d,  %I:%M %p')}}</h5>
+        <span class="description">{{task.description}}</span>
+    </li> 
+{% endfor %}
+</ul>
+{% endblock %}
