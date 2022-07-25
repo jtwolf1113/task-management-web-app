@@ -11,12 +11,14 @@
 <h1 align="center">Upcoming Tasks</h1>
 <h3 align="center" id="current-time"></h3>
 <ul class="list-group list-group-flush" id="upcoming-tasks"></ul>
-{% for task in user.tasks|sort(attribute='due_date')%}   
+{% for task in user.tasks|sort(attribute='name')|sort(attribute='due_date') %}
+    {%if not task.complete %}
     <li align="center" class="list-group-item">
         <h3 class="task-name"><a href="/boards/{{task.board}}/{{task.category}}/{{task.id}}">{{task.name}}</a></h3>
         <h5 class="task-due">{{task.due_date.strftime('%B %d,  %I:%M %p')}}</h5>
         <span class="description">{{task.description}}</span>
-    </li> 
+    </li>
+    {% endif %} 
 {% endfor %}
 </ul>
 {% endblock %}
