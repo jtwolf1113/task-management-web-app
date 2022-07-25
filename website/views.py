@@ -20,7 +20,10 @@ This is a summary Page meant to summarize upcoming tasks and their due dates
 @views.route('/dashboard', methods=['GET'])
 @login_required
 def dashboard():
-    return render_template("dashboard.html", user=current_user)
+    boards = {}
+    for board in current_user.boards:
+        boards[board.id] = board.name
+    return render_template("dashboard.html", user=current_user, boards = boards)
 
 '''
 Settings and their modifications

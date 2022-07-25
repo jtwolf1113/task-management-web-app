@@ -10,11 +10,12 @@
 {% block content%}
 <h1 align="center">Upcoming Tasks</h1>
 <h3 align="center" id="current-time"></h3>
-<ul class="list-group list-group-flush" id="upcoming-tasks"></ul>
+<ul class="list-group list-group-flush" id="upcoming-tasks">
 {% for task in user.tasks|sort(attribute='name')|sort(attribute='due_date') %}
-    {%if not task.complete %}
+    {% if not task.completed %}
     <li align="center" class="list-group-item">
         <h3 class="task-name"><a href="/boards/{{task.board}}/{{task.category}}/{{task.id}}">{{task.name}}</a></h3>
+        <h4 class="parent-board"><a href="/boards/{{task.board}}">Board: {{boards[task.board]}}</a></h4>
         <h5 class="task-due">{{task.due_date.strftime('%B %d,  %I:%M %p')}}</h5>
         <span class="description">{{task.description}}</span>
     </li>
