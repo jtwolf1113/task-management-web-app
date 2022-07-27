@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block title %}Dashboard{% endblock %} 
 {% block style%}
-<!--link rel="stylesheet" href="{{ url_for('static', filename = 'home.css') }}" /-->
+<link rel="stylesheet" href="{{ url_for('static', filename = 'dashboard.css') }}" />
 <script
   type="text/javascript"
   src="{{ url_for('static', filename='dashboard.js')}}"
@@ -16,7 +16,7 @@
     <li align="center" class="list-group-item">
         <h3 class="task-name"><a href="/boards/{{task.board}}/{{task.category}}/{{task.id}}">{{task.name}}</a></h3>
         <h4 class="parent-board"><a href="/boards/{{task.board}}">Board: {{boards[task.board]}}</a></h4>
-        <h5 class="task-due">{{task.due_date.strftime('%B %d,  %I:%M %p')}}</h5>
+        <h5 class="task-due">{{task.due_date.strftime('%B %d, %I:%M %p')}}</h5>
         <span class="description">{{task.description}}</span>
     </li>
     {% endif %} 
