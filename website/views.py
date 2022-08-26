@@ -23,7 +23,15 @@ def dashboard():
     boards = {}
     for board in current_user.boards:
         boards[board.id] = board.name
-    return render_template("dashboard.html", user=current_user, boards = boards)
+    
+    dashboard_list = []
+    for task in current_user.tasks:
+        if task.due_date == None:
+            task.due_date = datetime.fromisoformat("5000-01-01T00:00:00.000")
+            dashboard_list.append(task)
+        else:
+            dashboard_list.append(task)
+    return render_template("dashboard.html", user=current_user, boards = boards, task_list = dashboard_list)
 
 '''
 Settings and their modifications
@@ -263,7 +271,10 @@ def add_task():
         taskName = taskobj['taskName']
         taskDescription = taskobj['taskDescription']
         taskDueDate = taskobj['taskDueDate']
-        taskDueDate = datetime.strptime(taskDueDate, r'%Y-%m-%dT%H:%M')
+        if taskDueDate != '':
+            taskDueDate = datetime.strptime(taskDueDate, r'%Y-%m-%dT%H:%M')
+        else:
+            taskDueDate = None
 
         board = Board.query.get(boardId)
         category = Category.query.get(categoryId)

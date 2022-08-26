@@ -51,7 +51,7 @@
                     </button>
                 </div><!--End edit task name section-->
 
-                <h3 
+                {%if taskObject.due_date != None%}<h3 
                 id="task-due-date" 
                 class="show-task task-due" 
                 align="center"
@@ -78,7 +78,7 @@
                     Cancel
                     </button>
                 </div><!--End edit Duedate section-->
-
+                {%endif%}
                 <h4 
                 id="task-description" 
                 class="show-task task-description" 
@@ -124,7 +124,9 @@
                         <h4 id="task-status">Task Complete</h4>
                     </div>
                 {% else %}<!--Task Incomplete Checkbox-->
+                    {%if taskObject.due_date != None%}
                     <h4 id="time-remaining"></h4>
+                    {%endif%}
                     <div align="center" class="task-incomplete checkbox-section">
                         <input
                         onshow="showDueDate('{{ taskObject.due_date }}');"

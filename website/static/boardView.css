@@ -183,6 +183,21 @@ input.edit-category{
     max-width: 95%;
 }
 
+input#taskDueDateBox{
+    display: none;
+}
+
+input#task-duedate-check{
+    max-width: 1rem;
+    max-height: 1rem;
+    display: inline-block;
+    vertical-align: center;
+}
+
+p#label-for-optional-duedate{
+    display: inline-block;
+}
+
 .category_name, .new-task-container{
     background-color: inherit;
     width: fit-content;

@@ -140,6 +140,20 @@ function deleteCategory(catId){
   });
 }
 
+function taskDueOptions(){
+  var toggleVar = document.getElementById("task-duedate-check").checked;
+  if (toggleVar==true){
+    document.getElementById("taskDueDateBox").style.setProperty("display", "inline-block");
+  }
+  else{
+    document.getElementById("taskDueDateBox").style.setProperty("display", "none");
+    document.getElementById("taskDueDateBox").value = '';
+  }
+}
+
+
+
+
 function dragInitCategory(catID){
   
 }

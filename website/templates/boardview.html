@@ -139,7 +139,8 @@ id="envelop_content" >
         id="{{task.id}}"
         onclick="toggleTaskCompletion({{task.id}}, {{boardObject.id}})"/>
         <a class="edit_task_link" href="/boards/{{boardObject.id}}/{{cat.id}}/{{task.id}}">
-            <span class="incompleted-task-text">{{task.name}}<br><img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg"> {{task.due_date.strftime('%b %d %H:%M')}}</span>
+            <span class="incompleted-task-text">{{task.name}}<br>{% if task.due_date != None %}<img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg">{{task.due_date.strftime('%b %d %H:%M')}}{% endif %}</span>
+            <!---->
         </a>
     </li>
     {% endif %}
@@ -187,7 +188,12 @@ id="envelop_content" >
             class="form-control new-task-menu" 
             id="taskDescriptionBox" 
             name="task-description" />
-            
+
+            <div align="center">
+            <input type="checkbox" class="form-control" id="task-duedate-check" onclick="taskDueOptions();">
+            <p id="label-for-optional-duedate">Add Due Date</p>
+            </div>
+
             <input
             type="text"
             placeholder="Task Due Date"
@@ -196,13 +202,14 @@ id="envelop_content" >
             name="due-date"
             onfocus="(this.type=`datetime-local`)"
             />
-    
-            <button class="new-task-menu btn btn-primary" id="add-task-button">
-                Save
-            </button>
-            <button class="new-task-menu btn btn-secondary" id="cancel-add-task-button" onclick="cancelNewTaskDisplay()">
-                Cancel
-            </button>
+            <div align="center">
+                <button class="new-task-menu btn btn-primary" id="add-task-button">
+                    Save
+                </button>
+                <button class="new-task-menu btn btn-secondary" id="cancel-add-task-button" onclick="cancelNewTaskDisplay()">
+                    Cancel
+                </button>
+            </div>
         </div>
     </div><!-- End create-task container -->
 </div><!-- End category container -->
