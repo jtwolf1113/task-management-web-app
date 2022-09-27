@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template, request, flash, jsonify, sessions, redirect, abort
+from flask import Blueprint, render_template, request, flash, jsonify, redirect#, sessions, abort
 from flask_login import login_required, current_user
-from sqlalchemy import desc
 from .models import Note, Board, Category, Subtask, Task, Subtask, User
 from . import db
 import json
