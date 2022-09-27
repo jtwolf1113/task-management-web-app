@@ -83,15 +83,22 @@ function revertPassword(){
     document.getElementById("confirmNewPassword").style.setProperty('border-color', 'revert');
 }
 
-function deleteAccount(userId) {
+ async function deleteAccount(userId) {
     const password = document.getElementById("password").value;
 
-    fetch("/delete-account", {
+    const response = await fetch("/delete-account",{
         method: "POST",
         body: JSON.stringify({userId: userId, password: password}),
-    }).then((_res) => {
-        window.location.href = "/delete-account";
     });
+
+    const jsonData = await response.json();
+    if (jsonData["success"] == true){
+        window.location.href = "/delete-account";
+    }
+    else if (jsonData["success"]==false){
+        location.reload();
+    }
+    
 }
 
 

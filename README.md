@@ -23,7 +23,7 @@ To run the application locally follow these steps:
 
 ## Upcoming Features
 - Account Recovery via email in case of forgotten password
-- Rich text styling for note, as well as task and subtask descriptions
+- Markdown text styling for note, as well as task and subtask descriptions 
 - Improved Customization for focus timer styling on task pages
 - Drag and Drop functionality to rearrange category, task, subtask and note orders
 - Reductions to the number of page refreshes that occur after create, update and delete operations

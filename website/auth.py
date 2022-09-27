@@ -80,14 +80,18 @@ def update_password():
     return jsonify({})
 
 
-@auth.route("/delete-account")
+@auth.route("/delete-account", methods=['GET','POST'])
 @login_required
 def delete_account():
     if request.method == 'POST':
         data = json.loads(request.data)
         if not check_password_hash(current_user.password, data['password']):
             flash('Incorrect Password', category='error')
-            return redirect(url_for('views.settings'))
+            print("password incorrect")
+            response = {
+                "success": False
+            }
+            return jsonify(response)
         else:
             user = User.query.get(data['userId'])
             for subtask in user.subtasks:
@@ -102,7 +106,11 @@ def delete_account():
                 db.session.delete(note)
             db.session.delete(user)
             db.session.commit()
-            return redirect("/delete-account")
+            print("password correct")
+            response = {
+                "success": True
+            }
+            return jsonify(response)
     flash('Account Deleted', 'success')
     logout_user()
     return redirect(url_for('auth.sign_up'))
