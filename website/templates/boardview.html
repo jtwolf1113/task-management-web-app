@@ -114,7 +114,16 @@ id="envelop_content" >
 
 <div align="center" class="category-container" name="{{ cat.name }}" draggable="true" ondragstart="dragInitCategory({{cat.id}});">
     <h3 align="center" class="display-category category_name C{{cat.id}}" ondblclick="editCategoryDisplay('{{cat.id}}')", id="category-title-{{cat.id}}" >{{ cat.name }}</h3>
-
+    <div align="center" id="new-task-container-div" class="new-task-container">
+        <button
+        class="btn btn-primary"
+        id="createTask"
+        onclick="showTaskCreation({{ boardObject.id }}, {{ cat.id }} )"
+        >
+        Create New Task
+        </button>
+    </div>
+    
     <div
     class="edit-cat-name"
     align="center">
@@ -162,15 +171,7 @@ id="envelop_content" >
     {% endif %}
     {% endfor %}
     </ul>
-    <div align="center" id="new-task-container-div" class="new-task-container">
-    <button
-    class="btn btn-primary"
-    id="createTask"
-    onclick="showTaskCreation({{ boardObject.id }}, {{ cat.id }} )"
-    >
-    Create New Task
-    </button>
-    </div>
+    
 
     <div id="create-task-overlay" class="new-task-menu">
         <div align="center" id="new-task-menu">

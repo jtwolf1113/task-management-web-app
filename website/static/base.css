@@ -28,7 +28,7 @@ html{
 
 body{
     width: 100%;
-    min-height: 100vh;
+    min-height: 100%;
     color: var(--text-color);
     background-color: var(--navbar-background-color);
     font-weight: var(--font-weight);
@@ -38,7 +38,7 @@ body{
 
 div#container {
     position: relative;
-    height: 93.6vh;
+    height: 92%;
     min-width: 100%;
     background-color: var(--background-color);
     overflow-y: auto;
@@ -140,6 +140,7 @@ button#destroy-item-confirm{
 
 .navbar{
     background-color: var(--navbar-background-color)!important;
+    max-height: 8%;
 }
 
 .nav-link:hover, .dropdown-item:hover{
