@@ -26,7 +26,8 @@ To run the application locally follow these steps:
 - Markdown text styling for note, as well as task and subtask descriptions 
 - Improved Customization for focus timer styling on task pages
 - Drag and Drop functionality to rearrange category, task, subtask and note orders
-- Reductions to the number of page refreshes that occur after create, update and delete operations
+- Reductions to the number of page refreshes that occur after create, update and delete operations for enhanced ux
+- 
 
 ## Known Bugs
-- Many inputs implicitly require length limits and update operations don't uphold these
+- Many inputs implicitly require length limits and update (+ some create) operations don't uphold these
