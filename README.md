@@ -27,7 +27,11 @@ To run the application locally follow these steps:
 - Improved Customization for focus timer styling on task pages
 - Drag and Drop functionality to rearrange category, task, subtask and note orders
 - Reductions to the number of page refreshes that occur after create, update and delete operations for enhanced ux
-- 
+- optional task due dates
+- change options/styling of focus timer
+- ability to delete all completed tasks (and subtasks)
+- [DOMAIN NAME CHANGE](domains.google.com)
 
 ## Known Bugs
 - Many inputs implicitly require length limits and update (+ some create) operations don't uphold these
+- fix strftime on taskview and don't display date if it is the year 5000
