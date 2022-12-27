@@ -214,5 +214,5 @@ img#clock-svg{
 }
 
 a.edit_task_link{
-    color:black;
+    color:var(--text-color);
 }
