@@ -4,11 +4,11 @@ from os import path, urandom
 from flask_login import LoginManager
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
-
 
 def create_app():
     app = Flask(__name__)
+    
+    DB_NAME = "database.db"
     app.config['SECRET_KEY'] = urandom(12).hex()
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
