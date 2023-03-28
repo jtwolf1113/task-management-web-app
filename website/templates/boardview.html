@@ -148,8 +148,13 @@ id="envelop_content" >
         id="{{task.id}}"
         onclick="toggleTaskCompletion({{task.id}}, {{boardObject.id}})"/>
         <a class="edit_task_link" href="/boards/{{boardObject.id}}/{{cat.id}}/{{task.id}}">
-            <span class="incompleted-task-text">{{task.name}}<br>{% if task.due_date != None %}<img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg">{{task.due_date.strftime('%b %d %H:%M')}}{% endif %}</span>
-            <!---->
+            <span class="incompleted-task-text">{{task.name}}
+                <br>
+                {% if task.due_date != None %}
+                <img src="{{url_for('static', filename = 'clock.svg')}}" id="clock-svg">
+                {{task.due_date.strftime('%b %d %H:%M')}}
+                {% endif %}
+            </span>
         </a>
     </li>
     {% endif %}

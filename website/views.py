@@ -202,8 +202,7 @@ def update_title():
                 if board.name != boardname:
                     board.name = boardname
                     db.session.commit()
-                    flash('Name Changed', category='success')
-    return redirect('/boards/'+str(board.name))
+    return jsonify({})
 
 
 @views.route('/update-category-title', methods = ['POST'])
@@ -221,7 +220,7 @@ def update_category_title():
                 if board.user_id == current_user.id:
                     category.name = title
                     db.session.commit()
-    return redirect('/boards/<board>')
+    return jsonify({})
 
 @views.route('/boards/add-category', methods =['POST'])
 @login_required
@@ -370,7 +369,7 @@ def update_task_information():
                     task.description = newData
                     task.last_modified = datetime.now()
                     db.session.commit()
-    return render_template("taskview.html", user = current_user, task=task)
+    return jsonify({})
 
 @views.route('/delete-task', methods = ['POST'])
 @login_required

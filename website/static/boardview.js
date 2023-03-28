@@ -119,15 +119,20 @@ function updateCategoryTitle(categoryId, boardId){
 
 
 function toggleTaskCompletion(taskId, boardId) {
-  const redirectLocation = window.location.href;
   const completed = document.getElementById(taskId).checked;
   
   fetch("/toggle-task-completion", {
     method: "POST",
     body: JSON.stringify({taskId: taskId, complete: completed, boardId: boardId}),
-  }).then((_res) => {
-    window.location.href = redirectLocation;
   });
+
+  // need to toggle the strikethrough and visibility on the date
+  if(completed){
+    document.getElementById(taskId).parentElement.style.setProperty("text-decoration", "line-through");
+  } else {
+    document.getElementById(taskId).parentElement.style.setProperty("text-decoration", "none");
+  }
+
 }
 
 function deleteCategory(catId){

@@ -10,7 +10,10 @@
 
 {% block content %}
     {% for boardObject in current_user.boards %}
-    {% if boardObject.id == board|int%}<!--Find the right board-->
+    <script>
+        console.log({{ board }});
+    </script>
+    {% if boardObject.id|int == board|int%}<!--Find the right board-->
     {% for taskObject in boardObject.tasks%}
     {% if task|int == taskObject.id %}<!--Find the right task within the board-->
 
@@ -222,7 +225,7 @@
                 <li class="subtask-item list-group-item">
                 {% if subtask.completed == True %}
                     <input id="toggle-s{{subtask.id}}" class="toggle-complete-box form-control show-subtask subtask-title s{{subtask.id}}" type="checkbox" onclick="toggleSubtaskCompletion({{ subtask.id }})" checked />
-                    <h4 class="show-subtask subtask-completed subtask-title s{{subtask.id}} complete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
+                    <h4 id="title-s{{subtask.id}}" class="show-subtask subtask-completed subtask-title s{{subtask.id}} complete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
                     <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');">
                         <span class="delete-button" aria-hidden="true">&times;</span>
                     </button>
@@ -254,7 +257,7 @@
                         </button>
                     </div><!--End change subtask name-->
 
-                    <p id="description-p" class="show-subtask subtask-completed subtask-description s{{subtask.id}}" ondblclick="editSubtaskElement('.subtask-description.s{{subtask.id}}');">{{ subtask.description }}</p>
+                    <p id="description-s{{subtask.id}}" class="show-subtask subtask-completed subtask-description s{{subtask.id}}" ondblclick="editSubtaskElement('.subtask-description.s{{subtask.id}}');">{{ subtask.description }}</p>
                     <div id="change-description-div-sub" class="edit-subtask subtask-description s{{subtask.id}}" align="center">
     
                         <textarea 
@@ -283,7 +286,7 @@
                     <input type="text" class="edit-subtask s{{subtask.id}}" id="subtask-name-input" value="{{subtask.name}}">
                 {% else %}<!--Task is not completed-->
                     <input id="toggle-s{{subtask.id}}" class="toggle-complete-box form-control show-subtask subtask-title s{{subtask.id}}" type="checkbox" onclick="toggleSubtaskCompletion({{ subtask.id }})" />
-                    <h4 class="show-subtask subtask-title s{{subtask.id}} incomplete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
+                    <h4 id="title-s{{subtask.id}}" class="show-subtask subtask-title s{{subtask.id}} incomplete" ondblclick="editSubtaskElement('.subtask-title.s{{subtask.id}}');">{{ subtask.name }}</h4>
                     <button type="button" class="show-subtask close s{{ subtask.id }}" id="delete-subtask" onClick="showDeleteConfirmation(`deleteSubtask({{ subtask.id }})`, 'subtask');">
                         <span class="delete-button" aria-hidden="true">&times;</span>
                     </button>
@@ -316,7 +319,7 @@
                     </div> <!---->
                     
                     {% if subtask.due_date != None %}
-                    <h5 class="show-subtask show-duedate subtask-duedate s{{subtask.id}}" id="due-date-display" ondblclick="editSubtaskElement('.subtask-duedate.s{{subtask.id}}');"><img src="{{url_for('static', filename = 'clock.svg')}}" class="clock-svg" /> {{subtask.due_date.strftime('%b %d, %I:%M %p')}}</h5>
+                    <h5 class="show-subtask show-duedate subtask-duedate s{{subtask.id}}" id="due-date-display-s{{subtask.id}}" ondblclick="editSubtaskElement('.subtask-duedate.s{{subtask.id}}');"><img src="{{url_for('static', filename = 'clock.svg')}}" class="clock-svg" /> {{subtask.due_date.strftime('%b %d, %I:%M %p')}}</h5>
                     <div align="center" id="change-duedate-div-sub" class="edit-subtask subtask-duedate s{{subtask.id}}" align="center">
                         <input
                         align="center"
@@ -346,7 +349,7 @@
                     <input type="datetime-local" class="edit-subtask" id="subtask-duedate-input" value="{{subtask.due_date}}">
                     {% endif %}<!--End check for duedate-->
     
-                    <p id="description-p" class="show-subtask subtask-description s{{subtask.id}}" ondblclick="editSubtaskElement('.subtask-description.s{{subtask.id}}');">{{ subtask.description }}</p>
+                    <p id="description-s{{subtask.id}}" class="show-subtask subtask-description s{{subtask.id}}" ondblclick="editSubtaskElement('.subtask-description.s{{subtask.id}}');">{{ subtask.description }}</p>
                     <div id="change-description-div-sub" class="edit-subtask subtask-description s{{subtask.id}}" align="center">
     
                         <textarea 

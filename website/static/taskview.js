@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", function(){
+  const due = document.querySelector("div#due-date-info.hidden").innerHTML;
+  showDueDate(due);
+});
+
 function toggleTaskCompletion(taskId, boardId) {
     const completed = document.getElementById("task-completed-checkbox").checked;
 
@@ -20,12 +25,7 @@ function toggleTaskCompletion(taskId, boardId) {
       body: JSON.stringify({taskId: taskId, complete: completed, boardId: boardId}),
     });
 }
-  
-document.addEventListener("DOMContentLoaded", function(){
-  const due = document.querySelector("div#due-date-info.hidden").innerHTML;
-  showDueDate(due);
-});
-  
+    
 function showDueDate(due){
   const dueDate = new Date(due).getTime();
   var timeRemaining = setInterval(function() {
@@ -110,18 +110,6 @@ function startTimer(){
   }, 1000);
 }
 
-function updateTaskTitle(taskId){
-  const redirectLocation = window.location.href;
-  const new_task_title = document.getElementById("task-title-input").value;
-
-  fetch("/update-task-title", {
-    method: "POST",
-    body: JSON.stringify({taskId: taskId, }),
-  }).then((_res) => {
-    window.location.href = redirectLocation;
-  });
-}
-
 function editTaskElement(elementClassSelector){
   //restore task editing to default
   document.querySelectorAll(".show-task").forEach(element=>{
@@ -173,19 +161,31 @@ function updateTask(taskId, elementId){
   const data = document.getElementById(elementId).value;
   if (elementId == "due-date-input"){
     var key = "due-Date";
+
+    console.log(data.split('T'));
+    const dateTime = data.split('T');
+    const date = dateTime[0];
+    const time = dateTime[1];
+
+    new Date()
+    
+    document.getElementById("task-due-date").innerHTML = data;
+    cancelEditTask(".task-due");
   }
   else if (elementId == "title-input"){
     var key = "title";
+    document.getElementById("task-title").innerHTML = data;
+    cancelEditTask(".task-title");
   }
   else if (elementId == "description-input"){
     var key = "description";
+    document.getElementById("task-description").innerHTML = data;
+    cancelEditTask(".task-description");
   }
 
   fetch("/update-task", {
     method: "POST",
     body: JSON.stringify({taskId: taskId, key: key, newData: data}),
-  }).then((_res) => {
-    window.location.href = redirectLocation;
   });
 }
 
@@ -338,17 +338,22 @@ function updateSubtask(subtaskId, elementId){
   
   if (elementId == "subtask-duedate-input-s"+subtaskId){
     var key = "due-Date";
+    cancelEditSubtask();
+    document.getElementById("subtask-duedate-display-s"+subtaskId).innerHTML = data;
   }
   else if (elementId == "subtask-title-input-s"+subtaskId){
     var key = "title";
+    cancelEditSubtask();
+    document.getElementById("title-s"+subtaskId).innerHTML = data;
   }
   else if (elementId == "subtask-description-input-s"+subtaskId){
     var key = "description";
+    cancelEditSubtask();
+    document.getElementById("description-s"+subtaskId).innerHTML = data;
   }
+
   fetch("/update-subtask", {
     method: "POST",
     body: JSON.stringify({subtaskId: subtaskId, key: key, newData: data, url: redirectLocation}),
-  }).then((_res) => {
-    window.location.href = redirectLocation;
-  });
+  })
 }
