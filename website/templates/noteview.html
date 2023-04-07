@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% for noteObject in user.notes%} 
+{% if noteObject.id == note|int %}
+Note: {{ noteObject.id }}
+{% endif %}
+{% endfor %}
+{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+
+<div id="note-content">{{ data }}</div>
+
+<script src="{{url_for('static', filename = 'noteview.js')}}"></script>
+{% endblock %}

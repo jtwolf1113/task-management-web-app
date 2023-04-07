@@ -4,6 +4,7 @@ from .models import Note, Board, Category, Subtask, Task, Subtask, User
 from . import db
 import json
 from datetime import datetime
+import markdown
 views = Blueprint('views', __name__)
 
 '''
@@ -97,6 +98,12 @@ def notes():
 
     return render_template("notes.html", user=current_user)
 
+@views.route('/notes/<note>')
+@login_required
+def view_note(note):
+    note = Note.query.get(note)
+    html = markdown.markdown(note.data)
+    return render_template("noteview.html", user = current_user, note = note, data = html)
 
 @views.route('/delete-note', methods=['POST'])
 @login_required
